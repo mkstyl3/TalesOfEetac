@@ -33,6 +33,7 @@ public class App
         World.getInstance().addItemUser(usr_1, item_1);
         World.getInstance().deleteUserItems(usr_3);
         World.getInstance().queryUserItem(usr_2, "healing");
+        World.getInstance().queryUserItem(usr_1, "healing");
 
 
     }
