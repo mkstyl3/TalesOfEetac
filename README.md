@@ -1,1 +1,1 @@
-Primera entrega DSA Juan.
+Primera entrega Juan acabada.
