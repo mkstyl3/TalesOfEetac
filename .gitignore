@@ -1,4 +1,14 @@
-# file: ~/.gitignore_global
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
 .DS_Store
-.idea
-.target
+
+# Maven
+log/
+target/
+
+#log4j
+C:\\log4j-application.log
