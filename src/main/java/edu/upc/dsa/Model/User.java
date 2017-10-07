@@ -13,8 +13,16 @@ public class User {
     private int vit;
     private ArrayList<Item> userItemList;
 
-
-    public User(int id, String name, String password, int level, int atk, int def, int vit){}
+    public User(int id, String name, String password, int level, int atk, int def, int vit) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.level = level;
+        this.atk = atk;
+        this.def = def;
+        this.vit = vit;
+        this.userItemList = new ArrayList<Item>();
+    }
 
     public int getId() {
         return id;
@@ -80,6 +88,18 @@ public class User {
         this.userItemList = userItemList;
     }
 
+    //Custom
+
+    public void setItem (Item item) {
+        this.userItemList.add(item);
+    }
+
+    public Item getItem (int id) {
+        for (Item i: this.userItemList) {
+            if (i.getId() == id) return i;
+        }
+        return null;
+    }
 
 
 
