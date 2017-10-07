@@ -140,11 +140,12 @@ public class WorldTest {
 
     @Test
     public void userToUserItemTransferTest() {
-        //
+        //Transfering item_4 from user_1 to user_2...
         Item origin = World.getInstance().usersMap.get(1).getItem(4);
         World.getInstance().userToUserItemTransfer(usr_1,usr_2,origin);
-
+        //Cheking if user_2 has got item_4
         Assert.assertEquals(World.getInstance().usersMap.get(2).getItem(4).getId(),origin.getId());
+        //Checking if user_1 has deleted his item_4
         Assert.assertNull(World.getInstance().usersMap.get(1).getItem(4));
     }
 
