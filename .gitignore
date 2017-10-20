@@ -11,4 +11,4 @@ log/
 target/
 
 #log4j
-C:\\log4j-application.log
+*.log
