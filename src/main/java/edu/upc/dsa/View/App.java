@@ -1,6 +1,6 @@
 package edu.upc.dsa.View;
 
-import edu.upc.dsa.Controller.World;
+import edu.upc.dsa.Controller.*;
 
 import java.util.*;
 
@@ -41,13 +41,9 @@ public class App
         */
 
         World.getInstance().loadMap("map1.txt");
-        /*for (String value : World.getInstance().getHashOfMaps().values()) {
-            System.out.print(value);
-        }*/
-        LinkedHashMap<Integer, String> hashMap = World.getInstance().getHashOfMaps();
+        ConsoleGameScreen.getInstance().locateUser(54);
 
         List<String> list = new ArrayList<>(World.getInstance().getHashOfMaps().values());
-
         int cont = 0;
         for (int i=0; i<10; i++){
             for (int j=0; j<10; j++) {
