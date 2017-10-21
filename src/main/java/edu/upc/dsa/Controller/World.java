@@ -15,7 +15,7 @@ public class World implements WorldInterface {
 
     final static Logger logger = Logger.getLogger(World.class);
     private HashMap<Integer, User> usersMap; //For test purposes
-    private LinkedHashMap<Integer, String> hashOfMaps; //Mantains the insertion order for painting the map later
+    private TreeMap<String, String> hashOfMaps; //Mantains the insertion order for painting the map later
 
     public HashMap<Integer, User> getUsersMap() {
         return usersMap;
@@ -25,11 +25,11 @@ public class World implements WorldInterface {
         this.usersMap = usersMap;
     }
 
-    public LinkedHashMap<Integer, String> getHashOfMaps() {
+    public TreeMap<String, String> getHashOfMaps() {
         return hashOfMaps;
     }
 
-    public void setHashOfMaps(LinkedHashMap<Integer, String> hashOfMaps) {
+    public void setHashOfMaps(TreeMap<String, String> hashOfMaps) {
         this.hashOfMaps = hashOfMaps;
     }
 
@@ -50,10 +50,10 @@ public class World implements WorldInterface {
     public boolean loadMap (String mapName) {
         logger.info("loadMap: Loading map...");
 
-        hashOfMaps = new LinkedHashMap<>();
+        hashOfMaps = new TreeMap<String, String>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(new File("src/main/resources/"+mapName)));
-            Type type = new TypeToken<LinkedHashMap<String, String>>(){}.getType();
+            Type type = new TypeToken<TreeMap<String, String>>(){}.getType();
             hashOfMaps = new Gson().fromJson(reader, type);
 
 

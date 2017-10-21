@@ -12,6 +12,15 @@ public class User {
     private int def;
     private int vit;
     private ArrayList<Item> userItemList;
+    private Location location;
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
     public User(int id, String name, String password, int level, int atk, int def, int vit) {
         this.id = id;
@@ -23,6 +32,7 @@ public class User {
         this.vit = vit;
         this.userItemList = new ArrayList<Item>();
     }
+    public User (){}
 
     public int getId() {
         return id;

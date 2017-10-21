@@ -1,6 +1,8 @@
 package edu.upc.dsa.View;
 
 import edu.upc.dsa.Controller.*;
+import edu.upc.dsa.Model.Location;
+import edu.upc.dsa.Model.User;
 
 import java.util.*;
 
@@ -8,10 +10,8 @@ import java.util.*;
  * First version!
  *
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
+public class App {
+    public static void main(String[] args) {
         /*
         He visto más útil implementar el programa principal (que era para probar
         que las funciones funcionaban) con tests Junit. Mi intención es implementar el juego a partir de aquí.
@@ -41,16 +41,35 @@ public class App
         */
 
         World.getInstance().loadMap("map1.txt");
-        ConsoleGameScreen.getInstance().locateUser(54);
+        ConsoleGameScreen.getInstance().initialUserLocation();
+        User u = new User();
+        Location location = new Location();
+        location.setCurrentLocation("54");
+        u.setLocation(location);
 
+        Scanner scanner = new Scanner(System.in);
+        char input;
+        Boolean bucle = true;
+        while(bucle) {
+            printScreen();
+            switch (input = scanner.nextLine().charAt(0)) {
+                case 'a':
+                    ConsoleGameScreen.getInstance().moveLeft(u);
+                    break;
+            }
+        }
+    }
+
+    private static void printScreen() {
         List<String> list = new ArrayList<>(World.getInstance().getHashOfMaps().values());
         int cont = 0;
-        for (int i=0; i<10; i++){
-            for (int j=0; j<10; j++) {
-                if (j==9) System.out.println(list.get(cont));
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (j == 9) System.out.println(list.get(cont));
                 else System.out.print(list.get(cont));
                 cont++;
             }
         }
     }
+
 }
