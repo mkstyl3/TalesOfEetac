@@ -7,15 +7,13 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import java.util.ArrayList;
-
-import static edu.upc.dsa.Controller.World.getInstance;
+import static edu.upc.dsa.Controller.WorldUser.getInstance;
 
 /**
  * Unit test for simple App.
  */
-public class WorldTest {
+public class WorldUserTest {
 
     //Global class variables
 
@@ -62,7 +60,7 @@ public class WorldTest {
 
         // usr_4 has no items
 
-        getInstance().getUsersMap().put(usr_1.getId(), usr_1);
+        WorldUser.getInstance().getUsersMap().put(usr_1.getId(), usr_1);
         getInstance().getUsersMap().put(usr_2.getId(), usr_2);
         getInstance().getUsersMap().put(usr_3.getId(), usr_3);
         getInstance().getUsersMap().put(usr_4.getId(), usr_4);
@@ -74,14 +72,6 @@ public class WorldTest {
     public ExpectedException thrown = ExpectedException.none();
 
     //Test functions
-
-    @Test
-    public void userExistTest () {
-        //usr_1 does exist
-        Assert.assertTrue(getInstance().userExist(usr_1.getId()));
-        //usr_100 does not exist
-        Assert.assertFalse(getInstance().userExist(100));
-    }
 
     @Test
     public void createUserTest(){
@@ -153,7 +143,7 @@ public class WorldTest {
 
     @Test
     public void loadMapTest() {
-        Assert.assertTrue(World.getInstance().loadMap("map1.txt"));
+        Assert.assertTrue(WorldGameScreen.getInstance().loadMap("map1.txt"));
     }
 
 

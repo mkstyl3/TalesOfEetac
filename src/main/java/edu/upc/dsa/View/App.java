@@ -27,21 +27,21 @@ public class App {
         Item item_3 = new Item(3,"mana", 3, "minor heal", 0.2, 20);
         Item item_4 = new Item(4,"speed", 3, "minor heal", 0.2, 20);
 
-        System.out.println(World.getInstance().createUser(usr_1));
-        System.out.println(World.getInstance().createUser(usr_2));
-        System.out.println(World.getInstance().createUser(usr_3));
-        System.out.println(World.getInstance().createUser(usr_4));
+        System.out.println(WorldUser.getInstance().createUser(usr_1));
+        System.out.println(WorldUser.getInstance().createUser(usr_2));
+        System.out.println(WorldUser.getInstance().createUser(usr_3));
+        System.out.println(WorldUser.getInstance().createUser(usr_4));
 
-        World.getInstance().deleteUser(4);
+        WorldUser.getInstance().deleteUser(4);
 
-        World.getInstance().addItemUser(usr_1, item_1);
-        World.getInstance().deleteUserItems(usr_3);
-        World.getInstance().queryUserItemByName(usr_4, "healing");
-        World.getInstance().queryUserItemByName(usr_1,"potion");
+        WorldUser.getInstance().addItemUser(usr_1, item_1);
+        WorldUser.getInstance().deleteUserItems(usr_3);
+        WorldUser.getInstance().queryUserItemByName(usr_4, "healing");
+        WorldUser.getInstance().queryUserItemByName(usr_1,"potion");
         */
 
-        World.getInstance().loadMap("map1.txt");
-        ConsoleGameScreen.getInstance().initialUserLocation();
+        WorldGameScreen.getInstance().loadMap("map1.txt");
+        WorldGameScreen.getInstance().initialUserLocation();
         User u = new User();
         Location location = new Location();
         location.setCurrentLocation("54");
@@ -50,18 +50,28 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         char input;
         Boolean bucle = true;
+
         while(bucle) {
             printScreen();
             switch (input = scanner.nextLine().charAt(0)) {
                 case 'a':
-                    ConsoleGameScreen.getInstance().moveLeft(u);
+                    WorldGameScreen.getInstance().moveUserTo(u, "a");
+                    break;
+                case 'd':
+                    WorldGameScreen.getInstance().moveUserTo(u,"d");
+                    break;
+                case 'w':
+                    WorldGameScreen.getInstance().moveUserTo(u,"w");
+                    break;
+                case 's':
+                    WorldGameScreen.getInstance().moveUserTo(u,"s");
                     break;
             }
         }
     }
 
     private static void printScreen() {
-        List<String> list = new ArrayList<>(World.getInstance().getHashOfMaps().values());
+        List<String> list = new ArrayList<>(WorldGameScreen.getInstance().getTreeOfMaps().values());
         int cont = 0;
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
