@@ -1,6 +1,7 @@
 package edu.upc.dsa.View;
 
 import edu.upc.dsa.Controller.*;
+import edu.upc.dsa.Model.Cell;
 import edu.upc.dsa.Model.Location;
 import edu.upc.dsa.Model.User;
 
@@ -42,6 +43,7 @@ public class App {
 
         WorldGameScreen.getInstance().loadMap("map1.txt");
         WorldGameScreen.getInstance().initialUserLocation();
+
         User u = new User();
         Location location = new Location();
         location.setCurrentLocation("54");
@@ -50,7 +52,6 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         char input;
         Boolean bucle = true;
-
         while(bucle) {
             printScreen();
             switch (input = scanner.nextLine().charAt(0)) {
@@ -71,12 +72,12 @@ public class App {
     }
 
     private static void printScreen() {
-        List<String> list = new ArrayList<>(WorldGameScreen.getInstance().getTreeOfMaps().values());
+        List<Cell> list = new ArrayList<Cell>(WorldGameScreen.getInstance().getTreeOfCells().values());
         int cont = 0;
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                if (j == 9) System.out.println(list.get(cont));
-                else System.out.print(list.get(cont));
+                if (j == 9) System.out.println(list.get(cont).getSymbol());
+                else System.out.print(list.get(cont).getSymbol());
                 cont++;
             }
         }
