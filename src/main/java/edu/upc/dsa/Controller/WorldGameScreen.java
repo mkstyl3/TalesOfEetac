@@ -21,9 +21,10 @@ public class WorldGameScreen {
     final static Logger logger = Logger.getLogger(WorldUser.class);
     private static WorldGameScreen instance = null;
     private TreeMap<String, Cell> treeOfCells;
+
     private TreeMap<Integer, TreeMap<String, Cell>> treeOfMaps;
     Cell lastCellVisited;
-    int lastMapVisited;
+    int currentMapId;
 
 
     //Getters and setters
@@ -32,6 +33,19 @@ public class WorldGameScreen {
     }
     public void setTreeOfCells(TreeMap<String, Cell> treeOfCells) {
         this.treeOfCells = treeOfCells;
+    }
+    public TreeMap<Integer, TreeMap<String, Cell>> getTreeOfMaps() {
+        return treeOfMaps;
+    }
+    public void setTreeOfMaps(TreeMap<Integer, TreeMap<String, Cell>> treeOfMaps) {
+        this.treeOfMaps = treeOfMaps;
+    }
+    public int getCurrentMapId() {
+        return currentMapId;
+    }
+
+    public void setCurrentMapId(int currentMapId) {
+        this.currentMapId = currentMapId;
     }
 
     //Singleton pattern
@@ -43,6 +57,7 @@ public class WorldGameScreen {
     //Public functions
     public void initialUserLocation() {
         lastCellVisited = treeOfCells.get("54");
+        currentMapId = 1;
         treeOfCells.put("54", new Cell(0, 1, 1, "@"));
     }
     public boolean loadMap (String mapName) {
@@ -99,7 +114,7 @@ public class WorldGameScreen {
                 canOrW0t = 3;
                 break;
             case 4:
-                //int nextLevel = 4.getNextLevel();
+                currentMapId = treeOfCells.get(currentLocation).getNextMap();
                 canOrW0t = 4;
                 break;
 

@@ -14,9 +14,6 @@ import java.util.*;
 public class App {
     public static void main(String[] args) {
         /*
-        He visto más útil implementar el programa principal (que era para probar
-        que las funciones funcionaban) con tests Junit. Mi intención es implementar el juego a partir de aquí.
-        Si no lo ves correcto me lo dices Juan. Saludos!
 
         User usr_1 = new User(1, "Marc", "1234", 34, 30, 30, 30);
         User usr_2 = new User(2, "Gerard", "1234", 34, 30, 30, 30);
@@ -53,7 +50,7 @@ public class App {
         char input;
         Boolean bucle = true;
         while(bucle) {
-            printScreen();
+            printScreen(WorldGameScreen.getInstance().getCurrentMapId());
             switch (input = scanner.nextLine().charAt(0)) {
                 case 'a':
                     WorldGameScreen.getInstance().moveUserTo(u, "a");
@@ -71,8 +68,9 @@ public class App {
         }
     }
 
-    private static void printScreen() {
-        List<Cell> list = new ArrayList<Cell>(WorldGameScreen.getInstance().getTreeOfCells().values());
+    private static void printScreen(int mapId) {
+
+        List<Cell> list = new ArrayList<Cell>(WorldGameScreen.getInstance().getTreeOfMaps().get(mapId).values());
         int cont = 0;
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
