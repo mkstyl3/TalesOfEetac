@@ -268,247 +268,247 @@
            			 	    "x":3,
            			 	    "y":3
            		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":3,
-           			 	    "y":4
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":3,
-           			 	    "y":5
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":3,
-           			 	    "y":6
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":3,
-           			 	    "y":7
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":3,
-           			 	    "y":8
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":3,
-           			 	    "y":9
-           		   	   },
-    	   "type": "Wall"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":4,
-           			 	    "y":0
-           		   	   },
-    	   "type": "Wall"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":4,
-           			 	    "y":1
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":4,
-           			 	    "y":2
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":4,
-           			 	    "y":3
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":4,
-           			 	    "y":4
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":4,
-           			 	    "y":5
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":4,
-           			 	    "y":6
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":4,
-           			 	    "y":7
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":4,
-           			 	    "y":8
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":4,
-           			 	    "y":9
-           		   	   },
-    	   "type": "Wall"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":5,
-           			 	    "y":0
-           		   	   },
-    	   "type": "Wall"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":5,
-           			 	    "y":1
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":5,
-           			 	    "y":2
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":5,
-           			 	    "y":3
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":5,
-           			 	    "y":4
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":5,
-           			 	    "y":5
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":5,
-           			 	    "y":6
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":5,
-           			 	    "y":7
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":5,
-           			 	    "y":8
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":5,
-           			 	    "y":9
-           		   	   },
-    	   "type": "Wall"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":6,
-           			 	    "y":0
-           		   	   },
-    	   "type": "Wall"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":6,
-           			 	    "y":1
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":6,
-           			 	    "y":2
-           		   	   },
-    	   "type": "Field"
-    	},
-    	{
-
-    	   "onMapLoc": {
-           			 	    "x":6,
-           			 	    "y":3
-           		   	   },
     	   "type": "Tree"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":4
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":5
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":6
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":7
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":8
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":9
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":0
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":1
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":2
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":3
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":4
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":5
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":6
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":7
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":8
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":9
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":0
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":1
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":2
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":3
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":4
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":5
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":6
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":7
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":8
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":9
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":0
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":1
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":2
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":3
+           		   	   },
+    	   "type": "Field"
     	},
     	{
 
@@ -754,7 +754,7 @@
            			 	    "y":4
            		   	   },
     	   "type": "Door",
-    	   "nextMap":2
+           "nextMap": 2
     	},
     	{
     	    "onMapLoc": {
@@ -792,4 +792,3 @@
     	   "type": "Wall"
     	}
 ]
-

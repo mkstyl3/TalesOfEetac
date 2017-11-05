@@ -107,12 +107,12 @@ public class WorldGameScreen {
         switch (mapsArray[currentMapId - 1].getCell(nextCellLoc).getSymbol()) {
             case "#":
                 break;
-            case "B":
+            case "T":
                 break;
             case "C":
                 break;
             case "D":
-                
+                locateUserAtNextDoorLocation(nextCellLoc, u); //Get next door by door coords
                 break;
             default:
                 Cell nextUserCell = mapsArray[currentMapId -1].getCell(nextCellLoc); //Pick the next cell
@@ -124,6 +124,37 @@ public class WorldGameScreen {
         }
     }
 
+    private void locateUserAtNextDoorLocation(Location currentDoorLoc, User u) {
+
+        Door doorCell = (Door)mapsArray[currentMapId - 1].getCell(currentDoorLoc);
+        int nextMapId = doorCell.getNextMap();
+
+        switch (nextMapId) {
+            case 2:
+                currentMapId =2;
+                if (currentDoorLoc.getX() == 9 && currentDoorLoc.getY() == 4) {
+                    loadMap(createMap(nextMapId));
+                    Cell nextUserCell = mapsArray[currentMapId -1].getCellByCoords(1,4);
+                    u.setLocation(nextUserCell.getOnMapLoc());
+                    mapsArray[currentMapId - 1].setCell(new UserCell(u));
+                    mapsArray[currentMapId -2].setCell(lastUserCell);
+                    lastUserCell = nextUserCell;
+                }
+                break;
+            case 1:
+                currentMapId = 1;
+                if (currentDoorLoc.getX() == 0 && currentDoorLoc.getY() == 4) {
+                    Cell nextUserCell = mapsArray[currentMapId -1].getCellByCoords(8,4);
+                    u.setLocation(nextUserCell.getOnMapLoc());
+                    mapsArray[currentMapId - 1].setCell(new UserCell(u));
+                    mapsArray[currentMapId].setCell(lastUserCell);
+                    lastUserCell = nextUserCell;
+                }
+                break;
+            default: // You here can write more maps
+                break;
+        }
+    }
 
 
 }

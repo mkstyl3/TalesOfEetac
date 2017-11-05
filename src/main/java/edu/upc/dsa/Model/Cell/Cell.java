@@ -40,5 +40,4 @@ public abstract class Cell {
     public void setOnMapLoc(Location loc) {
         this.onMapLoc = loc;
     }
-
 }
