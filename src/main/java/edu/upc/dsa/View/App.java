@@ -1,14 +1,15 @@
 package edu.upc.dsa.View;
 
 import edu.upc.dsa.Controller.*;
-import edu.upc.dsa.Model.Cell;
+import edu.upc.dsa.Model.Cell.Cell;
 import edu.upc.dsa.Model.Location;
+import edu.upc.dsa.Model.Map;
 import edu.upc.dsa.Model.User;
 
 import java.util.*;
 
 /**
- * First version!
+ * Second version!
  *
  */
 public class App {
@@ -38,13 +39,12 @@ public class App {
         WorldUser.getInstance().queryUserItemByName(usr_1,"potion");
         */
 
-        WorldGameScreen.getInstance().loadMap("map1.txt");
-        WorldGameScreen.getInstance().initialUserLocation();
 
-        User u = new User();
-        Location location = new Location();
-        location.setCurrentLocation("54");
-        u.setLocation(location);
+        WorldGameScreen.getInstance().objectInitializations();
+        User u = new User(1, "Marc", "1234", 34, 30, 30, new Location(5,4));
+        Map map = WorldGameScreen.getInstance().createMap(WorldGameScreen.getInstance().getCurrentMapId());
+        WorldGameScreen.getInstance().loadMap(map);
+        WorldGameScreen.getInstance().initialUserLocation(u);
 
         Scanner scanner = new Scanner(System.in);
         char input;
@@ -69,14 +69,11 @@ public class App {
     }
 
     private static void printScreen(int mapId) {
-
-        List<Cell> list = new ArrayList<Cell>(WorldGameScreen.getInstance().getTreeOfMaps().get(mapId).values());
-        int cont = 0;
+        Map map = WorldGameScreen.getInstance().getMapsArray()[mapId - 1];
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                if (j == 9) System.out.println(list.get(cont).getSymbol());
-                else System.out.print(list.get(cont).getSymbol());
-                cont++;
+                if (j == 9) System.out.println(map.getCellByCoords(i,j).getSymbol());
+                else System.out.print(map.getCellByCoords(i,j).getSymbol());
             }
         }
     }

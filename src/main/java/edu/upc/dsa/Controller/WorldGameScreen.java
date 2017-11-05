@@ -1,49 +1,44 @@
 package edu.upc.dsa.Controller;
 
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import edu.upc.dsa.Model.Cell;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.upc.dsa.Model.Cell.*;
 import edu.upc.dsa.Model.Location;
+import edu.upc.dsa.Model.Map;
 import edu.upc.dsa.Model.User;
 import org.apache.log4j.Logger;
-import java.lang.reflect.Type;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.TreeMap;
+import java.io.*;
 
 public class WorldGameScreen {
 
     //Variable declarations
     final static Logger logger = Logger.getLogger(WorldUser.class);
     private static WorldGameScreen instance = null;
-    private TreeMap<String, Cell> treeOfCells;
 
-    private TreeMap<Integer, TreeMap<String, Cell>> treeOfMaps;
-    Cell lastCellVisited;
-    int currentMapId;
+    private int currentMapId = 1;
+    private Map[] mapsArray;
+    private Cell lastUserCell;
+
 
 
     //Getters and setters
-    public TreeMap<String, Cell> getTreeOfCells() {
-        return treeOfCells;
+    public Map[] getMapsArray() {
+        return mapsArray;
     }
-    public void setTreeOfCells(TreeMap<String, Cell> treeOfCells) {
-        this.treeOfCells = treeOfCells;
+    public void setMapsArray(Map[] mapsArray) {
+        this.mapsArray = mapsArray;
     }
-    public TreeMap<Integer, TreeMap<String, Cell>> getTreeOfMaps() {
-        return treeOfMaps;
+
+    public Cell getLastUserCell() {
+        return lastUserCell;
     }
-    public void setTreeOfMaps(TreeMap<Integer, TreeMap<String, Cell>> treeOfMaps) {
-        this.treeOfMaps = treeOfMaps;
+    public void setLastUserCell(Cell lastUserCell) {
+        this.lastUserCell = lastUserCell;
     }
     public int getCurrentMapId() {
         return currentMapId;
     }
-
     public void setCurrentMapId(int currentMapId) {
         this.currentMapId = currentMapId;
     }
@@ -55,159 +50,80 @@ public class WorldGameScreen {
     }
 
     //Public functions
-    public void initialUserLocation() {
-        lastCellVisited = treeOfCells.get("54");
-        currentMapId = 1;
-        treeOfCells.put("54", new Cell(0, 1, 1, "@"));
-    }
-    public boolean loadMap (String mapName) {
-        logger.info("loadMap: Loading map...");
 
-        treeOfCells = new TreeMap<>();
-        treeOfMaps = new TreeMap<>();
+    public void objectInitializations () {
+        mapsArray = new Map[5];
+        lastUserCell = new UserCell();
+    }
+
+    public Map createMap (int mapId) {
+        logger.info("loadMap: Loading map...");
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(new File("src/main/resources/"+mapName)));
-            Type type = new TypeToken<TreeMap<String, Cell>>(){}.getType();
-            treeOfCells = new Gson().fromJson(reader, type);
-            treeOfMaps.put(0, treeOfCells);
+            StringBuilder s = new StringBuilder();
+            s.append("map").append(mapId).append(".txt");
+            ObjectMapper mapper = new ObjectMapper();
+            Cell cell[] = mapper.readValue(new File("src/main/resources/"+s), Cell[].class);
+            Map map = new Map(mapId, cell);
             logger.info("loadMap: map loaded.");
-            return true;
+
+            return map;
         }
         catch (IOException ex)
         {
             logger.fatal("File not found");
-            return false;
-        }
 
+            return null;
+        }
     }
 
-    public int moveUserTo (User u, String direction) {
-        String currentLocation = u.getLocation().getCurrentLocation();
-        int anaylysis = 0;
+    public void loadMap (Map map) {
+        this.mapsArray[map.getMapId() - 1] = map;
+    }
+
+    public void initialUserLocation(User u) {
+
+        Cell cell = new UserCell(u);
+        lastUserCell = mapsArray[currentMapId - 1].getCell(u.getLocation());
+        mapsArray[currentMapId - 1].setCell(cell);
+    }
+
+    public void moveUserTo (User u, String direction) {
+        Location nextCellLoc = new Location();
+        int analysis = 0;
         switch (direction) {
             case "a":
-                anaylysis = analyzeLeftCell(currentLocation);
+                nextCellLoc.setCoords(u.getLocation().getX(), u.getLocation().getY() - 1);
                 break;
             case "d":
-                anaylysis = analyzeRightCell(currentLocation);
+                nextCellLoc.setCoords(u.getLocation().getX(), u.getLocation().getY() + 1);
                 break;
             case "w":
-                anaylysis = analyzeUpperCell(currentLocation);
+                nextCellLoc.setCoords(u.getLocation().getX() - 1, u.getLocation().getY());
                 break;
             case "s":
-                anaylysis = analyzeDownCell(currentLocation);
+                nextCellLoc.setCoords(u.getLocation().getX() + 1, u.getLocation().getY());
                 break;
         }
-
-        int canOrW0t = 0;
-        switch (anaylysis) {
-            case 0:
-                canOrW0t = 0;
-                break;
-            case 1:
-                canOrW0t = 1;
-                break;
-            case 2:
-                canOrW0t = 2;
-                break;
-            case 3:
-                canOrW0t = 3;
-                break;
-            case 4:
-                currentMapId = treeOfCells.get(currentLocation).getNextMap();
-                canOrW0t = 4;
-                break;
-
-            default: //can move
-                String leftAnalysisResultString = String.valueOf(anaylysis);
-                //I get the character where my char was.
-                Cell lastCharacterVisited = this.lastCellVisited;
-                //I get the character where my char has to be.
-                Cell newCharacterToVisit = treeOfCells.get(leftAnalysisResultString);
-                //I save the new user location.
-                u.setLocation(new Location(u.getLocation().getCurrentLocation(), leftAnalysisResultString));
-                //I replace old character by what it was.
-                treeOfCells.put(currentLocation, lastCharacterVisited);
-                //I save the location where @ was to lastCellVisited
-                this.lastCellVisited = newCharacterToVisit;
-                //I replace de left-character with @
-                treeOfCells.put(leftAnalysisResultString, new Cell(0, 1, 1, "@"));
-        }
-
-        return canOrW0t;
-    }
-
-    public int analyzeLeftCell (String cell) {
-
-        int cellInt = Integer.valueOf(cell);
-        int leftCellInt = cellInt -1;
-        String leftCell = String.valueOf(leftCellInt);
-        int result = getNextCellResults(leftCell, leftCellInt);
-
-        return result;
-    }
-
-    public int analyzeRightCell (String cell) {
-
-        int cellInt = Integer.valueOf(cell);
-        int rightCellInt = cellInt +1;
-        String rightCell = String.valueOf(rightCellInt);
-        int result = getNextCellResults(rightCell, rightCellInt);
-
-        return result;
-    }
-
-    public int analyzeUpperCell (String cell) {
-
-        int cellInt = Integer.valueOf(cell);
-        int upperCellInt = cellInt -10;
-        String upperCell = String.valueOf(upperCellInt);
-        int result = getNextCellResults(upperCell, upperCellInt);
-
-        return result;
-    }
-
-    public int analyzeDownCell (String cell) {
-
-        int cellInt = Integer.valueOf(cell);
-        int result=0;
-
-        if (!cell.substring(0,1).equals("9")) {
-            int downCellInt = cellInt +10;
-            String downCell = String.valueOf(downCellInt);
-            result = getNextCellResults(downCell, downCellInt);
-        }
-
-        return result;
-    }
-
-    private int getNextCellResults (String nextCell, int nextCellInt) {
-        int result = 0;
-        if (0 < nextCellInt && nextCellInt < 9) //fix for 00 - 09 numeration system
-            return result;
-        switch (treeOfCells.get(nextCell).getSymbol()) {
+        switch (mapsArray[currentMapId - 1].getCell(nextCellLoc).getSymbol()) {
             case "#":
-                result = 1;
                 break;
             case "B":
-                result = 2;
                 break;
             case "C":
-                result = 3;
                 break;
             case "D":
-                result = 4;
-                break;
-            case " ":
-                result = nextCellInt;
+                
                 break;
             default:
-                result = 0;
+                Cell nextUserCell = mapsArray[currentMapId -1].getCell(nextCellLoc); //Pick the next cell
+                u.setLocation(nextCellLoc); //Update user new Location
+                mapsArray[currentMapId - 1].setCell(new UserCell(u)); //Put the user in the next cell
+                mapsArray[currentMapId -1].setCell(lastUserCell); //Replace with last visited
+                lastUserCell = nextUserCell; //Update last visited
                 break;
         }
-
-        return result;
     }
+
 
 
 }

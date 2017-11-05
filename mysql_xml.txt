@@ -39,210 +39,210 @@ Per modificar el disseny de la bd teniu que anar a http://ondras.zarovi.cz/sql/d
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="157" y="144" name="users">
-<row name="user_id" null="0" autoincrement="1">
+</datatypes><table x="157" y="144" username="users">
+<row username="user_id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="name" null="1" autoincrement="0">
+<row username="username" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="password" null="1" autoincrement="0">
+<row username="password" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="sex" null="1" autoincrement="0">
+<row username="sex" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="is_admin" null="0" autoincrement="0">
+<row username="is_admin" null="0" autoincrement="0">
 <datatype>TINYINT</datatype>
 <default>NULL</default></row>
-<row name="c_weapon_id" null="1" autoincrement="0">
+<row username="c_weapon_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="c_set_id" null="1" autoincrement="0">
+<row username="c_set_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="c_item_id" null="1" autoincrement="0">
+<row username="c_item_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="email" null="1" autoincrement="0">
+<row username="email" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="hp" null="1" autoincrement="0">
+<row username="hp" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
 <default>NULL</default></row>
-<row name="mana" null="1" autoincrement="0">
+<row username="mana" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
 <default>NULL</default></row>
-<row name="c_map_id" null="1" autoincrement="0">
+<row username="c_map_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<key type="PRIMARY" name="">
+<key type="PRIMARY" username="">
 <part>user_id</part>
 </key>
 </table>
-<table x="317" y="207" name="UserItems">
-<row name="item_id_Items" null="0" autoincrement="0">
+<table x="317" y="207" username="UserItems">
+<row username="item_id_Items" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="Items" row="item_id" />
 </row>
-<row name="user_id_users" null="0" autoincrement="0">
+<row username="user_id_users" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="users" row="user_id" />
 </row>
-<key type="PRIMARY" name="">
+<key type="PRIMARY" username="">
 <part>item_id_Items</part>
 <part>user_id_users</part>
 </key>
 </table>
-<table x="523" y="153" name="Items">
-<row name="item_id" null="0" autoincrement="1">
+<table x="523" y="153" username="Items">
+<row username="item_id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="name" null="1" autoincrement="0">
+<row username="username" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="description" null="1" autoincrement="0">
+<row username="description" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="cost" null="1" autoincrement="0">
+<row username="cost" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="heal" null="1" autoincrement="0">
+<row username="heal" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
 <default>NULL</default></row>
-<row name="damage" null="1" autoincrement="0">
+<row username="damage" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
 <default>NULL</default></row>
-<row name="skill_id" null="1" autoincrement="0">
+<row username="skill_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="effect" null="1" autoincrement="0">
+<row username="effect" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<key type="PRIMARY" name="">
+<key type="PRIMARY" username="">
 <part>item_id</part>
 </key>
 </table>
-<table x="797" y="99" name="weapons">
-<row name="weapon_id" null="0" autoincrement="1">
+<table x="797" y="99" username="weapons">
+<row username="weapon_id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="name" null="1" autoincrement="0">
+<row username="username" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="description" null="1" autoincrement="0">
+<row username="description" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="cost" null="1" autoincrement="0">
+<row username="cost" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="skill_id" null="1" autoincrement="0">
+<row username="skill_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="damage" null="1" autoincrement="0">
+<row username="damage" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
 <default>NULL</default></row>
-<key type="PRIMARY" name="">
+<key type="PRIMARY" username="">
 <part>weapon_id</part>
 </key>
 </table>
-<table x="585" y="60" name="UserWeapons">
-<row name="weapon_id_weapons" null="0" autoincrement="0">
+<table x="585" y="60" username="UserWeapons">
+<row username="weapon_id_weapons" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="weapons" row="weapon_id" />
 </row>
-<row name="user_id_users" null="0" autoincrement="0">
+<row username="user_id_users" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="users" row="user_id" />
 </row>
-<key type="PRIMARY" name="">
+<key type="PRIMARY" username="">
 </key>
 </table>
-<table x="966" y="155.60000038146973" name="WeaponSkill">
-<row name="weapon_id_weapons" null="0" autoincrement="0">
+<table x="966" y="155.60000038146973" username="WeaponSkill">
+<row username="weapon_id_weapons" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="weapons" row="weapon_id" />
 </row>
-<row name="skill_id_Skills" null="0" autoincrement="0">
+<row username="skill_id_Skills" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="Skills" row="skill_id" />
 </row>
-<key type="PRIMARY" name="">
+<key type="PRIMARY" username="">
 </key>
 </table>
-<table x="1171" y="80.60000038146973" name="Skills">
-<row name="skill_id" null="0" autoincrement="1">
+<table x="1171" y="80.60000038146973" username="Skills">
+<row username="skill_id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="name" null="1" autoincrement="0">
+<row username="username" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="description" null="1" autoincrement="0">
+<row username="description" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="mana_cost" null="1" autoincrement="0">
+<row username="mana_cost" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
 <default>NULL</default></row>
-<row name="using_skill_message" null="1" autoincrement="0">
+<row username="using_skill_message" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="damage" null="1" autoincrement="0">
+<row username="damage" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
 <default>NULL</default></row>
-<row name="effect" null="1" autoincrement="0">
+<row username="effect" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="cost" null="1" autoincrement="0">
+<row username="cost" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<key type="PRIMARY" name="">
+<key type="PRIMARY" username="">
 <part>skill_id</part>
 </key>
 </table>
-<table x="929" y="330" name="Maps">
-<row name="map_id" null="0" autoincrement="1">
+<table x="929" y="330" username="Maps">
+<row username="map_id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="string" null="1" autoincrement="0">
+<row username="string" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<key type="PRIMARY" name="">
+<key type="PRIMARY" username="">
 <part>map_id</part>
 </key>
 </table>
-<table x="462" y="375" name="Sets">
-<row name="set_id" null="0" autoincrement="1">
+<table x="462" y="375" username="Sets">
+<row username="set_id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="description" null="1" autoincrement="0">
+<row username="description" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="cost" null="1" autoincrement="0">
+<row username="cost" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="hp_increase" null="1" autoincrement="0">
+<row username="hp_increase" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
 <default>NULL</default></row>
-<row name="mana_increase" null="1" autoincrement="0">
+<row username="mana_increase" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
 <default>NULL</default></row>
-<row name="name" null="1" autoincrement="0">
+<row username="username" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<key type="PRIMARY" name="">
+<key type="PRIMARY" username="">
 <part>set_id</part>
 </key>
 </table>
-<table x="305" y="328" name="UserSets">
-<row name="set_id_Sets" null="0" autoincrement="0">
+<table x="305" y="328" username="UserSets">
+<row username="set_id_Sets" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="Sets" row="set_id" />
 </row>
-<row name="user_id_users" null="0" autoincrement="0">
+<row username="user_id_users" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="users" row="user_id" />
 </row>
-<key type="PRIMARY" name="">
+<key type="PRIMARY" username="">
 </key>
 </table>
 </sql>

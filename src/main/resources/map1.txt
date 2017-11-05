@@ -1,706 +1,795 @@
-{
-    "00":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "01":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "02":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "03":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "04":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "05":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "06":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "07":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "08":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "09":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "10":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "11":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "12":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "13":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "14":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "15":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "16":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "17":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "18":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "19":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "20":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "21":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "22":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "23":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "24":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "25":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "26":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "27":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "28":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "29":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "30":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "31":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "32":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "33":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "34":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "35":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "36":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "37":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "38":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "39":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "40":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "41":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "42":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "43":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "44":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "45":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "46":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "47":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "48":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "49":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "50":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "51":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "52":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "53":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "54":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "55":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "56":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "57":
-            {
-                "symbol":"B",
-                "type":3,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "58":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "59":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "60":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "61":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "62":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "63":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "64":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "65":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "66":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "67":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "68":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "69":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "70":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "71":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "72":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "73":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "74":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "75":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "76":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "77":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "78":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "79":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "80":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "81":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "82":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "83":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "84":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "85":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "86":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "87":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "88":
-            {
-                "symbol":" ",
-                "type":5,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "89":
-            {
-                "symbol":"|",
-                "type":2,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "90":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "91":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "92":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "93":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "94":
-            {
-                "symbol":"D",
-                "type":4,
-                "currentMap":1,
-                "nextMap":2
-            },
-    "95":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "96":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "97":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "98":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            },
-    "99":
-            {
-                "symbol":"-",
-                "type":1,
-                "currentMap":1,
-                "nextMap":1
-            }
+[
+    	{
+    	   "onMapLoc": {
+           			 	    "x":0,
+           			 	    "y":0
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
 
-}
+    	   "onMapLoc": {
+           			 	    "x":0,
+           			 	    "y":1
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
 
+    	   "onMapLoc": {
+           			 	    "x":0,
+           			 	    "y":2
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
 
+    	   "onMapLoc": {
+           			 	    "x":0,
+           			 	    "y":3
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":0,
+           			 	    "y":4
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":0,
+           			 	    "y":5
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":0,
+           			 	    "y":6
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":0,
+           			 	    "y":7
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":0,
+           			 	    "y":8
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":0,
+           			 	    "y":9
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":1,
+           			 	    "y":0
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":1,
+           			 	    "y":1
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":1,
+           			 	    "y":2
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":1,
+           			 	    "y":3
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":1,
+           			 	    "y":4
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":1,
+           			 	    "y":5
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":1,
+           			 	    "y":6
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":1,
+           			 	    "y":7
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":1,
+           			 	    "y":8
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":1,
+           			 	    "y":9
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":2,
+           			 	    "y":0
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":2,
+           			 	    "y":1
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":2,
+           			 	    "y":2
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":2,
+           			 	    "y":3
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":2,
+           			 	    "y":4
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":2,
+           			 	    "y":5
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":2,
+           			 	    "y":6
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":2,
+           			 	    "y":7
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":2,
+           			 	    "y":8
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":2,
+           			 	    "y":9
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":0
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":1
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":2
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":3
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":4
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":5
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":6
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":7
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":8
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":3,
+           			 	    "y":9
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":0
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":1
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":2
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":3
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":4
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":5
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":6
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":7
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":8
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":4,
+           			 	    "y":9
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":0
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":1
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":2
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":3
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":4
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":5
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":6
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":7
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":8
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":5,
+           			 	    "y":9
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":0
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":1
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":2
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":3
+           		   	   },
+    	   "type": "Tree"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":4
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":5
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":6
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":7
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":8
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":6,
+           			 	    "y":9
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":7,
+           			 	    "y":0
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":7,
+           			 	    "y":1
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":7,
+           			 	    "y":2
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":7,
+           			 	    "y":3
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":7,
+           			 	    "y":4
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":7,
+           			 	    "y":5
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":7,
+           			 	    "y":6
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":7,
+           			 	    "y":7
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":7,
+           			 	    "y":8
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":7,
+           			 	    "y":9
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":8,
+           			 	    "y":0
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":8,
+           			 	    "y":1
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":8,
+           			 	    "y":2
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":8,
+           			 	    "y":3
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":8,
+           			 	    "y":4
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":8,
+           			 	    "y":5
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":8,
+           			 	    "y":6
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":8,
+           			 	    "y":7
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":8,
+           			 	    "y":8
+           		   	   },
+    	   "type": "Field"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":8,
+           			 	    "y":9
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":9,
+           			 	    "y":0
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+
+    	   "onMapLoc": {
+           			 	    "x":9,
+           			 	    "y":1
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+    	   "onMapLoc": {
+           			 	    "x":9,
+           			 	    "y":2
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+    	   "onMapLoc": {
+           			 	    "x":9,
+           			 	    "y":3
+           		   	   },
+    	   "type": "Wall"
+    	},
+    	{
+    	   "onMapLoc": {
+           			 	    "x":9,
+           			 	    "y":4
+           		   	   },
+    	   "type": "Door",
+    	   "nextMap":2
+    	},
+    	{
+    	    "onMapLoc": {
+                            "x":9,
+                   		    "y":5
+                    },
+    	   "type": "Wall"
+    	},
+    	{
+    	    "onMapLoc": {
+                            "x":9,
+                            "y":6
+                        },
+    	   "type": "Wall"
+    	},
+    	{
+    	    "onMapLoc": {
+                            "x":9,
+                           	"y":7
+                        },
+    	   "type": "Wall"
+    	},
+    	{
+    	    "onMapLoc": {
+                            "x":9,
+                           	"y":8
+                        },
+    	   "type": "Wall"
+    	},
+    	{
+    	    "onMapLoc": {
+                            "x":9,
+                           	"y":9
+                        },
+    	   "type": "Wall"
+    	}
+]
 

@@ -1,13 +1,11 @@
 package edu.upc.dsa.Model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class User {
     private int id;
-    private String name;
+    private String username;
     private String password;
-    private int level;
     private int atk;
     private int def;
     private int vit;
@@ -22,15 +20,16 @@ public class User {
         this.location = location;
     }
 
-    public User(int id, String name, String password, int level, int atk, int def, int vit) {
+    public User(int id, String username, String password, int atk, int def, int vit, Location location) {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.password = password;
-        this.level = level;
         this.atk = atk;
         this.def = def;
         this.vit = vit;
-        this.userItemList = new ArrayList<Item>();
+        this.userItemList = new ArrayList<>();
+        this.location = location;
+
     }
     public User (){}
 
@@ -42,12 +41,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -56,14 +55,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 
     public int getAtk() {

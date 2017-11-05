@@ -1,32 +1,40 @@
 package edu.upc.dsa.Model;
 
 public class Location {
-    private String currentLocation;
 
-    public Location(String lastLocation, String currentLocation) {
-        this.currentLocation = currentLocation;
-        this.lastLocation = lastLocation;
-    }
+    //Private variables
+    private int x;
+    private int y;
 
+    //Constructors
     public Location (){ }
-
-    private String lastLocation;
-
-    public String getCurrentLocation() {
-        return currentLocation;
+    public Location(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    // Getters and Setters
+    public int getX() {
+        return x;
+    }
+    public void setX(int x) {
+        this.x = x;
+    }
+    public int getY() {
+        return y;
+    }
+    public void setY(int y) {
+        this.y = y;
     }
 
-    public void setCurrentLocation(String currentLocation) {
-        this.currentLocation = currentLocation;
+    public void setCoords (int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public String getLastLocation() {
-        return lastLocation;
-    }
 
-    public void setLastLocation(String lastLocation) {
-        this.lastLocation = lastLocation;
-    }
+
+
+
 
 
 }

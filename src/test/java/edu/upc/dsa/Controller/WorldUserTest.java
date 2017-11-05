@@ -16,7 +16,7 @@ import static edu.upc.dsa.Controller.WorldUser.getInstance;
 public class WorldUserTest {
 
     //Global class variables
-
+    /*
     User usr_1;
     User usr_2;
     User usr_3;
@@ -145,7 +145,7 @@ public class WorldUserTest {
     public void loadMapTest() {
         Assert.assertTrue(WorldGameScreen.getInstance().loadMap("map1.txt"));
     }
-
+*/
 
 }
 

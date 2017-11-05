@@ -48,16 +48,16 @@ public class WorldUser implements World {
 
     //Public functions
     public Boolean createUser(User usr) {
-        logger.info("createUser: Creating user: "+usr.getName()+" ...");
+        logger.info("createUser: Creating user: "+usr.getUsername()+" ...");
 
         if(userExist(usr.getId())) {
-            logger.warn("createUser: User: "+usr.getName()+" already exists");
+            logger.warn("createUser: User: "+usr.getUsername()+" already exists");
             return false;
         }
 
         else {
             usersMap.put(usr.getId(), usr);
-            logger.info("createUser: User: "+usr.getName()+" have been created!");
+            logger.info("createUser: User: "+usr.getUsername()+" have been created!");
             return true;
         }
     }
@@ -92,17 +92,17 @@ public class WorldUser implements World {
     }
 
     public void addItemUser(User usr, Item i) {
-        logger.info("addItemUser: Adding item "+i.getName()+" to user: "+usr.getName());
+        logger.info("addItemUser: Adding item "+i.getName()+" to user: "+usr.getUsername());
 
         usr.getUserItemList().add(i);
-        logger.info("addItemUser: Item "+i.getName()+" added to user: "+usr.getName());
+        logger.info("addItemUser: Item "+i.getName()+" added to user: "+usr.getUsername());
     }
 
     public ArrayList<Item> userItemListQuery(User usr) {
         logger.info("userItemListQuery: Getting user item list...");
 
         if (usr.getUserItemList().isEmpty())
-            logger.info("userItemListQuery: The user: "+usr.getName()+" has no items");
+            logger.info("userItemListQuery: The user: "+usr.getUsername()+" has no items");
         else
             logger.info("userItemListQuery: User's items obtained");
 
@@ -110,7 +110,7 @@ public class WorldUser implements World {
     }
 
     public ArrayList<Item> queryUserItemByName(User usr, String itemName) {
-        logger.warn("queryUserItemByName: Retreiving item: "+itemName+" from user: "+usr.getName()+" ...");
+        logger.warn("queryUserItemByName: Retreiving item: "+itemName+" from user: "+usr.getUsername()+" ...");
 
         ArrayList<Item> list = usr.getUserItemList();
         ArrayList<Item> temp = new ArrayList<Item>();
@@ -120,7 +120,7 @@ public class WorldUser implements World {
             }
         }
         if (temp.isEmpty()) {
-            logger.warn("queryUserItemByName: User: "+usr.getName()+" hasn't got any item with the name: "+itemName);
+            logger.warn("queryUserItemByName: User: "+usr.getUsername()+" hasn't got any item with the name: "+itemName);
             return temp;
         }
         else {
@@ -130,23 +130,24 @@ public class WorldUser implements World {
     }
 
     public void deleteUserItems(User usr) {
-        logger.info("deleteUserItems: Deleting all user: "+usr.getName()+" items...");
+        logger.info("deleteUserItems: Deleting all user: "+usr.getUsername()+" items...");
 
         usr.getUserItemList().clear();
-        if (usr.getUserItemList().isEmpty()) logger.info("All items deleted from the user: "+usr.getName());
-        else logger.fatal("deleteUserItems: Couldn't delete all user: "+usr.getName()+" items");
+        if (usr.getUserItemList().isEmpty()) logger.info("All items deleted from the user: "+usr.getUsername());
+        else logger.fatal("deleteUserItems: Couldn't delete all user: "+usr.getUsername()+" items");
     }
 
     public void userToUserItemTransfer(User origin, User destination, Item i) {
-        logger.info("userToUserItemTransfer: Transfering item: "+i.getName()+" from user "+origin.getName()+" to "+destination.getName());
+        logger.info("userToUserItemTransfer: Transfering item: "+i.getName()+" from user "+origin.getUsername()+" to "+destination.getUsername());
 
         destination.getUserItemList().add(origin.getItem(i.getId()));
-        logger.info("userToUserItemTransfer: Removing item: "+i.getName()+"from original user: "+origin.getName());
+        logger.info("userToUserItemTransfer: Removing item: "+i.getName()+"from original user: "+origin.getUsername());
         try {
             origin.getUserItemList().remove(origin.getUserItemList().size()-1);
-            logger.info("userToUserItemTransfer: Item: "+i.getName()+" removed from original user: "+origin.getName());
+            logger.info("userToUserItemTransfer: Item: "+i.getName()+" removed from original user: "+origin.getUsername());
         } catch (Exception ex) {
-            logger.fatal("userToUserItemTransfer: IndexOutOfBoundsException Exception: Couldn't remove item: "+i.getName()+" from original user: "+origin.getName());
+            logger.fatal("userToUserItemTransfer: IndexOutOfBoundsException Exception: Couldn't remove item: "+i.getName()+" from original user: "+origin.getUsername());
         }
     }
+
 }
