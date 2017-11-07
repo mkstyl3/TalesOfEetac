@@ -2,13 +2,7 @@ package edu.upc.dsa.Controller;
 
 import edu.upc.dsa.Model.Item;
 import edu.upc.dsa.Model.User;
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import java.util.ArrayList;
-import static edu.upc.dsa.Controller.WorldUser.getInstance;
 
 /**
  * Unit test for simple App.
@@ -16,7 +10,7 @@ import static edu.upc.dsa.Controller.WorldUser.getInstance;
 public class WorldUserTest {
 
     //Global class variables
-    /*
+   /*
     User usr_1;
     User usr_2;
     User usr_3;

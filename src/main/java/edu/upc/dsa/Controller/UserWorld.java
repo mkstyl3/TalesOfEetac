@@ -3,17 +3,20 @@ package edu.upc.dsa.Controller;
 import org.apache.log4j.Logger;
 import edu.upc.dsa.Model.*;
 
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.*;
 
-public class WorldUser implements World {
+@Path("/user")
+public class UserWorld implements IUserWorld {
 
     //Variable declarations
-    private static WorldUser instance = null;
-    final static Logger logger = Logger.getLogger(WorldUser.class);
+    private static UserWorld instance = null;
+    final static Logger logger = Logger.getLogger(UserWorld.class);
     private HashMap<Integer, User> usersMap;
 
     //Constructor
-    public WorldUser(){
+    public UserWorld(){
         usersMap = new HashMap<>();
     }
 
@@ -26,8 +29,8 @@ public class WorldUser implements World {
     }
 
     //Singleton pattern
-    public static WorldUser getInstance() {
-        if (instance == null) instance = new WorldUser();
+    public static UserWorld getInstance() {
+        if (instance == null) instance = new UserWorld();
         return instance;
     }
 
@@ -47,6 +50,50 @@ public class WorldUser implements World {
     }
 
     //Public functions
+
+    public Boolean initializeUsers() {
+
+
+        User usr_1 = new User(1, "Marc", "1234", 34, 30, 30, new Location(5,4));
+        User usr_2 = new User(2, "Gerard", "1234", 34, 30, 30, new Location(5,4));
+        User usr_3 = new User(3, "Ivan", "1234", 34, 30, 30, new Location(5,4));
+        User usr_4 = new User(4, "Mario", "1234", 34, 30, 30, new Location(5,4));
+
+        Item item_1 = new Item(1,"potion", 3, "minor heal", 0.2, 20);
+        Item item_2 = new Item(2,"paralize", 3, "minor heal", 0.2, 20);
+        Item item_3 = new Item(3,"mana", 3, "minor heal", 0.2, 20);
+        Item item_4 = new Item(4,"speed", 3, "minor heal", 0.2, 20);
+
+        usr_1.setItem(item_1);
+        usr_1.setItem(item_2);
+        usr_1.setItem(item_3);
+        usr_1.setItem(item_4);
+
+        usr_2.setItem(item_1);
+        usr_2.setItem(item_2);
+        usr_2.setItem(item_3);
+
+        usr_3.setItem(item_1);
+        usr_3.setItem(item_2);
+
+        // usr_4 has no items
+
+        return true;
+    }
+
+    public void initializeUserObjects () {
+
+    }
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getIt() {
+        return "Got it!";
+    }
+
+    @POST
+    @Path("/create")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Boolean createUser(User usr) {
         logger.info("createUser: Creating user: "+usr.getUsername()+" ...");
 
@@ -60,6 +107,13 @@ public class WorldUser implements World {
             logger.info("createUser: User: "+usr.getUsername()+" have been created!");
             return true;
         }
+    }
+
+    @POST
+    @Path("/test")
+    @Consumes (MediaType.APPLICATION_JSON)
+    public String testFuntion(User u) {
+        return "hello test";
     }
 
     public Boolean deleteUser(int id) {
