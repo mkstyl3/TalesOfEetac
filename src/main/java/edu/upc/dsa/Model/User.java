@@ -1,24 +1,20 @@
 package edu.upc.dsa.Model;
 
+
+
 import java.util.ArrayList;
 
 public class User {
+
     private int id;
     private String username;
     private String password;
     private int atk;
     private int def;
     private int vit;
-    private ArrayList<Item> userItemList;
+
+    private ArrayList<Item> items;
     private Location location;
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
 
     public User(int id, String username, String password, int atk, int def, int vit, Location location) {
         this.id = id;
@@ -27,7 +23,7 @@ public class User {
         this.atk = atk;
         this.def = def;
         this.vit = vit;
-        this.userItemList = new ArrayList<>();
+        this.items = new ArrayList<>();
         this.location = location;
 
     }
@@ -39,6 +35,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getUsername() {
@@ -81,22 +85,23 @@ public class User {
         this.vit = vit;
     }
 
-    public ArrayList<Item> getUserItemList() {
-        return userItemList;
-    }
 
-    public void setUserItemList(ArrayList<Item> userItemList) {
-        this.userItemList = userItemList;
+    /*public void setItems(ArrayList<Item> items) { PRODUCES ERROR WITH MediaType.APPLICATION_JSON
+        this.items = items;
+    }*/
+
+    public ArrayList<Item> getItems() {
+        return items;
     }
 
     //Custom
 
     public void setItem (Item item) {
-        this.userItemList.add(item);
+        this.items.add(item);
     }
 
     public Item getItem (int id) {
-        for (Item i: this.userItemList) {
+        for (Item i: this.items) {
             if (i.getId() == id) return i;
         }
         return null;

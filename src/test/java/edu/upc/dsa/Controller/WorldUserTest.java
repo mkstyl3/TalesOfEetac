@@ -92,7 +92,7 @@ public class WorldUserTest {
         //Adding item to user
         Item item_5 = new Item(5, "meat", 3, "minor heal", 0.2, 20);
         getInstance().addItemUser(usr_2, item_5);
-        Assert.assertTrue(getInstance().getUsersMap().get(2).getUserItemList().contains(item_5));
+        Assert.assertTrue(getInstance().getUsersMap().get(2).getItemList().contains(item_5));
     }
 
     @Test
@@ -121,7 +121,7 @@ public class WorldUserTest {
     public void deleteUserItems() {
         //Deleting all items from usr_4
         getInstance().deleteUserItems(usr_4);
-        Assert.assertTrue(getInstance().getUsersMap().get(4).getUserItemList().isEmpty());
+        Assert.assertTrue(getInstance().getUsersMap().get(4).getItemList().isEmpty());
     }
 
     @Test
