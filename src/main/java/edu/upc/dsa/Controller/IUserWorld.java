@@ -2,11 +2,10 @@ package edu.upc.dsa.Controller;
 
 import edu.upc.dsa.Model.Item;
 import edu.upc.dsa.Model.User;
-
 import java.util.ArrayList;
-import java.util.List;
 
-public interface World {
+
+public interface IUserWorld {
     Boolean createUser(User usr);
     Boolean deleteUser(int id);
     User queryUser(int id);

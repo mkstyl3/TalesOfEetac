@@ -10,11 +10,11 @@ import org.apache.log4j.Logger;
 
 import java.io.*;
 
-public class WorldGameScreen {
+public class GameScreenWorld implements IGameScreenWorld {
 
     //Variable declarations
-    final static Logger logger = Logger.getLogger(WorldUser.class);
-    private static WorldGameScreen instance = null;
+    final static Logger logger = Logger.getLogger(UserWorld.class);
+    private static GameScreenWorld instance = null;
 
     private int currentMapId = 1;
     private Map[] mapsArray;
@@ -44,8 +44,8 @@ public class WorldGameScreen {
     }
 
     //Singleton pattern
-    public static WorldGameScreen getInstance() {
-        if (instance == null) instance = new WorldGameScreen();
+    public static GameScreenWorld getInstance() {
+        if (instance == null) instance = new GameScreenWorld();
         return instance;
     }
 
@@ -124,7 +124,7 @@ public class WorldGameScreen {
         }
     }
 
-    private void locateUserAtNextDoorLocation(Location currentDoorLoc, User u) {
+    public void locateUserAtNextDoorLocation(Location currentDoorLoc, User u) {
 
         Door doorCell = (Door)mapsArray[currentMapId - 1].getCell(currentDoorLoc);
         int nextMapId = doorCell.getNextMap();
