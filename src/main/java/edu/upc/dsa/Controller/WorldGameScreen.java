@@ -2,6 +2,7 @@ package edu.upc.dsa.Controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.*;
 import edu.upc.dsa.Model.Cell.*;
 import edu.upc.dsa.Model.Location;
 import edu.upc.dsa.Model.Map;
@@ -110,6 +111,8 @@ public class WorldGameScreen {
             case "T":
                 break;
             case "C":
+                break;
+            case "N":
                 break;
             case "D":
                 locateUserAtNextDoorLocation(nextCellLoc, u); //Get next door by door coords

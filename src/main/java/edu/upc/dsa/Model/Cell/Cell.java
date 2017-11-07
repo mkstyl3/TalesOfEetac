@@ -17,7 +17,8 @@ import edu.upc.dsa.Model.Location;
         @JsonSubTypes.Type(value = Tree.class, name = "Tree"),
         @JsonSubTypes.Type(value = UserCell.class, name = "UserCell"),
         @JsonSubTypes.Type(value = Wall.class, name = "Wall"),
-        @JsonSubTypes.Type(value = Field.class, name = "Field")
+        @JsonSubTypes.Type(value = Field.class, name = "Field"),
+        @JsonSubTypes.Type(value = NPC.class, name = "NPC")
 })
 public abstract class Cell {
 
