@@ -3,11 +3,13 @@ package edu.upc.dsa.Controller;
 import org.apache.log4j.Logger;
 import edu.upc.dsa.Model.*;
 
+import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.*;
 
 @Path("/user")
+@Singleton
 public class UserWorld implements IUserWorld {
 
     //Variable declarations
@@ -38,7 +40,7 @@ public class UserWorld implements IUserWorld {
     private Boolean userExist(int id){
         logger.info("userExist: Checking if user id: "+id+" exists...");
 
-        if(usersMap.containsKey(id)) {
+        if(getInstance().usersMap.containsKey(id)) {
             logger.info("userExist: User with id: "+id+" already exists");
             return true;
         }
@@ -76,11 +78,18 @@ public class UserWorld implements IUserWorld {
         usr_3.setItem(item_1);
         usr_3.setItem(item_2);
 
+        createUser(usr_1);
+        createUser(usr_2);
+        createUser(usr_3);
+        createUser(usr_4);
+
         // usr_4 has no items
 
         return true;
     }
 
+
+    //Testing purposes "/user"
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
@@ -99,12 +108,30 @@ public class UserWorld implements IUserWorld {
         }
 
         else {
-            usersMap.put(usr.getId(), usr);
+            getInstance().usersMap.put(usr.getId(), usr);
             logger.info("createUser: User: "+usr.getUsername()+" have been created!");
             return true;
         }
     }
 
+    @GET
+    @Path("/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<User> getAllUsers() {
+        return new ArrayList<>(usersMap.values());
+    }
+
+    public ArrayList<User> sortUserListById(ArrayList<User> users) {
+        users.sort(Comparator.comparing(User::getId));
+        return users;
+    }
+
+    @GET
+    @Path("/allSortedById")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<User> getAllUsersSortedById() {
+        return sortUserListById(getAllUsers());
+    }
     public Boolean deleteUser(int id) {
         logger.info("deleteUser: Removing user id "+id+" ...");
 
@@ -120,7 +147,10 @@ public class UserWorld implements IUserWorld {
         }
     }
 
-    public User queryUser(int id) {
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public User queryUser(@PathParam("id") int id) {
         logger.info("queryUser: Querying user id: "+id+" info...");
 
         if (userExist(id)) {
@@ -134,12 +164,14 @@ public class UserWorld implements IUserWorld {
 
     }
 
+    @POST
+    @Path("/{id}/addItem")
+    public void addItemUser(@QueryParam("id") int userId, Item i) {
+        User u = usersMap.get(userId);
+        logger.info("addItemUser: Adding item "+i.getName()+" to user: "+u.getUsername());
 
-    public void addItemUser(User usr, Item i) {
-        logger.info("addItemUser: Adding item "+i.getName()+" to user: "+usr.getUsername());
-
-        usr.getItems().add(i);
-        logger.info("addItemUser: Item "+i.getName()+" added to user: "+usr.getUsername());
+        u.getItems().add(i);
+        logger.info("addItemUser: Item "+i.getName()+" added to user: "+u.getUsername());
     }
 
     public ArrayList<Item> userItemListQuery(User usr) {

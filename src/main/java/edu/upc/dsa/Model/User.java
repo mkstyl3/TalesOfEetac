@@ -27,6 +27,11 @@ public class User {
         this.location = location;
 
     }
+
+    public User(int id, String username) {
+        this.id = id;
+        this.username = username;
+    }
     public User (){}
 
     public int getId() {

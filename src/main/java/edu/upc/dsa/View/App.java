@@ -7,6 +7,7 @@ import edu.upc.dsa.Model.User;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class App {
         // create a resource config that scans for JAX-RS resources and providers
         // in edu.upc.dsa package
         final ResourceConfig rc = new ResourceConfig().packages("edu.upc.dsa.Controller");
-
+        rc.register(MultiPartFeature.class);
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
@@ -69,6 +70,7 @@ public class App {
 
         GameScreenWorld.getInstance().objectInitializations();
         User u = new User(1, "Marc", "1234", 34, 30, 30, new Location(5,4));
+        //UserWorld.getInstance().createUser(u);
         Map map = GameScreenWorld.getInstance().createMap(GameScreenWorld.getInstance().getCurrentMapId());
         GameScreenWorld.getInstance().loadMap(map);
         GameScreenWorld.getInstance().initialUserLocation(u);
@@ -90,7 +92,11 @@ public class App {
                     GameScreenWorld.getInstance() .moveUserTo(u,"d");
                     break;
                 case 'w':
-                    GameScreenWorld.getInstance().moveUserTo(u,"w");
+                    //GameScreenWorld.getInstance().moveUserTo(u,"w");
+                    ArrayList<User> users = UserWorld.getInstance().getAllUsers();
+                    for (User usr: users) {
+                        System.out.println(usr.getUsername());
+                    }
                     break;
                 case 's':
                     GameScreenWorld.getInstance().moveUserTo(u,"s");
