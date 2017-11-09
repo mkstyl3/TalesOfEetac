@@ -9,9 +9,9 @@ public interface IUserWorld {
     Boolean createUser(User usr);
     Boolean deleteUser(int id);
     User queryUser(int id);
-    void addItemUser(int userId, Item i);
-    ArrayList<Item> userItemListQuery(User usr);
+    boolean addItemUser(int userId, Item i);
+    ArrayList<Item> userItemListQuery(int id);
     ArrayList<Item> queryUserItemByName(User usr, String itemName);
-    void deleteUserItems(User u);
-    void userToUserItemTransfer(User origen, User destino, Item i);
+    boolean deleteUserItems(User u);
+    boolean userToUserItemTransfer(User origen, User destino, Item i);
 }

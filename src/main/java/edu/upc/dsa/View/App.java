@@ -1,13 +1,13 @@
 package edu.upc.dsa.View;
 
 import edu.upc.dsa.Controller.*;
+import edu.upc.dsa.Model.Item;
 import edu.upc.dsa.Model.Location;
 import edu.upc.dsa.Model.Map;
 import edu.upc.dsa.Model.User;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class App {
         // create a resource config that scans for JAX-RS resources and providers
         // in edu.upc.dsa package
         final ResourceConfig rc = new ResourceConfig().packages("edu.upc.dsa.Controller");
-        rc.register(MultiPartFeature.class);
+        //rc.register(MultiPartFeature.class);
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
@@ -70,7 +70,7 @@ public class App {
 
         GameScreenWorld.getInstance().objectInitializations();
         User u = new User(1, "Marc", "1234", 34, 30, 30, new Location(5,4));
-        //UserWorld.getInstance().createUser(u);
+        UserWorld.getInstance().createUser(u);
         Map map = GameScreenWorld.getInstance().createMap(GameScreenWorld.getInstance().getCurrentMapId());
         GameScreenWorld.getInstance().loadMap(map);
         GameScreenWorld.getInstance().initialUserLocation(u);
@@ -89,7 +89,11 @@ public class App {
                     GameScreenWorld.getInstance().moveUserTo(u, "a");
                     break;
                 case 'd':
-                    GameScreenWorld.getInstance() .moveUserTo(u,"d");
+                    //GameScreenWorld.getInstance() .moveUserTo(u,"d");
+                    ArrayList<Item> items = UserWorld.getInstance().getUsersMap().get(0).getItems();
+                    for (Item i: items) {
+                        System.out.println(i.getName());
+                    }
                     break;
                 case 'w':
                     //GameScreenWorld.getInstance().moveUserTo(u,"w");

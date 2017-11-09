@@ -3,6 +3,7 @@ package edu.upc.dsa.Controller;
 import org.apache.log4j.Logger;
 import edu.upc.dsa.Model.*;
 
+import javax.annotation.security.PermitAll;
 import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -49,6 +50,11 @@ public class UserWorld implements IUserWorld {
             logger.info("userExist: User with id: "+id+" doesn't exist");
             return false;
         }
+    }
+
+    private ArrayList<User> sortUserListById(ArrayList<User> users) {
+        users.sort(Comparator.comparing(User::getId));
+        return users;
     }
 
     //Public functions
@@ -118,13 +124,11 @@ public class UserWorld implements IUserWorld {
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<User> getAllUsers() {
-        return new ArrayList<>(usersMap.values());
+        return new ArrayList<>(getInstance().usersMap.values());
     }
 
-    public ArrayList<User> sortUserListById(ArrayList<User> users) {
-        users.sort(Comparator.comparing(User::getId));
-        return users;
-    }
+
+
 
     @GET
     @Path("/allSortedById")
@@ -132,11 +136,14 @@ public class UserWorld implements IUserWorld {
     public ArrayList<User> getAllUsersSortedById() {
         return sortUserListById(getAllUsers());
     }
-    public Boolean deleteUser(int id) {
+
+    @GET
+    @Path("/delete/{id}")
+    public Boolean deleteUser(@PathParam("id") int id) {
         logger.info("deleteUser: Removing user id "+id+" ...");
 
         if(userExist(id)) {
-            usersMap.remove(id);
+            getInstance().usersMap.remove(id);
             logger.info("deleteUser: User id: "+id+" already removed");
             return true;
         }
@@ -155,7 +162,7 @@ public class UserWorld implements IUserWorld {
 
         if (userExist(id)) {
             logger.info("queryUser: Retreived user id: "+id+" information");
-            return usersMap.get(id);
+            return getInstance().usersMap.get(id);
         }
         else {
             logger.fatal("queryUser: Couldn't retreive user id: "+id+" information");
@@ -166,37 +173,46 @@ public class UserWorld implements IUserWorld {
 
     @POST
     @Path("/{id}/addItem")
-    public void addItemUser(@QueryParam("id") int userId, Item i) {
-        User u = usersMap.get(userId);
-        logger.info("addItemUser: Adding item "+i.getName()+" to user: "+u.getUsername());
+    @Consumes(MediaType.APPLICATION_JSON)
+    public boolean addItemUser(@PathParam("id") int userId, Item i) {
+        logger.info("addItemUs/er: Adding item "+i.getName()+" to user: "+getInstance().usersMap.get(userId).getUsername());
+        getInstance().usersMap.get(userId).setItem(i);
 
-        u.getItems().add(i);
-        logger.info("addItemUser: Item "+i.getName()+" added to user: "+u.getUsername());
+        logger.info("addItemUser: Item "+i.getName()+" added to user: "+getInstance().usersMap.get(userId).getUsername());
+        return true;
     }
 
-    public ArrayList<Item> userItemListQuery(User usr) {
+    @GET
+    @Path("/{id}/allItems")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Item> userItemListQuery(@PathParam("id") int userId) {
         logger.info("userItemListQuery: Getting user item list...");
 
-        if (usr.getItems().isEmpty())
-            logger.info("userItemListQuery: The user: "+usr.getUsername()+" has no items");
+        User u = getInstance().usersMap.get(userId);
+        if (u.getItems().isEmpty())
+            logger.info("userItemListQuery: The user: "+u.getUsername()+" has no items");
         else
             logger.info("userItemListQuery: User's items obtained");
 
-        return usr.getItems();
+        return u.getItems();
     }
 
-    public ArrayList<Item> queryUserItemByName(User usr, String itemName) {
-        logger.warn("queryUserItemByName: Retreiving item: "+itemName+" from user: "+usr.getUsername()+" ...");
+    @POST
+    @Path("/item/{itemName}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Item> queryUserItemByName(User u, @PathParam("itemName") String itemName) {
+        logger.warn("queryUserItemByName: Retreiving item: "+itemName+" from user: "+u.getUsername()+" ...");
 
-        ArrayList<Item> list = usr.getItems();
-        ArrayList<Item> temp = new ArrayList<Item>();
+        ArrayList<Item> list = u.getItems();
+        ArrayList<Item> temp = new ArrayList<>();
         for (Item i: list) {
             if(i.getName().equals(itemName)) {
                 temp.add(i);
             }
         }
         if (temp.isEmpty()) {
-            logger.warn("queryUserItemByName: User: "+usr.getUsername()+" hasn't got any item with the name: "+itemName);
+            logger.warn("queryUserItemByName: User: "+u.getUsername()+" hasn't got any item with the name: "+itemName);
             return temp;
         }
         else {
@@ -204,16 +220,24 @@ public class UserWorld implements IUserWorld {
             return temp;
         }
     }
+    @POST
+    @Path("/item/deleteAll")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public boolean deleteUserItems(User u) {
+        logger.info("deleteUserItems: Deleting all user: "+u.getUsername()+" items...");
+        getInstance().usersMap.get(u.getId()).getItems().clear();
 
-    public void deleteUserItems(User usr) {
-        logger.info("deleteUserItems: Deleting all user: "+usr.getUsername()+" items...");
-
-        usr.getItems().clear();
-        if (usr.getItems().isEmpty()) logger.info("All items deleted from the user: "+usr.getUsername());
-        else logger.fatal("deleteUserItems: Couldn't delete all user: "+usr.getUsername()+" items");
+        if (getInstance().usersMap.get(u.getId()).getItems().isEmpty()) {
+            logger.info("All items deleted from the user: "+u.getUsername());
+            return true;
+        }
+        else {
+            logger.fatal("deleteUserItems: Couldn't delete all user: "+u.getUsername()+" items");
+            return false;
+        }
     }
 
-    public void userToUserItemTransfer(User origin, User destination, Item i) {
+    public boolean userToUserItemTransfer(User origin, User destination, Item i) {
         logger.info("userToUserItemTransfer: Transfering item: "+i.getName()+" from user "+origin.getUsername()+" to "+destination.getUsername());
 
         destination.getItems().add(origin.getItem(i.getId()));
@@ -221,8 +245,10 @@ public class UserWorld implements IUserWorld {
         try {
             origin.getItems().remove(origin.getItems().size()-1);
             logger.info("userToUserItemTransfer: Item: "+i.getName()+" removed from original user: "+origin.getUsername());
+            return true;
         } catch (Exception ex) {
             logger.fatal("userToUserItemTransfer: IndexOutOfBoundsException Exception: Couldn't remove item: "+i.getName()+" from original user: "+origin.getUsername());
+            return false;
         }
     }
 

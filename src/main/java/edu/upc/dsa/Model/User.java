@@ -32,6 +32,12 @@ public class User {
         this.id = id;
         this.username = username;
     }
+
+    public User(int id, String username, ArrayList<Item> items){
+        this.id = id;
+        this.username = username;
+        this.items = new ArrayList<>(items);
+    }
     public User (){}
 
     public int getId() {
@@ -91,9 +97,9 @@ public class User {
     }
 
 
-    /*public void setItems(ArrayList<Item> items) { PRODUCES ERROR WITH MediaType.APPLICATION_JSON
+    public void setItems(ArrayList<Item> items) {
         this.items = items;
-    }*/
+    }
 
     public ArrayList<Item> getItems() {
         return items;
