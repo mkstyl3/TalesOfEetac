@@ -9,14 +9,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 /**
  * Unit test for simple App.
  */
 public class UserWorldTest {
-    
+
     // Loading data
 
     @Before
@@ -32,71 +31,74 @@ public class UserWorldTest {
     //Test functions
 
     @Test
-    public void createUserTest(){
+    public void setTest(){
         //Creating new user
         User new_user = new User(5, "Oriol", "12345678", 37, 30, 30, new Location(8,2));
-        Assert.assertTrue(UserWorld.getInstance().createUser(new_user));
+        Assert.assertTrue(UserWorld.getInstance().set(new_user));
         //Creating and existing user
         User new_user_2 = new User(1, "Marc", "1234", 34, 30, 30, new Location(5,4));
-        Assert.assertFalse(UserWorld.getInstance().createUser(new_user_2));
+        Assert.assertFalse(UserWorld.getInstance().set(new_user_2));
     }
 
 
     @Test
-    public void deleteUserTest() {
+    public void delTest() {
         //Deleting existing user
-        Assert.assertTrue(UserWorld.getInstance().deleteUser(2));
-        Assert.assertNull(UserWorld.getInstance().queryUser(2));
+        Assert.assertTrue(UserWorld.getInstance().del(2));
+        Assert.assertNull(UserWorld.getInstance().get(2));
         //Deleting an unexisting user
-        Assert.assertFalse(UserWorld.getInstance().deleteUser(6));
+        Assert.assertFalse(UserWorld.getInstance().del(6));
     }
 
     @Test
-    public void addItemUser() {
+    public void addItem() {
         //Adding item to user
         Item item_5 = new Item(5, "meat", 3, "minor heal", 0.2, 20);
-        UserWorld.getInstance().addItemUser(2, item_5);
-        Assert.assertTrue(UserWorld.getInstance().getUsersMap().get(2).getItems().contains(item_5));
+        UserWorld.getInstance().setItem(2, item_5);
+        Assert.assertTrue(UserWorld.getInstance().getItems(2).contains(item_5));
     }
 
     @Test
-    public void userItemListQueryTest() {
+    public void getItemsTest() {
         //user_3 has items
-        ArrayList<Item> list_aux = UserWorld.getInstance().userItemListQuery(3);
+        List<Item> list_aux = UserWorld.getInstance().getItems(3);
         Assert.assertEquals(list_aux.get(0).getId(), 1);
         Assert.assertEquals(list_aux.get(1).getId(), 2);
 
         //user_4 has no items
-        Assert.assertTrue(UserWorld.getInstance().userItemListQuery(4).isEmpty());
+        Assert.assertTrue(UserWorld.getInstance().getItems(4).isEmpty());
     }
 
     @Test
-    public void queryUserItemByNameTest() {
+    public void getItemByNameTest() {
         //user_1 have the item_1
-        int greaterThanZero = UserWorld.getInstance().queryUserItemByName(UserWorld.getInstance().getUsersMap().get(1), "potion").size();
-        Assert.assertTrue("List size must be greater than 0", greaterThanZero > 0);
+        Assert.assertNotNull(UserWorld.getInstance().getItemByName(1, "potion"));
 
-        //user_2 don't have the item_4
-        int zero = UserWorld.getInstance().queryUserItemByName(UserWorld.getInstance().getUsersMap().get(2), "awakening").size();
-        Assert.assertTrue("List size must be 0", zero == 0);
+        //user_1 don't have item called "awakening"
+        Assert.assertNull(UserWorld.getInstance().getItemByName(1, "awakening"));
     }
 
     @Test
-    public void deleteUserItems() { //////// Ask if it's valid
+    public void delItems() {
         //Deleting all items from usr_4
-        UserWorld.getInstance().deleteUserItems(UserWorld.getInstance().getUsersMap().get(4));
-        Assert.assertTrue(UserWorld.getInstance().getUsersMap().get(4).getItems().isEmpty());
+        UserWorld.getInstance().delItems(4);
+        Assert.assertTrue(UserWorld.getInstance().getItems(4).isEmpty());
     }
 
     @Test
-    public void userToUserItemTransferTest() { /////// Ask if its valid
-        //Transfering item_4 from user_1 to user_2...
-        Item origin = UserWorld.getInstance().getUsersMap().get(1).getItem(4);
-        UserWorld.getInstance().userToUserItemTransfer(UserWorld.getInstance().getUsersMap().get(1),UserWorld.getInstance().getUsersMap().get(2),origin);
-        //Cheking if user_2 has got item_4
-        Assert.assertEquals(UserWorld.getInstance().getUsersMap().get(2).getItem(4).getId(),origin.getId());
-        //Checking if user_1 has deleted his item_4
-        Assert.assertNull(UserWorld.getInstance().getUsersMap().get(1).getItem(4));
+    public void itemTransferTest() { //LOCAL, ONLY FOR EXAM PURPOSES
+        //inicialization
+        User u1 = new User();
+        User u2 = new User();
+        Item i = new Item();
+        u1.setItem(i);
+
+        //Test
+        Assert.assertTrue(UserWorld.getInstance().transferItem(u1,u2,i));
+        //u1 item list is empty?
+        Assert.assertTrue(u1.getItems().isEmpty());
+        //u2 has the item i?
+        Assert.assertNotNull(u2.getItems().get(0));
     }
 
 }

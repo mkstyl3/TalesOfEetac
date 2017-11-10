@@ -1,7 +1,6 @@
 package edu.upc.dsa.View;
 
 import edu.upc.dsa.Controller.*;
-import edu.upc.dsa.Model.Item;
 import edu.upc.dsa.Model.Location;
 import edu.upc.dsa.Model.Map;
 import edu.upc.dsa.Model.User;
@@ -32,11 +31,11 @@ public class App {
      * @return Grizzly HTTP server.
      */
     public static HttpServer startServer() {
-        // create a resource config that scans for JAX-RS resources and providers
+        // set a resource config that scans for JAX-RS resources and providers
         // in edu.upc.dsa package
         final ResourceConfig rc = new ResourceConfig().packages("edu.upc.dsa.Controller");
         //rc.register(MultiPartFeature.class);
-        // create and start a new instance of grizzly http server
+        // set and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
@@ -44,17 +43,17 @@ public class App {
     public static void main(String[] args) throws IOException {
         /*
 
-        System.out.println(WorldUser.getInstance().createUser(usr_1));
-        System.out.println(WorldUser.getInstance().createUser(usr_2));
-        System.out.println(WorldUser.getInstance().createUser(usr_3));
-        System.out.println(WorldUser.getInstance().createUser(usr_4));
+        System.out.println(WorldUser.getInstance().set(usr_1));
+        System.out.println(WorldUser.getInstance().set(usr_2));
+        System.out.println(WorldUser.getInstance().set(usr_3));
+        System.out.println(WorldUser.getInstance().set(usr_4));
 
-        WorldUser.getInstance().deleteUser(4);
+        WorldUser.getInstance().del(4);
 
-        WorldUser.getInstance().addItemUser(usr_1, item_1);
-        WorldUser.getInstance().deleteUserItems(usr_3);
-        WorldUser.getInstance().queryUserItemByName(usr_4, "healing");
-        WorldUser.getInstance().queryUserItemByName(usr_1,"potion");
+        WorldUser.getInstance().setItem(usr_1, item_1);
+        WorldUser.getInstance().delItems(usr_3);
+        WorldUser.getInstance().getItemByName(usr_4, "healing");
+        WorldUser.getInstance().getItemByName(usr_1,"potion");
         */
 
         final HttpServer server = startServer();
@@ -70,9 +69,9 @@ public class App {
 
         GameScreenWorld.getInstance().objectInitializations();
         User u = new User(1, "Marc", "1234", 34, 30, 30, new Location(5,4));
-        UserWorld.getInstance().createUser(u);
+        UserWorld.getInstance().set(u);
         Map map = GameScreenWorld.getInstance().createMap(GameScreenWorld.getInstance().getCurrentMapId());
-        GameScreenWorld.getInstance().loadMap(map);
+        GameScreenWorld.getInstance().setMap(map);
         GameScreenWorld.getInstance().initialUserLocation(u);
 
         //Exam procedures
@@ -89,18 +88,10 @@ public class App {
                     GameScreenWorld.getInstance().moveUserTo(u, "a");
                     break;
                 case 'd':
-                    //GameScreenWorld.getInstance() .moveUserTo(u,"d");
-                    ArrayList<Item> items = UserWorld.getInstance().getUsersMap().get(0).getItems();
-                    for (Item i: items) {
-                        System.out.println(i.getName());
-                    }
+                    GameScreenWorld.getInstance() .moveUserTo(u,"d");
                     break;
                 case 'w':
-                    //GameScreenWorld.getInstance().moveUserTo(u,"w");
-                    ArrayList<User> users = UserWorld.getInstance().getAllUsers();
-                    for (User usr: users) {
-                        System.out.println(usr.getUsername());
-                    }
+                    GameScreenWorld.getInstance().moveUserTo(u,"w");
                     break;
                 case 's':
                     GameScreenWorld.getInstance().moveUserTo(u,"s");
@@ -111,7 +102,7 @@ public class App {
 
 
     private static void printScreen(int mapId) {
-        Map map = GameScreenWorld.getInstance().getMapsArray()[mapId - 1];
+        Map map = GameScreenWorld.getInstance().getMap(mapId);
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 if (j == 9) System.out.println(map.getCellByCoords(i,j).getSymbol());

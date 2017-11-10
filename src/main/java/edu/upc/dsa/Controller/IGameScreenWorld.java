@@ -7,7 +7,7 @@ import edu.upc.dsa.Model.User;
 public interface IGameScreenWorld {
     void objectInitializations ();
     Map createMap (int mapId);
-    void loadMap (Map map);
+    void setMap (Map map);
     void initialUserLocation(User u);
     void moveUserTo (User u, String direction);
     void locateUserAtNextDoorLocation(Location currentDoorLoc, User u);

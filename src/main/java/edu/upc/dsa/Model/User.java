@@ -3,8 +3,11 @@ package edu.upc.dsa.Model;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
+
+    //Private atributes
 
     private int id;
     private String username;
@@ -12,9 +15,14 @@ public class User {
     private int atk;
     private int def;
     private int vit;
-
-    private ArrayList<Item> items;
+    private List<Item> items;
     private Location location;
+
+    //Constructors
+
+    public User () {
+        this.items = new ArrayList<>();
+    }
 
     public User(int id, String username, String password, int atk, int def, int vit, Location location) {
         this.id = id;
@@ -31,14 +39,10 @@ public class User {
     public User(int id, String username) {
         this.id = id;
         this.username = username;
+        this.items = new ArrayList<>();
     }
 
-    public User(int id, String username, ArrayList<Item> items){
-        this.id = id;
-        this.username = username;
-        this.items = new ArrayList<>(items);
-    }
-    public User (){}
+    //Getters and Sertters
 
     public int getId() {
         return id;
@@ -96,16 +100,15 @@ public class User {
         this.vit = vit;
     }
 
-
-    public void setItems(ArrayList<Item> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 
-    public ArrayList<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    //Custom
+    //Getters and Setters from "items" (It's a list)
 
     public void setItem (Item item) {
         this.items.add(item);
@@ -117,7 +120,4 @@ public class User {
         }
         return null;
     }
-
-
-
 }

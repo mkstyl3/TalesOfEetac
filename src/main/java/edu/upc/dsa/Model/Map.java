@@ -2,40 +2,38 @@ package edu.upc.dsa.Model;
 
 import edu.upc.dsa.Model.Cell.Cell;
 
-import java.util.ArrayList;
-
 public class Map {
 
-    private int mapId;
-    private Cell[] cellMap;
+    private int id;
+    private Cell[] cellArray;
 
     public Map () {}
 
-    public Map (int mapId, Cell[] cellmap) {
-        this.mapId = mapId;
-        cellMap = new Cell[100];
-        this.cellMap = cellmap;
+    public Map (int id, Cell[] cellmap) {
+        this.id = id;
+        cellArray = new Cell[100];
+        this.cellArray = cellmap;
     }
 
     public Cell getCell (Location cellLoc) {
-        return cellMap[cellLoc.getX()*10+cellLoc.getY()];
+        return cellArray[cellLoc.getX()*10+cellLoc.getY()];
     }
 
     public Cell getCellByCoords (int x, int y) {
-        return cellMap[x*10+y];
+        return cellArray[x*10+y];
     }
 
 
     public void setCell (Cell cell) {
-        this.cellMap[cell.getOnMapLoc().getX()*10+cell.getOnMapLoc().getY()] = cell;
+        this.cellArray[cell.getOnMapLoc().getX()*10+cell.getOnMapLoc().getY()] = cell;
     }
 
-    public int getMapId() {
-        return mapId;
+    public int getId() {
+        return id;
     }
 
-    public void setMapId(int mapId) {
-        this.mapId = mapId;
+    public void setId(int id) {
+        this.id = id;
     }
 
 
