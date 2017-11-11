@@ -9,30 +9,38 @@ import java.util.Map;
 public class UserWorld implements IUserWorld {
 
     //Variable declarations
+
     private static UserWorld instance = null;
     final static Logger logger = Logger.getLogger(UserWorld.class);
     private Map<Integer, User> map; // key=userId
 
     //Constructor
+
     public UserWorld(){
         map = new HashMap<>();
     }
 
-    //Getters and setters
+    //Getters and Setters
+
     public Map<Integer, User> getMap() {
         return map;
     }
     public void setMap(Map<Integer, User> map) {
         this.map = map;
     }
+    public String getUsername (int id) {
+        return get(id).getUsername();
+    }
 
     //Singleton pattern
+
     public static UserWorld getInstance() {
         if (instance == null) instance = new UserWorld();
         return instance;
     }
 
     //Private functions
+
     private Boolean doExist(int id){
         logger.info("doExist: Checking if user id: "+id+" exists...");
 
@@ -47,7 +55,7 @@ public class UserWorld implements IUserWorld {
         }
     }
 
-    private ArrayList<User> sortItemsById(ArrayList<User> users) {
+    private ArrayList<User> sortUsersById(ArrayList<User> users) {
         users.sort(Comparator.comparing(User::getId));
         return users;
     }
@@ -95,15 +103,11 @@ public class UserWorld implements IUserWorld {
     }
 
     public ArrayList<User> getAllSortedById() {
-        return sortItemsById(getAll());
+        return sortUsersById(getAll());
     }
 
 
     //User Specific
-
-    public String getUsername (int id) {
-        return get(id).getUsername();
-    }
 
     public Boolean set(User u) {
         logger.info("set: Creating user: "+u.getUsername()+" ...");

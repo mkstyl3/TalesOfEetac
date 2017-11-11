@@ -2,12 +2,16 @@ package edu.upc.dsa.Model;
 
 public class Item {
 
+    //Variable declarations
+
     private int id;
     private String name;
     private int type;
     private String description;
     private double value;
     private int cost;
+
+    //Constructors
 
     public Item(int id, String name, int type, String description, double value, int cost) {
         this.id = id;
@@ -19,6 +23,8 @@ public class Item {
     }
 
     public Item (){}
+
+    //Getters and Setters
 
     public int getId() {
         return id;

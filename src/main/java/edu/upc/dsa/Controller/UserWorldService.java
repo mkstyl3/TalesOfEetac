@@ -56,7 +56,7 @@ public class UserWorldService {
     }
 
     @POST
-    @Path("/{id}/setItem")
+    @Path("/{id}/items/setItem")
     @Consumes(MediaType.APPLICATION_JSON)
     public boolean addItemUserService(@PathParam("id") int userId, Item i){
         return UserWorld.getInstance().setItem(userId,i);
@@ -83,7 +83,7 @@ public class UserWorldService {
     }
 
     @POST
-    @Path("/item/transfer")
+    @Path("/{id}/items/transfer")
     @Consumes(MediaType.APPLICATION_JSON)
     public boolean userToUserItemTransferService(Transfer transfer) {
         return UserWorld.getInstance().transferItem((User)transfer.getOrigin(), (User)transfer.getDestination(), (Item)transfer.getItem());
