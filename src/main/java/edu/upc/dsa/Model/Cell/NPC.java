@@ -10,6 +10,14 @@ public class NPC extends Cell {
     public NPC () {};
 
     private String dialogue;
+    
+    public String getDialogue(){
+        return dialogue;
+    }
+    
+    public void setDialogue (String dialogue){
+        this.dialogue=dialogue;
+    }
 
     @Override
     public String getSymbol () {return this.symbol; }
