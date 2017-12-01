@@ -64,7 +64,7 @@ public class UserWorld implements IUserWorld {
 
     //General Functions
 
-    public Boolean initializeUsers() {
+    /*public Boolean initializeUsers() {
 
         User usr_1 = new User(1, "Marc", "1234", 34, 30, 30, new Location(5,4));
         User usr_2 = new User(2, "Gerard", "1234", 34, 30, 30, new Location(5,4));
@@ -96,7 +96,7 @@ public class UserWorld implements IUserWorld {
         // usr_4 has no items
 
         return true;
-    }
+    }*/
 
     public ArrayList<User> getAll() {
         return new ArrayList<>(map.values());
