@@ -112,7 +112,7 @@ public class GameScreenWorld implements IGameScreenWorld {
                 nextCellLoc.setCoords(u.getLocation().getX() + 1, u.getLocation().getY());
                 break;
         }
-        switch (getCell(currentMapId, nextCellLoc).getSymbol()) {
+        switch (getCell(currentMapId, nextCellLoc).getSYMBOL()) {
             case "#":
                 break;
             case "T":
@@ -120,6 +120,9 @@ public class GameScreenWorld implements IGameScreenWorld {
             case "C":
                 break;
             case "N":
+                NPC npcCell = (NPC)getCell(currentMapId, nextCellLoc);
+                npcCell.setDialogue("HOLA K TAL");
+                System.out.println(npcCell.getDialogue());
                 break;
             case "D":
                 locateUserAtNextDoorLocation(nextCellLoc, u); //Get next door by door coords

@@ -5,12 +5,19 @@ package edu.upc.dsa.Model.Cell;
  */
 public class NPC extends Cell {
 
-    final protected String symbol = "N";
+    final protected String SYMBOL = "N";
+    private String dialogue;
 
     public NPC () {};
 
-    private String dialogue;
+    public String getDialogue() {
+        return dialogue;
+    }
+
+    public void setDialogue(String dialogue) {
+        this.dialogue = dialogue;
+    }
 
     @Override
-    public String getSymbol () {return this.symbol; }
+    public String getSYMBOL() {return this.SYMBOL; }
 }

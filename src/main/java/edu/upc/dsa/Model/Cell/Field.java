@@ -9,7 +9,7 @@ public class Field extends Cell {
     public Field () {}
 
     @Override
-    public String getSymbol() {
+    public String getSYMBOL() {
         return this.symbol;
     }
 }

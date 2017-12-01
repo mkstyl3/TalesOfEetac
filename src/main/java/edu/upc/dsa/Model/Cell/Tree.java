@@ -9,7 +9,7 @@ public class Tree extends Cell {
     public Tree () {}
 
     @Override
-    public String getSymbol() {
+    public String getSYMBOL() {
         return this.symbol;
     }
 

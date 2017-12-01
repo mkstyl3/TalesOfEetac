@@ -28,7 +28,7 @@ public abstract class Cell {
     protected Location onMapLoc;
 
     //Custom implementation on Subclasses
-    public abstract String getSymbol();
+    public abstract String getSYMBOL();
 
     //No Constructor because it's abstract
 

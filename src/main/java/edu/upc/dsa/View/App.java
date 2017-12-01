@@ -105,8 +105,8 @@ public class App {
         Map map = GameScreenWorld.getInstance().getMap(mapId);
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                if (j == 9) System.out.println(map.getCellByCoords(i,j).getSymbol());
-                else System.out.print(map.getCellByCoords(i,j).getSymbol());
+                if (j == 9) System.out.println(map.getCellByCoords(i,j).getSYMBOL());
+                else System.out.print(map.getCellByCoords(i,j).getSYMBOL());
             }
         }
     }

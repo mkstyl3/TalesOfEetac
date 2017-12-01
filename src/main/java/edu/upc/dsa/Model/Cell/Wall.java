@@ -9,7 +9,7 @@ public class Wall extends Cell {
     public Wall () {}
 
     @Override
-    public String getSymbol() {
+    public String getSYMBOL() {
         return this.symbol;
     }
 }
