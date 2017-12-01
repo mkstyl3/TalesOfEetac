@@ -1,1 +1,0 @@
-Primera entrega Juan acabada.
