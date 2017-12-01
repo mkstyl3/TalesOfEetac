@@ -2,8 +2,9 @@ package edu.upc.dsa.Model;
 
 
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.HashMap;
+
 
 public class User {
 
@@ -12,26 +13,20 @@ public class User {
     private int id;
     private String username;
     private String password;
-    private int atk;
-    private int def;
-    private int vit;
-    private List<Item> items;
+    private HashMap<String,Integer> items;
     private Location location;
 
     //Constructors
 
     public User () {
-        this.items = new ArrayList<>();
+        this.items = new HashMap<String, Integer>();
     }
 
-    public User(int id, String username, String password, int atk, int def, int vit, Location location) {
+    public User(int id, String username, String password, Location location) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.atk = atk;
-        this.def = def;
-        this.vit = vit;
-        this.items = new ArrayList<>();
+        this.items = new HashMap<String, Integer>();
         this.location = location;
 
     }
@@ -39,7 +34,7 @@ public class User {
     public User(int id, String username) {
         this.id = id;
         this.username = username;
-        this.items = new ArrayList<>();
+        this.items = new HashMap<String, Integer>();
     }
 
     //Getters and Sertters
@@ -76,48 +71,32 @@ public class User {
         this.password = password;
     }
 
-    public int getAtk() {
-        return atk;
-    }
-
-    public void setAtk(int atk) {
-        this.atk = atk;
-    }
-
-    public int getDef() {
-        return def;
-    }
-
-    public void setDef(int def) {
-        this.def = def;
-    }
-
-    public int getVit() {
-        return vit;
-    }
-
-    public void setVit(int vit) {
-        this.vit = vit;
-    }
-
-    public void setItems(List<Item> items) {
+    public void setItems(HashMap<String,Integer> items) {
         this.items = items;
     }
 
-    public List<Item> getItems() {
+    public HashMap<String,Integer> getItems() {
         return items;
     }
 
     //Getters and Setters from "items" (It's a list)
 
-    public void setItem (Item item) {
-        this.items.add(item);
+    public void setItem (String item,Integer cantidad) {
+
+        this.items.put(item,cantidad);
     }
 
-    public Item getItem (int id) {
-        for (Item i: this.items) {
-            if (i.getId() == id) return i;
+    public Integer getItem (String item) {
+
+        Integer cantidad = this.items.get(item);
+
+        if (cantidad == null){
+        return 0;
         }
-        return null;
+        else {
+            return cantidad;
+        }
+
+
     }
 }
