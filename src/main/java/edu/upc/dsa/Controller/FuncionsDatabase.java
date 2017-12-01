@@ -47,4 +47,29 @@ public class FuncionsDatabase {
         return query.toString();
     }
 
+    public void Guardar (User user) throws SQLException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, NoSuchFieldException {
+        String query = GuardarQuery(user);
+        Connection con = getConnection();
+
+        con.prepareStatement(query).execute();
+
+
+        con.close();
+    }
+
+    public String RegistrarQuery (User user){
+        
+        StringBuffer query = new StringBuffer("INSERT INTO users (id,nom,password,jamones,drogas,cable_ethernet,x,y) VALUES ( ");
+        query.append(user.getId());
+        query.append(" , '");
+        query.append(user.getUsername());
+        query.append("' , '");
+        query.append(user.getPassword());
+        query.append("' , 0 , 0 , 0 , 0 , 0)");
+        return query.toString();
+
+    }
+
+
+
 }

@@ -29,3 +29,5 @@
 - Implementar cela que et sumi un objecte.
 
 - Implementar funcio Guardar a les celes Door i punts estrategics de les pantalles.
+
+- Mirar quina es la posició de sortida del primer mapa i modificar-la a la funció registrarQuery
