@@ -13,6 +13,7 @@ public class User {
     private int id;
     private String username;
     private String password;
+    private int lastMap;
     private HashMap<String,Integer> items;
     private Location location;
 
@@ -71,15 +72,17 @@ public class User {
         this.password = password;
     }
 
-    public void setItems(HashMap<String,Integer> items) {
+    public int getlastMap () {return lastMap;}
+
+    public void setlastMap (int lastMap) {this.lastMap = lastMap;}
+
+    public void setAllItems(HashMap<String,Integer> items) {
         this.items = items;
     }
 
-    public HashMap<String,Integer> getItems() {
+    public HashMap<String,Integer> getAllItems() {
         return items;
     }
-
-    //Getters and Setters from "items" (It's a list)
 
     public void setItem (String item,Integer cantidad) {
 
