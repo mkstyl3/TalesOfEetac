@@ -1,4 +1,4 @@
-package edu.upc.dsa.Controller.Database.Repository;
+package edu.upc.dsa.Controller.GameDB.Repository;
 
 import edu.upc.dsa.Model.User;
 

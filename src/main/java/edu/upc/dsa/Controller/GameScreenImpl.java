@@ -10,11 +10,11 @@ import org.apache.log4j.Logger;
 
 import java.io.*;
 
-public class GameScreenWorld implements IGameScreenWorld {
+public class GameScreenImpl implements GameScreen {
 
     //Variable declarations
-    final static Logger logger = Logger.getLogger(UserWorld.class);
-    private static GameScreenWorld instance = null;
+    final static Logger logger = Logger.getLogger(UserWorldImpl.class);
+    private static GameScreenImpl instance = null;
 
     private int currentMapId = 1;
     private Map[] mapsArray;
@@ -56,8 +56,8 @@ public class GameScreenWorld implements IGameScreenWorld {
     }
 
     //Singleton pattern
-    public static GameScreenWorld getInstance() {
-        if (instance == null) instance = new GameScreenWorld();
+    public static GameScreenImpl getInstance() {
+        if (instance == null) instance = new GameScreenImpl();
         return instance;
     }
 

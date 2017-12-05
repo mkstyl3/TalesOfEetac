@@ -1,7 +1,6 @@
-package edu.upc.dsa.Controller.Database.DAO;
+package edu.upc.dsa.Controller.GameDB.DAO;
 
-import edu.upc.dsa.Controller.Database.Repository.DAOUser;
-import edu.upc.dsa.Model.Item;
+import edu.upc.dsa.Controller.GameDB.Repository.DAOUser;
 import edu.upc.dsa.Model.User;
 
 import java.lang.reflect.Field;
@@ -28,7 +27,7 @@ public class DAOImpl implements DAOUser {
         //com.mysql.cj.jdbc.Driver, lo detecta automaticamente
         //DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
         Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/daodb", "root", "1234");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDb", "phpmyadmin@localhost", "phpmyadmin");
         System.out.println("Connected to database");
         return con;
     }

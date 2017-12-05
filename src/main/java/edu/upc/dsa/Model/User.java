@@ -19,14 +19,14 @@ public class User {
     //Constructors
 
     public User () {
-        this.items = new HashMap<String, Integer>();
+        this.items = new HashMap<>();
     }
 
     public User(int id, String username, String password, Location location) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.items = new HashMap<String, Integer>();
+        this.items = new HashMap<>();
         this.location = location;
 
     }
@@ -34,7 +34,7 @@ public class User {
     public User(int id, String username) {
         this.id = id;
         this.username = username;
-        this.items = new HashMap<String, Integer>();
+        this.items = new HashMap<>();
     }
 
     //Getters and Sertters
@@ -96,7 +96,5 @@ public class User {
         else {
             return cantidad;
         }
-
-
     }
 }

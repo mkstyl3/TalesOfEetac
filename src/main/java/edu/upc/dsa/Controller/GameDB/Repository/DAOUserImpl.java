@@ -1,14 +1,12 @@
-package edu.upc.dsa.Controller.Database.Repository;
+package edu.upc.dsa.Controller.GameDB.Repository;
 
-import edu.upc.dsa.Controller.Database.DAO.DAO;
-import edu.upc.dsa.Controller.Database.DAO.DAOImpl;
 import edu.upc.dsa.Model.User;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.List;
 
-import static edu.upc.dsa.Controller.Database.DAO.DAOImpl.getInstance;
+import static edu.upc.dsa.Controller.GameDB.DAO.DAOImpl.getInstance;
 
 public abstract class DAOUserImpl implements DAOUser {
 

@@ -18,7 +18,7 @@ public class UserWorldTest {
 
     // Loading data
 
-    @Before
+    /*@Before
     public void setUp() throws Exception {
         UserWorld.getInstance().initializeUsers();
     }
@@ -99,7 +99,7 @@ public class UserWorldTest {
         Assert.assertTrue(u1.getItems().isEmpty());
         //u2 has the item i?
         Assert.assertNotNull(u2.getItems().get(0));
-    }
+    }*/
 
 }
 

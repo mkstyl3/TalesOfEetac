@@ -33,7 +33,7 @@ public class App {
     public static HttpServer startServer() {
         // set a resource config that scans for JAX-RS resources and providers
         // in edu.upc.dsa package
-        final ResourceConfig rc = new ResourceConfig().packages("edu.upc.dsa.Controller");
+        final ResourceConfig rc = new ResourceConfig().packages("edu.upc.dsa.View");
         //rc.register(MultiPartFeature.class);
         // set and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
@@ -67,34 +67,34 @@ public class App {
 
 
 
-        GameScreenWorld.getInstance().objectInitializations();
-        User u = new User(1, "Marc", "1234", 34, 30, 30, new Location(5,4));
-        UserWorld.getInstance().set(u);
-        Map map = GameScreenWorld.getInstance().createMap(GameScreenWorld.getInstance().getCurrentMapId());
-        GameScreenWorld.getInstance().setMap(map);
-        GameScreenWorld.getInstance().initialUserLocation(u);
+        GameScreenImpl.getInstance().objectInitializations();
+        User u = new User(1, "Marc", "1234",new Location(5,4));
+        UserWorldImpl.getInstance().set(u);
+        Map map = GameScreenImpl.getInstance().createMap(GameScreenImpl.getInstance().getCurrentMapId());
+        GameScreenImpl.getInstance().setMap(map);
+        GameScreenImpl.getInstance().initialUserLocation(u);
 
         //Exam procedures
 
-        UserWorld.getInstance().initializeUsers();
+        //UserWorld.getInstance().initializeUsers();
 
         Scanner scanner = new Scanner(System.in);
         char input;
         Boolean bucle = true;
         while(bucle) {
-            printScreen(GameScreenWorld.getInstance().getCurrentMapId());
+            printScreen(GameScreenImpl.getInstance().getCurrentMapId());
             switch (input = scanner.nextLine().charAt(0)) {
                 case 'a':
-                    GameScreenWorld.getInstance().moveUserTo(u, "a");
+                    GameScreenImpl.getInstance().moveUserTo(u, "a");
                     break;
                 case 'd':
-                    GameScreenWorld.getInstance() .moveUserTo(u,"d");
+                    GameScreenImpl.getInstance() .moveUserTo(u,"d");
                     break;
                 case 'w':
-                    GameScreenWorld.getInstance().moveUserTo(u,"w");
+                    GameScreenImpl.getInstance().moveUserTo(u,"w");
                     break;
                 case 's':
-                    GameScreenWorld.getInstance().moveUserTo(u,"s");
+                    GameScreenImpl.getInstance().moveUserTo(u,"s");
                     break;
             }
         }
@@ -102,7 +102,7 @@ public class App {
 
 
     private static void printScreen(int mapId) {
-        Map map = GameScreenWorld.getInstance().getMap(mapId);
+        Map map = GameScreenImpl.getInstance().getMap(mapId);
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 if (j == 9) System.out.println(map.getCellByCoords(i,j).getSYMBOL());

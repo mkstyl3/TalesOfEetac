@@ -4,7 +4,7 @@ import edu.upc.dsa.Model.Location;
 import edu.upc.dsa.Model.Map;
 import edu.upc.dsa.Model.User;
 
-public interface IGameScreenWorld {
+public interface GameScreen {
     void objectInitializations ();
     Map createMap (int mapId);
     void setMap (Map map);
