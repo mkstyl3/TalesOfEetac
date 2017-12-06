@@ -24,7 +24,7 @@ public class DAOImpl implements DAOUser {
         return instance;
     }
 
-    public void insert(Object object) throws DAOException {
+    public Object insert(Object object) throws DAOException {
 
         try {
             Connection con = getConnection();
@@ -37,17 +37,18 @@ public class DAOImpl implements DAOUser {
             if (generatedKeys.next()) setField(generatedKeys.getInt(1), "id", object);
             preparedStatement.close();
             con.close();
+
+            return object;
         }
         catch (ReflectionException | SQLException e) {
             throw new DAOException("Insert function",e);
         }
-
     }
 
     public Object select(Object object, int primaryKey) throws DAOException {
         try {
-            String query = getSelectQuery(object);
             Connection con = getConnection();
+            String query = getSelectQuery(object);
 
             PreparedStatement preparedStatement = con.prepareStatement(query);
             int position = 1;
@@ -70,8 +71,91 @@ public class DAOImpl implements DAOUser {
         catch (ReflectionException | SQLException e) {
             throw new DAOException("Select function",e);
         }
-
     }
+
+    public Object selectByName(Object object, String name) throws DAOException {
+        try {
+            Connection con = getConnection();
+            String query = getSelectWithUsernameQuery(object);
+
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setObject(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+
+            while (resultSet.next()) {
+                setFieldsFromResultSet(resultSet, resultSetMetaData, object);
+            }
+            resultSet.beforeFirst();
+            if(!resultSet.next()){
+                object = null;
+            }
+            preparedStatement.close();
+            con.close();
+
+            return object;
+        }
+        catch (ReflectionException | SQLException e) {
+            throw new DAOException("Select function",e);
+        }
+    }
+
+
+
+    public Object selectByUsernameAndPw(Object object, int primaryKey) throws DAOException {
+        try {
+            Connection con = getConnection();
+            String query = getSelectWithUsernameAndPwQuery(object);
+
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            int position = 1;
+            addPrimaryKeyParameter(preparedStatement, position, primaryKey);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+
+            while (resultSet.next()) {
+                setFieldsFromResultSet(resultSet, resultSetMetaData, object);
+            }
+            resultSet.beforeFirst();
+            if(!resultSet.next()){
+                object = null;
+            }
+            preparedStatement.close();
+            con.close();
+
+            return object;
+        }
+        catch (ReflectionException | SQLException e) {
+            throw new DAOException("Select function",e);
+        }
+    }
+
+    public List selectAll(Class classToLoad) throws DAOException {
+        try {
+            Connection con = getConnection();
+            List<Object> objects = new ArrayList<>();
+            String query = getSelectAllQuery(classToLoad);
+
+
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            while (resultSet.next()) {
+                Object newObject = classToLoad.newInstance();
+                setFieldsFromResultSet(resultSet, resultSetMetaData, newObject);
+                objects.add(newObject);
+            }
+            preparedStatement.close();
+            con.close();
+
+            return objects;
+        }
+        catch (ReflectionException | SQLException | IllegalAccessException | InstantiationException e) {
+            throw new DAOException("SelectAll function",e);
+        }
+    }
+
+
 
     public void update(Object object) throws DAOException {
         try {
@@ -91,7 +175,6 @@ public class DAOImpl implements DAOUser {
         catch (ReflectionException | SQLException e) {
             throw new DAOException("Update function",e);
         }
-
     }
 
     public void delete(Object object) throws DAOException {
@@ -112,29 +195,7 @@ public class DAOImpl implements DAOUser {
         }
     }
 
-    public List selectAll(Class classToLoad) throws DAOException {
-        try {
-            List<Object> objects = new ArrayList<>();
-            String query = getSelectAllQuery(classToLoad);
-            Connection con = getConnection();
 
-            PreparedStatement preparedStatement = con.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-            while (resultSet.next()) {
-                Object newObject = classToLoad.newInstance();
-                setFieldsFromResultSet(resultSet, resultSetMetaData, newObject);
-                objects.add(newObject);
-            }
-            preparedStatement.close();
-            con.close();
-
-            return objects;
-        }
-        catch (ReflectionException | SQLException | IllegalAccessException | InstantiationException e) {
-            throw new DAOException("SelectAll function",e);
-        }
-    }
 
     private Connection getConnection() throws SQLException, ReflectionException {
 
@@ -167,6 +228,24 @@ public class DAOImpl implements DAOUser {
         StringBuilder query = new StringBuilder("SELECT * FROM ");
         query.append(object.getClass().getSimpleName());
         query.append(" WHERE id=?");
+
+        return query.toString();
+    }
+
+    private String getSelectWithUsernameQuery(Object object) {
+        StringBuilder query = new StringBuilder("SELECT * FROM ");
+        query.append(object.getClass().getSimpleName());
+        query.append(" WHERE username=?");
+
+        return query.toString();
+    }
+
+    private String getSelectWithUsernameAndPwQuery (Object object){
+        StringBuilder query = new StringBuilder("SELECT * FROM ");
+        query.append(object.getClass().getSimpleName());
+        query.append(" WHERE id=?");
+        query.append(" AND username=?");
+        query.append(" AND password=?");
 
         return query.toString();
     }
@@ -367,14 +446,41 @@ public class DAOImpl implements DAOUser {
     }
 
     @Override
-    public void insertUser(User user) throws DAOUserException {
+    public User selectUserByUsername(String username) throws DAOUserException {
+        User u = new User();
+        u.setUsername(username);
         try {
-            getInstance().insert(user);
+            return (User) getInstance().selectByName(u, username);
         }
         catch (DAOException e) {
             throw new DAOUserException("DAO User level",e );
         }
+    }
 
+    @Override
+    public User selectUserByUsernameAndPw(int primaryKey) throws DAOUserException {
+        User u = new User();
+        try {
+            return (User) getInstance().selectByUsernameAndPw(u, primaryKey);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
+    }
+
+
+
+    @Override
+    public User insertUser(User user) throws DAOUserException {
+        User v;
+
+        try {
+            v= (User)getInstance().insert(user);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
+        return v;
     }
 
     @Override

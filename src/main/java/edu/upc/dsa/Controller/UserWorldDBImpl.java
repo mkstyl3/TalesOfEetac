@@ -1,16 +1,24 @@
 package edu.upc.dsa.Controller;
 
+import edu.upc.dsa.Controller.GameDB.DAO.DAO;
+import edu.upc.dsa.Controller.GameDB.DAO.DAOImpl;
+import edu.upc.dsa.Model.Service.Login;
 import edu.upc.dsa.Model.User;
+import edu.upc.dsa.View.ExceptionHandling.DAOException;
+import edu.upc.dsa.View.ExceptionHandling.DAOUserException;
+import edu.upc.dsa.View.ExceptionHandling.UserWorldDbException;
+import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
-public class FuncionsDatabase {
+public class UserWorldDBImpl {
 
-    private static FuncionsDatabase instance = null;
+    final static Logger logger = Logger.getLogger(UserWorldDBImpl.class);
+    private static UserWorldDBImpl instance = null;
 
-    public static FuncionsDatabase getInstance() {
-        if (instance == null) instance = new FuncionsDatabase();
+    public static UserWorldDBImpl getInstance() {
+        if (instance == null) instance = new UserWorldDBImpl();
         return instance;
     }
 
@@ -70,6 +78,54 @@ public class FuncionsDatabase {
 
     }
 
+    public Login login(int primaryKey) {
+        Login authenticationResult = new Login();
+        User u = null;
 
+        try {
+            u = DAOImpl.getInstance().selectUserByUsernameAndPw(primaryKey);
+        } catch (DAOUserException e) {
+            e.printStackTrace();
+        }
+        if (u != null) {
+            authenticationResult.userId = u.getId();
+            authenticationResult.successful = true;
+            authenticationResult.isadmin = u.getAdmin();
+        }
 
+        return authenticationResult;
+    }
+
+    private boolean doExist(String username) throws UserWorldDbException {
+        logger.info("doExist: Checking if user with username: " + username + " exists...");
+        boolean doExist = false;
+
+        try {
+            if (DAOImpl.getInstance().selectUserByUsername(username) != null) {
+                logger.info("doExist: User with username: " + username + " already exists");
+                doExist = true;
+            } else {
+                logger.info("doExist: User with username: " + username + " doesn't exist");
+            }
+        }
+        catch (DAOUserException e) {
+            throw new UserWorldDbException("UserWorldDb lvl", e);
+        }
+
+        return doExist;
+    }
+
+    public User register(User u) throws UserWorldDbException {
+       User v;
+
+       try {
+            v = DAOImpl.getInstance().insertUser(u);
+        }
+
+        catch (DAOUserException e) {
+            throw new UserWorldDbException("UserWorldDb lvl",e);
+        }
+
+        return v;
+    }
 }

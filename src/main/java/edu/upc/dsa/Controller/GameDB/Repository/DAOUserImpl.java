@@ -3,9 +3,6 @@ package edu.upc.dsa.Controller.GameDB.Repository;
 import edu.upc.dsa.Model.User;
 import edu.upc.dsa.View.ExceptionHandling.DAOException;
 import edu.upc.dsa.View.ExceptionHandling.DAOUserException;
-
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
 import java.util.List;
 
 import static edu.upc.dsa.Controller.GameDB.DAO.DAOImpl.getInstance;
@@ -31,14 +28,36 @@ public abstract class DAOUserImpl implements DAOUser {
         }
     }
 
-    public void insertUser(User user) throws DAOUserException {
+    public User selectUserByUsername (String username) throws DAOUserException {
+        User u = new User();
+        u.setUsername(username);
         try {
-            getInstance().insert(user);
+            return (User) getInstance().selectByName(u, username);
         }
         catch (DAOException e) {
             throw new DAOUserException("DAO User level",e );
         }
+    }
 
+    public User selectUserByUsernameAndPw (int primaryKey) throws DAOUserException {
+        User u = new User();
+        try {
+            return (User) getInstance().selectByUsernameAndPw(u, primaryKey);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
+    }
+
+    public User insertUser(User user) throws DAOUserException {
+        User v;
+        try {
+            v = (User)getInstance().insert(user);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
+        return v;
     }
 
     public void updateUser(User user) throws DAOUserException {
@@ -57,6 +76,5 @@ public abstract class DAOUserImpl implements DAOUser {
         catch (DAOException e) {
             throw new DAOUserException("DAO User level",e );
         }
-
     }
 }

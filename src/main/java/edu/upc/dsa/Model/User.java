@@ -16,6 +16,7 @@ public class User {
     private int lastMap;
     private HashMap<String,Integer> items;
     private Location location;
+    private boolean admin;
 
     //Constructors
 
@@ -29,13 +30,15 @@ public class User {
         this.password = password;
         this.items = new HashMap<>();
         this.location = location;
-
     }
 
-    public User(int id, String username) {
+    public User(int id, String username, String password, boolean admin) {
         this.id = id;
         this.username = username;
+        this.password = password;
+        this.admin = admin;
         this.items = new HashMap<>();
+
     }
 
     //Getters and Sertters
@@ -72,9 +75,9 @@ public class User {
         this.password = password;
     }
 
-    public int getlastMap () {return lastMap;}
+    public int getLastMap() {return lastMap;}
 
-    public void setlastMap (int lastMap) {this.lastMap = lastMap;}
+    public void setLastMap(int lastMap) {this.lastMap = lastMap;}
 
     public void setAllItems(HashMap<String,Integer> items) {
         this.items = items;
@@ -99,5 +102,13 @@ public class User {
         else {
             return cantidad;
         }
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 }
