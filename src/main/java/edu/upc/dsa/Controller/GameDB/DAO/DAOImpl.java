@@ -2,6 +2,9 @@ package edu.upc.dsa.Controller.GameDB.DAO;
 
 import edu.upc.dsa.Controller.GameDB.Repository.DAOUser;
 import edu.upc.dsa.Model.User;
+import edu.upc.dsa.View.ExceptionHandling.DAOException;
+import edu.upc.dsa.View.ExceptionHandling.DAOUserException;
+import edu.upc.dsa.View.ExceptionHandling.ReflectionException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -13,109 +16,141 @@ import java.util.List;
 
 public class DAOImpl implements DAOUser {
 
-
     private static DAOImpl instance = null;
 
     public static DAOImpl getInstance() {
         if (instance == null) instance = new DAOImpl();
+
         return instance;
     }
 
-    public Connection getConnection() throws SQLException, ClassNotFoundException {
+    public void insert(Object object) throws DAOException {
 
-        Connection con = null;
+        try {
+            Connection con = getConnection();
+            String query = getInsertQuery(object);
+
+            PreparedStatement preparedStatement = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            addClassFieldsParameters(object, preparedStatement);
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) setField(generatedKeys.getInt(1), "id", object);
+            preparedStatement.close();
+            con.close();
+        }
+        catch (ReflectionException | SQLException e) {
+            throw new DAOException("Insert function",e);
+        }
+
+    }
+
+    public Object select(Object object, int primaryKey) throws DAOException {
+        try {
+            String query = getSelectQuery(object);
+            Connection con = getConnection();
+
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            int position = 1;
+            addPrimaryKeyParameter(preparedStatement, position, primaryKey);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+
+            while (resultSet.next()) {
+                setFieldsFromResultSet(resultSet, resultSetMetaData, object);
+            }
+            resultSet.beforeFirst();
+            if(!resultSet.next()){
+                object = null;
+            }
+            preparedStatement.close();
+            con.close();
+
+            return object;
+        }
+        catch (ReflectionException | SQLException e) {
+            throw new DAOException("Select function",e);
+        }
+
+    }
+
+    public void update(Object object) throws DAOException {
+        try {
+            String query = getUpdateQuery(object);
+            Connection con = getConnection();
+
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            addClassFieldsParameters(object, preparedStatement);
+            int primaryKey = getPrimaryKeyParameter(object);
+            List<Field> nonObjectDeclaredFields = getNonGenericObjectDeclaredFields(object);
+            int position = (nonObjectDeclaredFields.size() + 1);
+            addPrimaryKeyParameter(preparedStatement, position, primaryKey);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            con.close();
+        }
+        catch (ReflectionException | SQLException e) {
+            throw new DAOException("Update function",e);
+        }
+
+    }
+
+    public void delete(Object object) throws DAOException {
+        try {
+            String query = getDeleteQuery(object);
+            Connection con = getConnection();
+
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            int position = 1;
+            int primaryKey = getPrimaryKeyParameter(object);
+            addPrimaryKeyParameter(preparedStatement, position, primaryKey);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            con.close();
+        }
+        catch (ReflectionException | SQLException e) {
+            throw new DAOException("Delete function",e);
+        }
+    }
+
+    public List selectAll(Class classToLoad) throws DAOException {
+        try {
+            List<Object> objects = new ArrayList<>();
+            String query = getSelectAllQuery(classToLoad);
+            Connection con = getConnection();
+
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            while (resultSet.next()) {
+                Object newObject = classToLoad.newInstance();
+                setFieldsFromResultSet(resultSet, resultSetMetaData, newObject);
+                objects.add(newObject);
+            }
+            preparedStatement.close();
+            con.close();
+
+            return objects;
+        }
+        catch (ReflectionException | SQLException | IllegalAccessException | InstantiationException e) {
+            throw new DAOException("SelectAll function",e);
+        }
+    }
+
+    private Connection getConnection() throws SQLException, ReflectionException {
+
         //com.mysql.cj.jdbc.Driver, lo detecta automaticamente
         //DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
-        Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDb", "phpmyadmin@localhost", "phpmyadmin");
-        System.out.println("Connected to database");
-        return con;
-    }
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDb", "phpmyadmin@localhost", "phpmyadmin");
+            System.out.println("Connected to database");
 
-    public void insert(Object object) throws SQLException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, NoSuchFieldException {
-        String query = getInsertQuery(object);
-        Connection con = getConnection();
-
-        PreparedStatement preparedStatement = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-        addClassFieldsParameters(object, preparedStatement);
-        preparedStatement.executeUpdate();
-        ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-        if (generatedKeys.next()) setField(generatedKeys.getInt(1), "id", object);
-        preparedStatement.close();
-        con.close();
-    }
-
-
-    public Object select(Object object, int primaryKey) throws SQLException, ClassNotFoundException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        String query = getSelectQuery(object);
-        Connection con = getConnection();
-
-        PreparedStatement preparedStatement = con.prepareStatement(query);
-        int position = 1;
-        addPrimaryKeyParameter(preparedStatement, position, primaryKey);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-
-        while (resultSet.next()) {
-            setFieldsFromResultSet(resultSet, resultSetMetaData, object);
+            return con;
         }
-        resultSet.beforeFirst();
-        if(!resultSet.next()){
-            object = null;
-        }
-        preparedStatement.close();
-        con.close();
-
-        return object;
+        catch (ClassNotFoundException e) {throw new ReflectionException("Class.forName doesn't work",e);}
     }
 
-    public void update(Object object) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        String query = getUpdateQuery(object);
-        Connection con = getConnection();
-
-        PreparedStatement preparedStatement = con.prepareStatement(query);
-        addClassFieldsParameters(object, preparedStatement);
-        int primaryKey = getPrimaryKeyParameter(object);
-        List<Field> nonObjectDeclaredFields = getNonGenericObjectDeclaredFields(object);
-        int position = (nonObjectDeclaredFields.size() + 1);
-        addPrimaryKeyParameter(preparedStatement, position, primaryKey);
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
-        con.close();
-    }
-
-    public void delete(Object object) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        String query = getDeleteQuery(object);
-        Connection con = getConnection();
-
-        PreparedStatement preparedStatement = con.prepareStatement(query);
-        int position = 1;
-        int primaryKey = getPrimaryKeyParameter(object);
-        addPrimaryKeyParameter(preparedStatement, position, primaryKey);
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
-        con.close();
-    }
-
-    public List selectAll(Class classToLoad) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException {
-        List<Object> objects = new ArrayList<>();
-        String query = getSelectAllQuery(classToLoad);
-        Connection con = getConnection();
-
-        PreparedStatement preparedStatement = con.prepareStatement(query);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-        while (resultSet.next()) {
-            Object newObject = classToLoad.newInstance();
-            setFieldsFromResultSet(resultSet, resultSetMetaData, newObject);
-            objects.add(newObject);
-        }
-        preparedStatement.close();
-        con.close();
-        return objects;
-    }
-
-    public String getInsertQuery(Object object) {
+    private String getInsertQuery(Object object) {
         StringBuffer query = new StringBuffer("INSERT INTO ");
         query.append(object.getClass().getSimpleName());
         query.append(" (");
@@ -124,35 +159,40 @@ public class DAOImpl implements DAOUser {
         query.append(" VALUES (");
         addInterrogantsInsertQuery(object, query);
         query.append(")");
+
         return query.toString();
     }
 
-    public String getSelectQuery(Object object) {
+    private String getSelectQuery(Object object) {
         StringBuilder query = new StringBuilder("SELECT * FROM ");
         query.append(object.getClass().getSimpleName());
         query.append(" WHERE id=?");
+
         return query.toString();
     }
 
-    public String getUpdateQuery(Object object) {
+    private String getUpdateQuery(Object object) {
         StringBuffer query = new StringBuffer("UPDATE ");
         query.append(object.getClass().getSimpleName());
         query.append(" SET ");
         addFieldsAndInterrogantsUpdateQuery(object, query);
         query.append(" WHERE id=?");
+
         return query.toString();
     }
 
-    public String getDeleteQuery(Object object) {
+    private String getDeleteQuery(Object object) {
         StringBuilder query = new StringBuilder("DELETE FROM ");
         query.append(object.getClass().getSimpleName());
         query.append(" WHERE id=?");
+
         return query.toString();
     }
 
-    public String getSelectAllQuery(Class classToLoad) {
+    private String getSelectAllQuery(Class classToLoad) {
         StringBuilder query = new StringBuilder("SELECT * FROM ");
         query.append(classToLoad.getSimpleName());
+
         return query.toString();
     }
 
@@ -168,50 +208,67 @@ public class DAOImpl implements DAOUser {
         } query.deleteCharAt(query.length() - 1);
     }
 
-    public void addClassFieldsParameters(Object object, PreparedStatement pstm) throws NoSuchMethodException, SQLException, InvocationTargetException, IllegalAccessException {
+    private void addClassFieldsParameters(Object object, PreparedStatement pstm) throws SQLException, ReflectionException {
         int i = 1;
-        for (Field field : getNonGenericObjectDeclaredFields(object)) {
-            Method method = object.getClass().getMethod(getGetterName(field.getName()));
-            Object methodObjectResulted = getMethodObjectResulted(object, method, field);
-            pstm.setObject(i, methodObjectResulted);
-            i++;
+        try {
+            for (Field field : getNonGenericObjectDeclaredFields(object)) {
+                Method method = object.getClass().getMethod(getGetterName(field.getName()));
+                Object methodObjectResultant = getMethodObjectResultant(object, method, field);
+                pstm.setObject(i, methodObjectResultant);
+                i++;
+            }
         }
+        catch (NoSuchMethodException e) {
+            throw new ReflectionException("Adding class field parameters function", e);
+        }
+
     }
 
-    private Object getMethodObjectResulted(Object object, Method method, Field field) throws InvocationTargetException, IllegalAccessException {
+    private Object getMethodObjectResultant(Object object, Method method, Field field) throws ReflectionException {
         Object methodObjectResulted = null;
-        if (field.getType() == Calendar.class) {
-            Calendar calendar = (Calendar) method.invoke(object);
-            methodObjectResulted = new java.sql.Date(calendar.getTime().getTime());
-        } else {
-            methodObjectResulted = method.invoke(object);
-        } return methodObjectResulted;
+        try {
+            if (field.getType() == Calendar.class) {
+                Calendar calendar = (Calendar) method.invoke(object);
+                methodObjectResulted = new java.sql.Date(calendar.getTime().getTime());
+            } else {
+                methodObjectResulted = method.invoke(object);
+            } return methodObjectResulted;
+        }
+        catch (InvocationTargetException | IllegalAccessException e) {
+            throw new ReflectionException("Couldn't invoke method", e);
+        }
+
     }
 
-    public List<Field> getNonGenericObjectDeclaredFields(Object object) {
+    private List<Field> getNonGenericObjectDeclaredFields(Object object) {
         List<Field> nonGenericObjectDeclaredFields = new ArrayList<>();
         for (Field field : object.getClass().getDeclaredFields()) {
             if (field.getType() == String.class || field.getType() == Integer.class || field.getType() == int.class || field.getType() == boolean.class || field.getType() == Boolean.class || field.getType() == Double.class || field.getType() == double.class || field.getType() == Calendar.class) {
                 nonGenericObjectDeclaredFields.add(field);
             }
-        } return nonGenericObjectDeclaredFields;
+        }
+
+        return nonGenericObjectDeclaredFields;
     }
 
     private String getGetterName(String fieldName) {
         StringBuilder getterName = new StringBuilder("get");
         getterName.append(capitalizeName(fieldName));
+
         return getterName.toString();
     }
 
     private String getSetterName(String fieldName) {
         StringBuilder setterName = new StringBuilder("set");
         setterName.append(capitalizeName(fieldName));
+
         return setterName.toString();
     }
 
     private String capitalizeName(String name) {
         String capitalizedFieldName;
         capitalizedFieldName = name.substring(0, 1).toUpperCase() + name.substring(1);
+
         return capitalizedFieldName;
     }
 
@@ -221,21 +278,28 @@ public class DAOImpl implements DAOUser {
             query.append("=?,");
         } query.deleteCharAt(query.length() - 1);
     }
-
-    public void addPrimaryKeyParameter(PreparedStatement pstm, int position, int primaryKey) throws SQLException {
+    private void addPrimaryKeyParameter(PreparedStatement pstm, int position, int primaryKey) throws SQLException {
         pstm.setObject(position, primaryKey);
     }
 
-    public int getPrimaryKeyParameter(Object object) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private int getPrimaryKeyParameter(Object object) throws ReflectionException {
         Method method;
         int id = 0;
-        method = object.getClass().getMethod(getGetterName("id"));
-        Object methodObjectResulted = method.invoke(object);
-        id = Integer.parseInt(methodObjectResulted.toString());
-        return id;
+
+        try {
+            method = object.getClass().getMethod(getGetterName("id"));
+            Object methodObjectResulted = method.invoke(object);
+            id = Integer.parseInt(methodObjectResulted.toString());
+
+            return id;
+        }
+        catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            throw new ReflectionException("getting primaryKey", e);
+        }
+
     }
 
-    public void setFieldsFromResultSet(ResultSet resultSet, ResultSetMetaData resultSetMetaData, Object object) throws SQLException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private void setFieldsFromResultSet(ResultSet resultSet, ResultSetMetaData resultSetMetaData, Object object) throws ReflectionException, SQLException {
         for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
             String columnType = resultSetMetaData.getColumnTypeName(i);
             String columnName = resultSetMetaData.getColumnLabel(i);
@@ -270,33 +334,66 @@ public class DAOImpl implements DAOUser {
         }
     }
 
-    public void setField(Object result, String name, Object object) throws NoSuchMethodException, NoSuchFieldException, InvocationTargetException, IllegalAccessException {
+    private void setField(Object result, String name, Object object) throws ReflectionException {
         Method method;
-        method = object.getClass().getMethod(getSetterName(name), object.getClass().getDeclaredField(name).getType());
-        method.invoke(object, result);
+        try {
+            method = object.getClass().getMethod(getSetterName(name), object.getClass().getDeclaredField(name).getType());
+            method.invoke(object, result);
+        }
+        catch (NoSuchMethodException | NoSuchFieldException | InvocationTargetException | IllegalAccessException e) {
+            throw new ReflectionException("Setting field", e);
+        }
     }
 
     @Override
-    public User selectUser(int primaryKey) throws SQLException, ClassNotFoundException, NoSuchFieldException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public List<User> selectAllUsers() throws DAOUserException {
+        try {
+            return getInstance().selectAll(User.class);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
+    }
+
+    @Override
+    public User selectUser(int primaryKey) throws DAOUserException {
         User u = new User();
-        return (User)select(u, primaryKey);
-    }
-    @Override
-    public List<User> selectAllUsers() throws ClassNotFoundException, SQLException, InstantiationException, InvocationTargetException, NoSuchFieldException, NoSuchMethodException, IllegalAccessException {
-        return selectAll(User.class);
+        try {
+            return (User) getInstance().select(u, primaryKey);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
     }
 
     @Override
-    public void insertUser(User user) throws SQLException, ClassNotFoundException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        insert(user);
-    }
-    @Override
-    public void updateUser(User user) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        update(user);
+    public void insertUser(User user) throws DAOUserException {
+        try {
+            getInstance().insert(user);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
 
     }
+
     @Override
-    public void deleteUser(User user) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        delete(user);
+    public void updateUser(User user) throws DAOUserException {
+        try {
+            getInstance().update(user);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
+    }
+
+    @Override
+    public void deleteUser(User user) throws DAOUserException {
+        try {
+            getInstance().delete(user);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
     }
 }

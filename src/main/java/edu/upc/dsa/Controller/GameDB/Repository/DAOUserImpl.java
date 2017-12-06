@@ -1,6 +1,8 @@
 package edu.upc.dsa.Controller.GameDB.Repository;
 
 import edu.upc.dsa.Model.User;
+import edu.upc.dsa.View.ExceptionHandling.DAOException;
+import edu.upc.dsa.View.ExceptionHandling.DAOUserException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
@@ -10,27 +12,51 @@ import static edu.upc.dsa.Controller.GameDB.DAO.DAOImpl.getInstance;
 
 public abstract class DAOUserImpl implements DAOUser {
 
-    public List<User> selectAllUsers() throws SQLException, ClassNotFoundException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
-        return getInstance().selectAll(User.class);
+    public List<User> selectAllUsers() throws DAOUserException {
+        try {
+            return getInstance().selectAll(User.class);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
     }
 
-    public User selectUser(int primaryKey) throws SQLException, ClassNotFoundException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public User selectUser(int primaryKey) throws DAOUserException {
         User u = new User();
-        return (User) getInstance().select(u, primaryKey);
+        try {
+            return (User) getInstance().select(u, primaryKey);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
     }
 
-    public void insertUser(User user) throws SQLException, ClassNotFoundException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        getInstance().insert(user);
+    public void insertUser(User user) throws DAOUserException {
+        try {
+            getInstance().insert(user);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
+
     }
 
-    public void updateUser(User user) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        getInstance().update(user);
-
+    public void updateUser(User user) throws DAOUserException {
+        try {
+            getInstance().update(user);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
     }
 
-    public void deleteUser(User user) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        getInstance().delete(user);
+    public void deleteUser(User user) throws DAOUserException {
+        try {
+            getInstance().delete(user);
+        }
+        catch (DAOException e) {
+            throw new DAOUserException("DAO User level",e );
+        }
+
     }
-
-
 }
