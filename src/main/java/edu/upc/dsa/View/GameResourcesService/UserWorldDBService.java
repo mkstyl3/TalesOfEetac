@@ -24,19 +24,6 @@ public class UserWorldDBService {
     }
 
     @POST
-    @Path("/set")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void createService(User u) {
-        try  {
-            DAOImpl.getInstance().insertUser(u);
-            logger.info("createUserService: User with username: "+u.getUsername()+" have been created.");
-        }
-        catch (DAOUserException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @POST
     @Path("/register")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registerService(User u) throws UserWorldDbException {
