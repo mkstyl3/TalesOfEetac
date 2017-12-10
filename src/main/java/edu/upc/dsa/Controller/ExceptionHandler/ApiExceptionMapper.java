@@ -7,10 +7,10 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class ApiExceptionMapper implements ExceptionMapper<Exception> {
+public class ApiExceptionMapper implements ExceptionMapper<ApiException> {
 
     @Override
-    public Response toResponse(Exception ex) {
+    public Response toResponse(ApiException ex) {
         return Response.status(400).entity(Exceptions.getStackTraceAsString(ex)).type("text/plain")
                 .build();
     }

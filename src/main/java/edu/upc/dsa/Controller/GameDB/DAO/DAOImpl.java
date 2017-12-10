@@ -79,7 +79,8 @@ public class DAOImpl implements DAOUser {
             String query = getSelectWithUsernameQuery(object);
 
             PreparedStatement preparedStatement = con.prepareStatement(query);
-            preparedStatement.setObject(1, name);
+            int position = 1;
+            preparedStatement.setObject(position, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 
