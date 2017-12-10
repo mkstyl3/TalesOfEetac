@@ -1,17 +1,15 @@
 package edu.upc.dsa.Controller.API;
 
 import edu.upc.dsa.Controller.GameDB.DAO.DAOImpl;
-import edu.upc.dsa.Model.Resource.Login;
 import edu.upc.dsa.Model.Main.User;
-import edu.upc.dsa.ExceptionHandler.DAOUserException;
-import edu.upc.dsa.ExceptionHandler.UserWorldDbException;
+import edu.upc.dsa.Controller.ExceptionHandler.DAOUserException;
+import edu.upc.dsa.Controller.ExceptionHandler.UserWorldDbException;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
-public class UserWorldDBImpl {
-
+public class UserWorldDBImpl{
     final static Logger logger = Logger.getLogger(UserWorldDBImpl.class);
     private static UserWorldDBImpl instance = null;
 
@@ -76,24 +74,8 @@ public class UserWorldDBImpl {
 
     }
 
-    public Login login(int primaryKey) {
-        Login authenticationResult = new Login();
-        User u = null;
 
-        try {
-            u = DAOImpl.getInstance().selectUserByUsernameAndPw(primaryKey);
-        } catch (DAOUserException e) {
-            e.printStackTrace();
-        }
-        if (u != null) {
-            authenticationResult.userId = u.getId();
-            authenticationResult.successful = true;
-            authenticationResult.isadmin = u.getAdmin();
-        }
-
-        return authenticationResult;
-    }
-
+    /*
     private boolean doExist(String username) throws UserWorldDbException {
         logger.info("doExist: Checking if user with username: " + username + " exists...");
         boolean doExist = false;
@@ -112,11 +94,12 @@ public class UserWorldDBImpl {
 
         return doExist;
     }
+    */
 
     public User register(User u) throws UserWorldDbException {
-       User v;
+        User v;
 
-       try {
+        try {
             v = DAOImpl.getInstance().insertUser(u);
         }
 
@@ -125,5 +108,14 @@ public class UserWorldDBImpl {
         }
 
         return v;
+    }
+
+    public User login(User userIn) throws UserWorldDbException {
+        try {
+            return DAOImpl.getInstance().selectUserByUsernameAndPw(userIn.getId(), userIn.getPassword());
+        }
+        catch (DAOUserException e) {
+            throw new UserWorldDbException(e);
+        }
     }
 }

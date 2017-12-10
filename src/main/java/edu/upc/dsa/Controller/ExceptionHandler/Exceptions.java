@@ -1,9 +1,4 @@
-package edu.upc.dsa.ExceptionHandler;
-
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
-import java.sql.SQLException;
+package edu.upc.dsa.Controller.ExceptionHandler;
 
 public class Exceptions {
 /*

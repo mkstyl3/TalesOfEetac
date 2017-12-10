@@ -1,6 +1,4 @@
-package edu.upc.dsa.ExceptionHandler;
-
-import javax.ws.rs.core.Response;
+package edu.upc.dsa.Controller.ExceptionHandler;
 
 public class ReflectionException extends Exception {
 

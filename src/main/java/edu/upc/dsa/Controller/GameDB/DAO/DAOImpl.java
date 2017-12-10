@@ -2,9 +2,9 @@ package edu.upc.dsa.Controller.GameDB.DAO;
 
 import edu.upc.dsa.Controller.GameDB.Repository.DAOUser;
 import edu.upc.dsa.Model.Main.User;
-import edu.upc.dsa.ExceptionHandler.DAOException;
-import edu.upc.dsa.ExceptionHandler.DAOUserException;
-import edu.upc.dsa.ExceptionHandler.ReflectionException;
+import edu.upc.dsa.Controller.ExceptionHandler.DAOException;
+import edu.upc.dsa.Controller.ExceptionHandler.DAOUserException;
+import edu.upc.dsa.Controller.ExceptionHandler.ReflectionException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -41,7 +41,7 @@ public class DAOImpl implements DAOUser {
             return object;
         }
         catch (ReflectionException | SQLException e) {
-            throw new DAOException("Insert function",e);
+            throw new DAOException(e);
         }
     }
 
@@ -69,7 +69,7 @@ public class DAOImpl implements DAOUser {
             return object;
         }
         catch (ReflectionException | SQLException e) {
-            throw new DAOException("Select function",e);
+            throw new DAOException(e);
         }
     }
 
@@ -96,20 +96,20 @@ public class DAOImpl implements DAOUser {
             return object;
         }
         catch (ReflectionException | SQLException e) {
-            throw new DAOException("Select function",e);
+            throw new DAOException(e);
         }
     }
 
 
 
-    public Object selectByUsernameAndPw(Object object, int primaryKey) throws DAOException {
+    public Object selectByUsernameAndPw(Object object, int userId, String password) throws DAOException {
         try {
             Connection con = getConnection();
             String query = getSelectWithUsernameAndPwQuery(object);
 
             PreparedStatement preparedStatement = con.prepareStatement(query);
             int position = 1;
-            addPrimaryKeyParameter(preparedStatement, position, primaryKey);
+            addPrimaryKeyParameter(preparedStatement, position, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 
@@ -126,7 +126,7 @@ public class DAOImpl implements DAOUser {
             return object;
         }
         catch (ReflectionException | SQLException e) {
-            throw new DAOException("Select function",e);
+            throw new DAOException(e);
         }
     }
 
@@ -151,7 +151,7 @@ public class DAOImpl implements DAOUser {
             return objects;
         }
         catch (ReflectionException | SQLException | IllegalAccessException | InstantiationException e) {
-            throw new DAOException("SelectAll function",e);
+            throw new DAOException(e);
         }
     }
 
@@ -173,7 +173,7 @@ public class DAOImpl implements DAOUser {
             con.close();
         }
         catch (ReflectionException | SQLException e) {
-            throw new DAOException("Update function",e);
+            throw new DAOException(e);
         }
     }
 
@@ -191,7 +191,7 @@ public class DAOImpl implements DAOUser {
             con.close();
         }
         catch (ReflectionException | SQLException e) {
-            throw new DAOException("Delete function",e);
+            throw new DAOException(e);
         }
     }
 
@@ -458,10 +458,10 @@ public class DAOImpl implements DAOUser {
     }
 
     @Override
-    public User selectUserByUsernameAndPw(int primaryKey) throws DAOUserException {
+    public User selectUserByUsernameAndPw(int userId, String password) throws DAOUserException {
         User u = new User();
         try {
-            return (User) getInstance().selectByUsernameAndPw(u, primaryKey);
+            return (User) getInstance().selectByUsernameAndPw(u, userId, password);
         }
         catch (DAOException e) {
             throw new DAOUserException(e);
