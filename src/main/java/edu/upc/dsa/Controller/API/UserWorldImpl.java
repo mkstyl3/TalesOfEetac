@@ -1,7 +1,7 @@
-package edu.upc.dsa.Controller;
+package edu.upc.dsa.Controller.API;
 
+import edu.upc.dsa.Model.Main.User;
 import org.apache.log4j.Logger;
-import edu.upc.dsa.Model.*;
 
 import java.util.*;
 import java.util.Map;

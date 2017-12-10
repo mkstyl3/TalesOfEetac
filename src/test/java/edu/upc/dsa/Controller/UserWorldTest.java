@@ -1,16 +1,5 @@
 package edu.upc.dsa.Controller;
 
-import edu.upc.dsa.Model.Item;
-import edu.upc.dsa.Model.Location;
-import edu.upc.dsa.Model.User;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import java.util.List;
-
 /**
  * Unit test for simple App.
  */

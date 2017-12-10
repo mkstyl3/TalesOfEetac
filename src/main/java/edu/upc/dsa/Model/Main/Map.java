@@ -1,6 +1,7 @@
-package edu.upc.dsa.Model;
+package edu.upc.dsa.Model.Main;
 
 import edu.upc.dsa.Model.Cell.Cell;
+import edu.upc.dsa.Model.Main.Location;
 
 public class Map {
 

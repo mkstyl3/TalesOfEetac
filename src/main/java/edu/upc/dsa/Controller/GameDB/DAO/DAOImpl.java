@@ -1,10 +1,10 @@
 package edu.upc.dsa.Controller.GameDB.DAO;
 
 import edu.upc.dsa.Controller.GameDB.Repository.DAOUser;
-import edu.upc.dsa.Model.User;
-import edu.upc.dsa.View.ExceptionHandling.DAOException;
-import edu.upc.dsa.View.ExceptionHandling.DAOUserException;
-import edu.upc.dsa.View.ExceptionHandling.ReflectionException;
+import edu.upc.dsa.Model.Main.User;
+import edu.upc.dsa.ExceptionHandler.DAOException;
+import edu.upc.dsa.ExceptionHandler.DAOUserException;
+import edu.upc.dsa.ExceptionHandler.ReflectionException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -208,7 +208,7 @@ public class DAOImpl implements DAOUser {
 
             return con;
         }
-        catch (ClassNotFoundException e) {throw new ReflectionException("Class.forName doesn't work",e);}
+        catch (ClassNotFoundException e) {throw new ReflectionException(e);}
     }
 
     private String getInsertQuery(Object object) {
@@ -298,7 +298,7 @@ public class DAOImpl implements DAOUser {
             }
         }
         catch (NoSuchMethodException e) {
-            throw new ReflectionException("Adding class field parameters function", e);
+            throw new ReflectionException(e);
         }
 
     }
@@ -314,7 +314,7 @@ public class DAOImpl implements DAOUser {
             } return methodObjectResulted;
         }
         catch (InvocationTargetException | IllegalAccessException e) {
-            throw new ReflectionException("Couldn't invoke method", e);
+            throw new ReflectionException(e);
         }
 
     }
@@ -373,7 +373,7 @@ public class DAOImpl implements DAOUser {
             return id;
         }
         catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            throw new ReflectionException("getting primaryKey", e);
+            throw new ReflectionException(e);
         }
 
     }
@@ -420,7 +420,7 @@ public class DAOImpl implements DAOUser {
             method.invoke(object, result);
         }
         catch (NoSuchMethodException | NoSuchFieldException | InvocationTargetException | IllegalAccessException e) {
-            throw new ReflectionException("Setting field", e);
+            throw new ReflectionException(e);
         }
     }
 
@@ -430,7 +430,7 @@ public class DAOImpl implements DAOUser {
             return getInstance().selectAll(User.class);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
     }
 
@@ -441,7 +441,7 @@ public class DAOImpl implements DAOUser {
             return (User) getInstance().select(u, primaryKey);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
     }
 
@@ -453,7 +453,7 @@ public class DAOImpl implements DAOUser {
             return (User) getInstance().selectByName(u, username);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
     }
 
@@ -464,7 +464,7 @@ public class DAOImpl implements DAOUser {
             return (User) getInstance().selectByUsernameAndPw(u, primaryKey);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
     }
 
@@ -478,7 +478,7 @@ public class DAOImpl implements DAOUser {
             v= (User)getInstance().insert(user);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
         return v;
     }
@@ -489,7 +489,7 @@ public class DAOImpl implements DAOUser {
             getInstance().update(user);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
     }
 
@@ -499,7 +499,7 @@ public class DAOImpl implements DAOUser {
             getInstance().delete(user);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
     }
 }

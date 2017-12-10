@@ -1,8 +1,8 @@
 package edu.upc.dsa.Controller.GameDB.Repository;
 
-import edu.upc.dsa.Model.User;
-import edu.upc.dsa.View.ExceptionHandling.DAOException;
-import edu.upc.dsa.View.ExceptionHandling.DAOUserException;
+import edu.upc.dsa.Model.Main.User;
+import edu.upc.dsa.ExceptionHandler.DAOException;
+import edu.upc.dsa.ExceptionHandler.DAOUserException;
 import java.util.List;
 
 import static edu.upc.dsa.Controller.GameDB.DAO.DAOImpl.getInstance;
@@ -14,7 +14,7 @@ public abstract class DAOUserImpl implements DAOUser {
             return getInstance().selectAll(User.class);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
     }
 
@@ -24,7 +24,7 @@ public abstract class DAOUserImpl implements DAOUser {
             return (User) getInstance().select(u, primaryKey);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
     }
 
@@ -32,20 +32,20 @@ public abstract class DAOUserImpl implements DAOUser {
         User u = new User();
         u.setUsername(username);
         try {
-            return (User) getInstance().selectByName(u, username);
+            return (User)getInstance().selectByName(u, username);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
     }
 
     public User selectUserByUsernameAndPw (int primaryKey) throws DAOUserException {
         User u = new User();
         try {
-            return (User) getInstance().selectByUsernameAndPw(u, primaryKey);
+            return (User)getInstance().selectByUsernameAndPw(u, primaryKey);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
     }
 
@@ -55,7 +55,7 @@ public abstract class DAOUserImpl implements DAOUser {
             v = (User)getInstance().insert(user);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
         return v;
     }
@@ -65,7 +65,7 @@ public abstract class DAOUserImpl implements DAOUser {
             getInstance().update(user);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
     }
 
@@ -74,7 +74,7 @@ public abstract class DAOUserImpl implements DAOUser {
             getInstance().delete(user);
         }
         catch (DAOException e) {
-            throw new DAOUserException("DAO User level",e );
+            throw new DAOUserException(e);
         }
     }
 }

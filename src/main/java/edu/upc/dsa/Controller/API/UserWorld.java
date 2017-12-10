@@ -1,9 +1,6 @@
-package edu.upc.dsa.Controller;
+package edu.upc.dsa.Controller.API;
 
-import edu.upc.dsa.Model.Item;
-import edu.upc.dsa.Model.User;
-import java.util.ArrayList;
-import java.util.List;
+import edu.upc.dsa.Model.Main.User;
 
 
 public interface UserWorld {

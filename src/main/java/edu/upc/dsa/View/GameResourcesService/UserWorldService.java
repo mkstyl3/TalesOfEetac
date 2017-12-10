@@ -1,7 +1,7 @@
-package edu.upc.dsa.View;
+package edu.upc.dsa.View.GameResourcesService;
 
-import edu.upc.dsa.Controller.UserWorldImpl;
-import edu.upc.dsa.Model.User;
+import edu.upc.dsa.Controller.API.UserWorldImpl;
+import edu.upc.dsa.Model.Main.User;
 
 import javax.inject.Singleton;
 import javax.ws.rs.*;

@@ -1,4 +1,4 @@
-package edu.upc.dsa.Model.Service;
+package edu.upc.dsa.Model.Resource;
 
 public class Transfer {
     private Object origin;

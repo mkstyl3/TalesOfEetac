@@ -1,12 +1,10 @@
-package edu.upc.dsa.Controller;
+package edu.upc.dsa.Controller.API;
 
-import edu.upc.dsa.Controller.GameDB.DAO.DAO;
 import edu.upc.dsa.Controller.GameDB.DAO.DAOImpl;
-import edu.upc.dsa.Model.Service.Login;
-import edu.upc.dsa.Model.User;
-import edu.upc.dsa.View.ExceptionHandling.DAOException;
-import edu.upc.dsa.View.ExceptionHandling.DAOUserException;
-import edu.upc.dsa.View.ExceptionHandling.UserWorldDbException;
+import edu.upc.dsa.Model.Resource.Login;
+import edu.upc.dsa.Model.Main.User;
+import edu.upc.dsa.ExceptionHandler.DAOUserException;
+import edu.upc.dsa.ExceptionHandler.UserWorldDbException;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
@@ -109,7 +107,7 @@ public class UserWorldDBImpl {
             }
         }
         catch (DAOUserException e) {
-            throw new UserWorldDbException("UserWorldDb lvl", e);
+            throw new UserWorldDbException(e);
         }
 
         return doExist;
@@ -123,7 +121,7 @@ public class UserWorldDBImpl {
         }
 
         catch (DAOUserException e) {
-            throw new UserWorldDbException("UserWorldDb lvl",e);
+            throw new UserWorldDbException(e);
         }
 
         return v;

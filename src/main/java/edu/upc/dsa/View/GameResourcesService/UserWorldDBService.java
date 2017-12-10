@@ -1,17 +1,16 @@
-package edu.upc.dsa.View;
+package edu.upc.dsa.View.GameResourcesService;
 
 import edu.upc.dsa.Controller.GameDB.DAO.DAOImpl;
-import edu.upc.dsa.Controller.UserWorldDB;
-import edu.upc.dsa.Controller.UserWorldDBImpl;
-import edu.upc.dsa.Controller.UserWorldImpl;
-import edu.upc.dsa.Model.User;
-import edu.upc.dsa.View.ExceptionHandling.DAOUserException;
-import edu.upc.dsa.View.ExceptionHandling.UserWorldDbException;
+import edu.upc.dsa.Controller.API.UserWorldDBImpl;
+import edu.upc.dsa.Model.Main.User;
+import edu.upc.dsa.ExceptionHandler.DAOUserException;
+import edu.upc.dsa.ExceptionHandler.UserWorldDbException;
 import org.apache.log4j.Logger;
 
 import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("/db/user")
 @Singleton //We need it to say jersey to use an unique instance
@@ -40,20 +39,23 @@ public class UserWorldDBService {
     @POST
     @Path("/register")
     @Consumes(MediaType.APPLICATION_JSON)
-    public boolean registerService(User u) {
-        boolean successful = false;
+    public Response registerService(User u) throws UserWorldDbException {
+        Response r;
         try  {
-            if (UserWorldDBImpl.getInstance().register(u) != null) {
-                successful = true;
-                logger.info("createUserService: User with username: " + u.getUsername() + " have been created.");
-            }
-            else {
-                logger.info("createUserService: User with username: "+u.getUsername()+" already exist.");
-            }
-        } catch (UserWorldDbException e) {
-            e.printStackTrace();
+            UserWorldDBImpl.getInstance().register(u);
+            logger.info("createUserService: User with username: " + u.getUsername() + " have been created.");
+            r = Response.status(201).entity(u.getId()).build();
         }
-        return successful;
+
+        catch (UserWorldDbException e) {
+            r = Response.status(400).entity(u.getId()).build();
+            logger.info("createUserService: User with username: " + u.getUsername() + " have been created.");
+            throw new UserWorldDbException(e);
+        }
+
+        return r;
     }
+
+
 
 }

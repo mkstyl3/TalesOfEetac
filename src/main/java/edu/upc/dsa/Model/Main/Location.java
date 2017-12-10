@@ -1,4 +1,4 @@
-package edu.upc.dsa.Model;
+package edu.upc.dsa.Model.Main;
 
 public class Location {
 

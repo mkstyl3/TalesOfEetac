@@ -1,9 +1,10 @@
 package edu.upc.dsa.View;
 
-import edu.upc.dsa.Controller.*;
-import edu.upc.dsa.Model.Location;
-import edu.upc.dsa.Model.Map;
-import edu.upc.dsa.Model.User;
+import edu.upc.dsa.Controller.API.UserWorldImpl;
+import edu.upc.dsa.Controller.MoveToAndroidThings.GameScreenImpl;
+import edu.upc.dsa.Model.Main.Location;
+import edu.upc.dsa.Model.Main.Map;
+import edu.upc.dsa.Model.Main.User;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;

@@ -1,17 +1,18 @@
-package edu.upc.dsa.View.ExceptionHandling;
+package edu.upc.dsa.ExceptionHandler;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+import java.sql.SQLException;
 
 public class Exceptions {
-
+/*
     // -- Exceptions
-    public static class MyException extends RuntimeException {
+    public static class ReflectionException2 extends  {
 
         private Response response;
 
-        public MyException(Response response) {
+        public ReflectionException2(Response response) {
             this.response = response;
         }
 
@@ -20,7 +21,7 @@ public class Exceptions {
         }
     }
 
-    public static class MySubException extends MyException {
+    public static class MySubException extends ReflectionException2 {
 
         public MySubException(Response response) {
             super(response);
@@ -36,11 +37,11 @@ public class Exceptions {
 
     // -- Exception Mappers
     @Provider
-    public static class MyExceptionMapper implements ExceptionMapper<DAOUserException> {
+    public static class MyExceptionMapper implements ExceptionMapper<ReflectionException2> {
 
         @Override
-        public Response toResponse(DAOUserException exception) {
-            Response r = exception.getResponse();
+        public Response toResponse(ReflectionException2 e) {
+            Response r = e.getResponse();
             return Response.status(r.getStatus()).entity(
                     "Code:" + r.getStatus() + ":" + getClass().getSimpleName()).build();
         }
@@ -50,10 +51,10 @@ public class Exceptions {
     public static class MySubExceptionMapper implements ExceptionMapper<MySubException> {
 
         @Override
-        public Response toResponse(MySubException exception) {
-            Response r = exception.getResponse();
+        public Response toResponse(MySubException e) {
+            Response r = e.getResponse();
             return Response.status(r.getStatus()).entity(
                     "Code:" + r.getStatus() + ":" + getClass().getSimpleName()).build();
         }
-    }
+    }*/
 }

@@ -1,7 +1,7 @@
 package edu.upc.dsa.Controller.GameDB.Repository;
 
-import edu.upc.dsa.Model.User;
-import edu.upc.dsa.View.ExceptionHandling.DAOUserException;
+import edu.upc.dsa.Model.Main.User;
+import edu.upc.dsa.ExceptionHandler.DAOUserException;
 import java.util.List;
 
 public interface DAOUser {

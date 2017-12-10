@@ -1,7 +1,9 @@
-package edu.upc.dsa.Model;
+package edu.upc.dsa.Model.Main;
 
 
 
+
+import edu.upc.dsa.Model.Main.Location;
 
 import java.util.HashMap;
 

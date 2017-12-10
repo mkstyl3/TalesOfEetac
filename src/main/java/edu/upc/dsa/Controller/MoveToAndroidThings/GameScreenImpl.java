@@ -1,11 +1,12 @@
-package edu.upc.dsa.Controller;
+package edu.upc.dsa.Controller.MoveToAndroidThings;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.upc.dsa.Controller.API.UserWorldImpl;
 import edu.upc.dsa.Model.Cell.*;
-import edu.upc.dsa.Model.Location;
-import edu.upc.dsa.Model.Map;
-import edu.upc.dsa.Model.User;
+import edu.upc.dsa.Model.Main.Location;
+import edu.upc.dsa.Model.Main.Map;
+import edu.upc.dsa.Model.Main.User;
 import org.apache.log4j.Logger;
 
 import java.io.*;

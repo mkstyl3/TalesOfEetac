@@ -1,7 +1,6 @@
 package edu.upc.dsa.Model.Cell;
 
-import edu.upc.dsa.Model.Location;
-import edu.upc.dsa.Model.User;
+import edu.upc.dsa.Model.Main.User;
 
 public class UserCell extends Cell {
 

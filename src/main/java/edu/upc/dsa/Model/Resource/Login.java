@@ -1,4 +1,4 @@
-package edu.upc.dsa.Model.Service;
+package edu.upc.dsa.Model.Resource;
 
 public class Login {
     public int userId;
