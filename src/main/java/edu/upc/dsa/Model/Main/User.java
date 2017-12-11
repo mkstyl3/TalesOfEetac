@@ -3,9 +3,9 @@ package edu.upc.dsa.Model.Main;
 
 
 
-import edu.upc.dsa.Model.Main.Location;
-
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class User {
@@ -16,21 +16,21 @@ public class User {
     private String username;
     private String password;
     private int lastMap;
-    private HashMap<String,Integer> items;
+    private List<Item> items;
     private Location location;
     private boolean admin;
 
     //Constructors
 
     public User () {
-        this.items = new HashMap<>();
+        this.items = new ArrayList<>();
     }
 
     public User(int id, String username, String password, Location location) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.items = new HashMap<>();
+        this.items = new ArrayList<>();
         this.location = location;
     }
 
@@ -39,7 +39,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.admin = admin;
-        this.items = new HashMap<>();
+        this.items = new ArrayList<>();
 
     }
 
@@ -81,29 +81,12 @@ public class User {
 
     public void setLastMap(int lastMap) {this.lastMap = lastMap;}
 
-    public void setAllItems(HashMap<String,Integer> items) {
+    public void setAllItems(List<Item> items) {
         this.items = items;
     }
 
-    public HashMap<String,Integer> getAllItems() {
+    public List<Item> getAllItems() {
         return items;
-    }
-
-    public void setItem (String item,Integer cantidad) {
-
-        this.items.put(item,cantidad);
-    }
-
-    public Integer getItem (String item) {
-
-        Integer cantidad = this.items.get(item);
-
-        if (cantidad == null){
-        return 0;
-        }
-        else {
-            return cantidad;
-        }
     }
 
     public boolean getAdmin() {
@@ -112,5 +95,20 @@ public class User {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public void setItem (Item i) {
+        this.items.add(i);
+    }
+    public Item getItem(int position) {
+        return this.items.get(position);
     }
 }

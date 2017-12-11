@@ -29,6 +29,7 @@ public class UserWorldDBImpl{
         return con;
     }
 
+    /*
     public String GuardarQuery (User user) {
 
         StringBuffer query = new StringBuffer("UPDATE users SET ");
