@@ -1,4 +1,4 @@
-package edu.upc.dsa.Controller.Database.DAO;
+package edu.upc.dsa.Controller.GameDB.DAO;
 
 import java.util.List;
 

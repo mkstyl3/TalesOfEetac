@@ -4,7 +4,7 @@ package edu.upc.dsa.Model.Cell;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import edu.upc.dsa.Model.Location;
+import edu.upc.dsa.Model.Main.Location;
 
 /* Necesary to Serialize and Deserialize abstract classes and its childs. */
 

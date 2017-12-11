@@ -1,10 +1,10 @@
-package edu.upc.dsa.Controller;
+package edu.upc.dsa.Controller.MoveToAndroidThings;
 
-import edu.upc.dsa.Model.Location;
-import edu.upc.dsa.Model.Map;
-import edu.upc.dsa.Model.User;
+import edu.upc.dsa.Model.Main.Location;
+import edu.upc.dsa.Model.Main.Map;
+import edu.upc.dsa.Model.Main.User;
 
-public interface IGameScreenWorld {
+public interface GameScreen {
     void objectInitializations ();
     Map createMap (int mapId);
     void setMap (Map map);

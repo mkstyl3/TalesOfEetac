@@ -1,16 +1,5 @@
 package edu.upc.dsa.Controller;
 
-import edu.upc.dsa.Model.Item;
-import edu.upc.dsa.Model.Location;
-import edu.upc.dsa.Model.User;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import java.util.List;
-
 /**
  * Unit test for simple App.
  */
@@ -18,7 +7,7 @@ public class UserWorldTest {
 
     // Loading data
 
-    @Before
+    /*@Before
     public void setUp() throws Exception {
         UserWorld.getInstance().initializeUsers();
     }
@@ -99,7 +88,7 @@ public class UserWorldTest {
         Assert.assertTrue(u1.getItems().isEmpty());
         //u2 has the item i?
         Assert.assertNotNull(u2.getItems().get(0));
-    }
+    }*/
 
 }
 

@@ -1,22 +1,22 @@
-package edu.upc.dsa.Controller;
+package edu.upc.dsa.Controller.API;
 
+import edu.upc.dsa.Model.Main.User;
 import org.apache.log4j.Logger;
-import edu.upc.dsa.Model.*;
 
 import java.util.*;
 import java.util.Map;
 
-public class UserWorld implements IUserWorld {
+public class UserWorldImpl implements UserWorld {
 
     //Variable declarations
 
-    private static UserWorld instance = null;
-    final static Logger logger = Logger.getLogger(UserWorld.class);
+    private static UserWorldImpl instance = null;
+    final static Logger logger = Logger.getLogger(UserWorldImpl.class);
     private Map<Integer, User> map; // key=userId
 
     //Constructor
 
-    public UserWorld(){
+    public UserWorldImpl(){
         map = new HashMap<>();
     }
 
@@ -34,8 +34,8 @@ public class UserWorld implements IUserWorld {
 
     //Singleton pattern
 
-    public static UserWorld getInstance() {
-        if (instance == null) instance = new UserWorld();
+    public static UserWorldImpl getInstance() {
+        if (instance == null) instance = new UserWorldImpl();
         return instance;
     }
 
@@ -153,7 +153,7 @@ public class UserWorld implements IUserWorld {
 
     }
 
-    public boolean setItem(int userId, Item i) {
+    /*public boolean setItem(int userId, Item i) {
         String username = getUsername(userId);
         logger.info("addItemUs/er: Adding item "+i.getName()+" to user: "+username);
         get(userId).setItem(i);
@@ -219,6 +219,6 @@ public class UserWorld implements IUserWorld {
             logger.fatal("transferItem: IndexOutOfBoundsException Exception: Couldn't remove item: "+i.getName()+" from original user: "+origin.getUsername());
             return false;
         }
-    }
+    }*/
 
 }

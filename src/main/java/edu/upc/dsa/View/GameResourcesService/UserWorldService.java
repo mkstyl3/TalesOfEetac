@@ -1,14 +1,12 @@
-package edu.upc.dsa.Controller;
+package edu.upc.dsa.View.GameResourcesService;
 
-import edu.upc.dsa.Model.Item;
-import edu.upc.dsa.Model.Service.Transfer;
-import edu.upc.dsa.Model.User;
+import edu.upc.dsa.Controller.API.UserWorldImpl;
+import edu.upc.dsa.Model.Main.User;
 
 import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
-import java.util.List;
 
 @Path("/user")
 @Singleton //We need it to say jersey to use an unique instance
@@ -25,37 +23,37 @@ public class UserWorldService {
     @Path("/set")
     @Consumes(MediaType.APPLICATION_JSON)
     public Boolean createUserService(User u) {
-        return UserWorld.getInstance().set(u);
+        return UserWorldImpl.getInstance().set(u);
     }
 
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<User> getAllUsersService() {
-        return UserWorld.getInstance().getAll();
+        return UserWorldImpl.getInstance().getAll();
     }
 
     @GET
     @Path("/allSortedById")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<User> getAllUsersSortedByIdService() {
-        return UserWorld.getInstance().getAllSortedById();
+        return UserWorldImpl.getInstance().getAllSortedById();
     }
 
     @GET
     @Path("/del/{id}")
     public Boolean deleteUserService(@PathParam("id") int id) {
-        return UserWorld.getInstance().del(id);
+        return UserWorldImpl.getInstance().del(id);
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public User queryUserService(@PathParam("id") int id) {
-        return UserWorld.getInstance().get(id);
+        return UserWorldImpl.getInstance().get(id);
     }
 
-    @POST
+    /*@POST
     @Path("/{id}/items/setItem")
     @Consumes(MediaType.APPLICATION_JSON)
     public boolean addItemUserService(@PathParam("id") int userId, Item i){
@@ -87,7 +85,7 @@ public class UserWorldService {
     @Consumes(MediaType.APPLICATION_JSON)
     public boolean userToUserItemTransferService(Transfer transfer) {
         return UserWorld.getInstance().transferItem((User)transfer.getOrigin(), (User)transfer.getDestination(), (Item)transfer.getItem());
-    }
+    }*/
 
 
 
