@@ -63,7 +63,7 @@ public class UserWorldDBImpl{
     }
 
     public String RegistrarQuery (User user){
-        
+
         StringBuffer query = new StringBuffer("INSERT INTO users (id,nom,password,jamones,drogas,cable_ethernet,x,y) VALUES ( ");
         query.append(user.getId());
         query.append(" , '");

@@ -2,7 +2,7 @@
 
 - Implementar DAO
 
-        Insertar usuari
+        Registrar usuari
         Insertar mapa
         Funcio Guardar que criden determinades celes del mapa per guardar el punt on et trobes.
         Funcio CargarUser que carrega un usuari al iniciar sessió o registrar-se
