@@ -1,4 +1,4 @@
-package edu.upc.dsa.Controller.ExceptionHandler;
+package edu.upc.dsa.ExceptionHandler;
 
 public class UserWorldDbException extends DAOUserException {
 

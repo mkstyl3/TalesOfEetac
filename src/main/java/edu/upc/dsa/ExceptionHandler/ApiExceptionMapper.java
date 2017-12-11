@@ -1,4 +1,4 @@
-package edu.upc.dsa.Controller.ExceptionHandler;
+package edu.upc.dsa.ExceptionHandler;
 
 import org.glassfish.grizzly.utils.Exceptions;
 

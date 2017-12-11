@@ -1,4 +1,4 @@
-package edu.upc.dsa.Controller.ExceptionHandler;
+package edu.upc.dsa.ExceptionHandler;
 
 public class DAOException extends ReflectionException {
 

@@ -1,8 +1,8 @@
 package edu.upc.dsa.Controller.GameDB.Repository;
 
 import edu.upc.dsa.Model.Main.User;
-import edu.upc.dsa.Controller.ExceptionHandler.DAOException;
-import edu.upc.dsa.Controller.ExceptionHandler.DAOUserException;
+import edu.upc.dsa.ExceptionHandler.DAOException;
+import edu.upc.dsa.ExceptionHandler.DAOUserException;
 import java.util.List;
 
 import static edu.upc.dsa.Controller.GameDB.DAO.DAOImpl.getInstance;
@@ -39,10 +39,10 @@ public abstract class DAOUserImpl implements DAOUser {
         }
     }
 
-    public User selectUserByUsernameAndPw(int userId, String password) throws DAOUserException {
+    public User selectUserByUsernameAndPw(String username, String password) throws DAOUserException {
         User u = new User();
         try {
-            return (User) getInstance().selectByUsernameAndPw(u, userId, password);
+            return (User) getInstance().selectByUsernameAndPw(u, username, password);
         }
         catch (DAOException e) {
             throw new DAOUserException(e);
@@ -50,14 +50,12 @@ public abstract class DAOUserImpl implements DAOUser {
     }
 
     public User insertUser(User user) throws DAOUserException {
-        User v;
         try {
-            v = (User)getInstance().insert(user);
+            return (User)getInstance().insert(user);
         }
         catch (DAOException e) {
             throw new DAOUserException(e);
         }
-        return v;
     }
 
     public void updateUser(User user) throws DAOUserException {

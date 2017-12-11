@@ -2,8 +2,8 @@ package edu.upc.dsa.Controller.API;
 
 import edu.upc.dsa.Controller.GameDB.DAO.DAOImpl;
 import edu.upc.dsa.Model.Main.User;
-import edu.upc.dsa.Controller.ExceptionHandler.DAOUserException;
-import edu.upc.dsa.Controller.ExceptionHandler.UserWorldDbException;
+import edu.upc.dsa.ExceptionHandler.DAOUserException;
+import edu.upc.dsa.ExceptionHandler.UserWorldDbException;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
@@ -97,22 +97,18 @@ public class UserWorldDBImpl{
     */
 
     public User register(User u) throws UserWorldDbException {
-        User v;
-
         try {
-            v = DAOImpl.getInstance().insertUser(u);
+            return DAOImpl.getInstance().insertUser(u);
         }
 
         catch (DAOUserException e) {
             throw new UserWorldDbException(e);
         }
-
-        return v;
     }
 
     public User login(User userIn) throws UserWorldDbException {
         try {
-            return DAOImpl.getInstance().selectUserByUsernameAndPw(userIn.getId(), userIn.getPassword());
+            return DAOImpl.getInstance().selectUserByUsernameAndPw(userIn.getUsername(), userIn.getPassword());
         }
         catch (DAOUserException e) {
             throw new UserWorldDbException(e);

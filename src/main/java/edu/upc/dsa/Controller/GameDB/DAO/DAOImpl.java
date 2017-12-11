@@ -2,9 +2,9 @@ package edu.upc.dsa.Controller.GameDB.DAO;
 
 import edu.upc.dsa.Controller.GameDB.Repository.DAOUser;
 import edu.upc.dsa.Model.Main.User;
-import edu.upc.dsa.Controller.ExceptionHandler.DAOException;
-import edu.upc.dsa.Controller.ExceptionHandler.DAOUserException;
-import edu.upc.dsa.Controller.ExceptionHandler.ReflectionException;
+import edu.upc.dsa.ExceptionHandler.DAOException;
+import edu.upc.dsa.ExceptionHandler.DAOUserException;
+import edu.upc.dsa.ExceptionHandler.ReflectionException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -103,14 +103,14 @@ public class DAOImpl implements DAOUser {
 
 
 
-    public Object selectByUsernameAndPw(Object object, int userId, String password) throws DAOException {
+    public Object selectByUsernameAndPw(Object object, String username, String password) throws DAOException {
         try {
             Connection con = getConnection();
             String query = getSelectWithUsernameAndPwQuery(object);
 
             PreparedStatement preparedStatement = con.prepareStatement(query);
-            int position = 1;
-            addPrimaryKeyParameter(preparedStatement, position, userId);
+            preparedStatement.setObject(1, username);
+            preparedStatement.setObject(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 
@@ -244,8 +244,7 @@ public class DAOImpl implements DAOUser {
     private String getSelectWithUsernameAndPwQuery (Object object){
         StringBuilder query = new StringBuilder("SELECT * FROM ");
         query.append(object.getClass().getSimpleName());
-        query.append(" WHERE id=?");
-        query.append(" AND username=?");
+        query.append(" WHERE username=?");
         query.append(" AND password=?");
 
         return query.toString();
@@ -459,10 +458,10 @@ public class DAOImpl implements DAOUser {
     }
 
     @Override
-    public User selectUserByUsernameAndPw(int userId, String password) throws DAOUserException {
+    public User selectUserByUsernameAndPw(String username, String password) throws DAOUserException {
         User u = new User();
         try {
-            return (User) getInstance().selectByUsernameAndPw(u, userId, password);
+            return (User) getInstance().selectByUsernameAndPw(u, username, password);
         }
         catch (DAOException e) {
             throw new DAOUserException(e);
@@ -473,15 +472,12 @@ public class DAOImpl implements DAOUser {
 
     @Override
     public User insertUser(User user) throws DAOUserException {
-        User v;
-
         try {
-            v= (User)getInstance().insert(user);
+            return (User)getInstance().insert(user);
         }
         catch (DAOException e) {
             throw new DAOUserException(e);
         }
-        return v;
     }
 
     @Override

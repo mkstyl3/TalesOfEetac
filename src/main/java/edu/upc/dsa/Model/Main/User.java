@@ -106,11 +106,11 @@ public class User {
         }
     }
 
-    public Boolean getAdmin() {
+    public boolean getAdmin() {
         return admin;
     }
 
-    public void setAdmin(Boolean admin) {
+    public void setAdmin(boolean admin) {
         this.admin = admin;
     }
 }
