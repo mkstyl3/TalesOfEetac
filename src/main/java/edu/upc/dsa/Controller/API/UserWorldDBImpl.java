@@ -1,6 +1,7 @@
 package edu.upc.dsa.Controller.API;
 
 import edu.upc.dsa.Controller.GameDB.DAO.DAOImpl;
+import edu.upc.dsa.Model.Main.Item;
 import edu.upc.dsa.Model.Main.User;
 import edu.upc.dsa.ExceptionHandler.DAOUserException;
 import edu.upc.dsa.ExceptionHandler.UserWorldDbException;
@@ -8,8 +9,10 @@ import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class UserWorldDBImpl{
+public class UserWorldDBImpl {
     final static Logger logger = Logger.getLogger(UserWorldDBImpl.class);
     private static UserWorldDBImpl instance = null;
 
@@ -100,9 +103,7 @@ public class UserWorldDBImpl{
     public User register(User u) throws UserWorldDbException {
         try {
             return DAOImpl.getInstance().insertUser(u);
-        }
-
-        catch (DAOUserException e) {
+        } catch (DAOUserException e) {
             throw new UserWorldDbException(e);
         }
     }
@@ -110,9 +111,30 @@ public class UserWorldDBImpl{
     public User login(User userIn) throws UserWorldDbException {
         try {
             return DAOImpl.getInstance().selectUserByUsernameAndPw(userIn.getUsername(), userIn.getPassword());
+        } catch (DAOUserException e) {
+            throw new UserWorldDbException(e);
+        }
+    }
+
+    /*Needs implementation
+
+    public List<Item> getItems(String userId) throws UserWorldDbException {
+        try {
+            return null;
         }
         catch (DAOUserException e) {
             throw new UserWorldDbException(e);
         }
     }
+
+    //Needs implementation
+
+    public Item getItem() throws UserWorldDbException {
+        try {
+            return null;
+        }
+        catch (DAOUserException e) {
+            throw new UserWorldDbException(e);
+        }
+    }*/
 }
