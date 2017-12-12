@@ -3,6 +3,8 @@ package edu.upc.dsa.Controller.GameDB.Repository;
 import edu.upc.dsa.Model.Main.User;
 import edu.upc.dsa.ExceptionHandler.DAOException;
 import edu.upc.dsa.ExceptionHandler.DAOUserException;
+import edu.upc.dsa.Model.Relation.UserItem;
+
 import java.util.List;
 
 import static edu.upc.dsa.Controller.GameDB.DAO.DAOImpl.getInstance;
@@ -30,7 +32,7 @@ public abstract class DAOUserImpl implements DAOUser {
 
     public User selectUserByUsername (String username) throws DAOUserException {
         User u = new User();
-        u.setUsername(username);
+        u.setName(username);
         try {
             return (User)getInstance().selectByName(u, username);
         }

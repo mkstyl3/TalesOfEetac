@@ -4,7 +4,6 @@ package edu.upc.dsa.Model.Main;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -13,7 +12,7 @@ public class User {
     //Private atributes
 
     private int id;
-    private String username;
+    private String name;
     private String password;
     private int lastMap;
     private List<Item> items;
@@ -26,17 +25,17 @@ public class User {
         this.items = new ArrayList<>();
     }
 
-    public User(int id, String username, String password, Location location) {
+    public User(int id, String name, String password, Location location) {
         this.id = id;
-        this.username = username;
+        this.name = name;
         this.password = password;
         this.items = new ArrayList<>();
         this.location = location;
     }
 
-    public User(int id, String username, String password, boolean admin) {
+    public User(int id, String name, String password, boolean admin) {
         this.id = id;
-        this.username = username;
+        this.name = name;
         this.password = password;
         this.admin = admin;
         this.items = new ArrayList<>();
@@ -61,12 +60,12 @@ public class User {
         this.location = location;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {

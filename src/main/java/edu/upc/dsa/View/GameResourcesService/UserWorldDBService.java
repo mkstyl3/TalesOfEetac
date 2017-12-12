@@ -2,14 +2,20 @@ package edu.upc.dsa.View.GameResourcesService;
 
 import edu.upc.dsa.Controller.API.UserWorldDBImpl;
 import edu.upc.dsa.ExceptionHandler.ApiException;
+import edu.upc.dsa.ExceptionHandler.DAOItemException;
+import edu.upc.dsa.ExceptionHandler.DAOUserException;
+import edu.upc.dsa.Model.Main.Item;
 import edu.upc.dsa.Model.Main.User;
 import edu.upc.dsa.ExceptionHandler.UserWorldDbException;
+import edu.upc.dsa.Model.Relation.UserItem;
 import org.apache.log4j.Logger;
 
 import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
 
 @Path("/db/user")
 @Singleton //We need it to say jersey to use an unique instance
@@ -28,7 +34,7 @@ public class UserWorldDBService {
     public Response registerService(User u) throws ApiException {
         try  {
             UserWorldDBImpl.getInstance().register(u);
-            logger.info("registerService: User with username: " + u.getUsername() + " have been created.");
+            logger.info("registerService: User with username: " + u.getName() + " have been created.");
             return Response.status(201).entity(u.getId()).build();
         }
         catch (UserWorldDbException e) {
@@ -45,11 +51,11 @@ public class UserWorldDBService {
         try {
             User o = UserWorldDBImpl.getInstance().login(i);
             if (o != null) {
-                logger.info("loginService: User with username: " + i.getUsername() + " have been logged in.");
+                logger.info("loginService: User with username: " + i.getName() + " have been logged in.");
                 return Response.status(200).entity(o).build() ;
             }
             else {
-                logger.info("loginService: User with username: " + i.getUsername() + " doesn't exist in db");
+                logger.info("loginService: User with username: " + i.getName() + " doesn't exist in db");
                 return Response.status(404).entity("404 Not Found").type("text/plain").build() ;
             }
 
@@ -60,6 +66,26 @@ public class UserWorldDBService {
         }
     }
 
+    @GET
+    @Path("/{id}/items/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserItems(@PathParam("id") int userId) throws ApiException, DAOItemException {
+        List<Item> items = new ArrayList<>();
+        try {
+            for (UserItem uI : UserWorldDBImpl.getInstance().getItems(userId)) {
+                items.add(UserWorldDBImpl.getInstance().getItem(uI.getItemId()));
+            }
 
+            logger.info("loginService: User with username: " + i.getName() + " have been logged in.");
+            return Response.status(200).entity(o).build() ;
+        }
+
+        catch (DAOUserException e){
+            logger.warn("loginService: There is a server error. See Exception for more details.");
+            throw new ApiException(e);
+        }
+
+        return out;
+    }
 
 }

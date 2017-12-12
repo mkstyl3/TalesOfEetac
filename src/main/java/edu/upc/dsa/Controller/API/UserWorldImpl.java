@@ -29,7 +29,7 @@ public class UserWorldImpl implements UserWorld {
         this.map = map;
     }
     public String getUsername (int id) {
-        return get(id).getUsername();
+        return get(id).getName();
     }
 
     //Singleton pattern
@@ -110,16 +110,16 @@ public class UserWorldImpl implements UserWorld {
     //User Specific
 
     public Boolean set(User u) {
-        logger.info("set: Creating user: "+u.getUsername()+" ...");
+        logger.info("set: Creating user: "+u.getName()+" ...");
 
         if(doExist(u.getId())) {
-            logger.warn("set: User: "+u.getUsername()+" already exists");
+            logger.warn("set: User: "+u.getName()+" already exists");
             return false;
         }
 
         else {
             map.put(u.getId(), u);
-            logger.info("set: User: "+u.getUsername()+" have been created!");
+            logger.info("set: User: "+u.getName()+" have been created!");
             return true;
         }
     }
@@ -154,7 +154,7 @@ public class UserWorldImpl implements UserWorld {
     }
 
     /*public boolean setItem(int userId, Item i) {
-        String username = getUsername(userId);
+        String username = getName(userId);
         logger.info("addItemUs/er: Adding item "+i.getName()+" to user: "+username);
         get(userId).setItem(i);
 
@@ -167,7 +167,7 @@ public class UserWorldImpl implements UserWorld {
 
         User u = get(userId);
         if (u.getItems().isEmpty())
-            logger.info("getItems: The user: "+u.getUsername()+" has no items");
+            logger.info("getItems: The user: "+u.getName()+" has no items");
         else
             logger.info("getItems: User's items obtained");
 
@@ -176,7 +176,7 @@ public class UserWorldImpl implements UserWorld {
 
     public ArrayList<Item> getItemByName(int userId, String itemName) {
         User u = get(userId);
-        logger.warn("getItemByName: Retreiving item: "+itemName+" from user: "+u.getUsername()+" ...");
+        logger.warn("getItemByName: Retreiving item: "+itemName+" from user: "+u.getName()+" ...");
 
         List<Item> itemList = u.getItems(); //Call economy
         ArrayList<Item> temp = new ArrayList<>();
@@ -186,7 +186,7 @@ public class UserWorldImpl implements UserWorld {
             }
         }
         if (temp.isEmpty()) {
-            logger.warn("getItemByName: User: "+u.getUsername()+" hasn't got any item with the name: "+itemName);
+            logger.warn("getItemByName: User: "+u.getName()+" hasn't got any item with the name: "+itemName);
             return null;
         }
         else {
@@ -197,7 +197,7 @@ public class UserWorldImpl implements UserWorld {
 
     public boolean delItems(int userid) {
 
-        String username = getUsername(userid);
+        String username = getName(userid);
         logger.info("delItems: Deleting all user: "+username+" items...");
         getItems(userid).clear();
         logger.info("All items deleted from the user: "+username);
@@ -207,16 +207,16 @@ public class UserWorldImpl implements UserWorld {
 
     //LOCAL, EXAM PURPOSES ONLY
     public boolean transferItem(User origin, User destination, Item i) {
-        logger.info("transferItem: Transfering item: "+i.getName()+" from user "+origin.getUsername()+" to "+destination.getUsername());
+        logger.info("transferItem: Transfering item: "+i.getName()+" from user "+origin.getName()+" to "+destination.getName());
 
         destination.getItems().add(origin.getItem(i.getId()));
-        logger.info("transferItem: Removing item: "+i.getName()+"from original user: "+origin.getUsername());
+        logger.info("transferItem: Removing item: "+i.getName()+"from original user: "+origin.getName());
         try {
             origin.getItems().remove(origin.getItems().size()-1);
-            logger.info("transferItem: Item: "+i.getName()+" removed from original user: "+origin.getUsername());
+            logger.info("transferItem: Item: "+i.getName()+" removed from original user: "+origin.getName());
             return true;
         } catch (Exception ex) {
-            logger.fatal("transferItem: IndexOutOfBoundsException Exception: Couldn't remove item: "+i.getName()+" from original user: "+origin.getUsername());
+            logger.fatal("transferItem: IndexOutOfBoundsException Exception: Couldn't remove item: "+i.getName()+" from original user: "+origin.getName());
             return false;
         }
     }*/

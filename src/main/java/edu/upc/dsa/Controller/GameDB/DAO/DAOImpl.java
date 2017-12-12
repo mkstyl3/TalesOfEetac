@@ -1,10 +1,14 @@
 package edu.upc.dsa.Controller.GameDB.DAO;
 
+import edu.upc.dsa.Controller.GameDB.Repository.DAOItem;
 import edu.upc.dsa.Controller.GameDB.Repository.DAOUser;
+import edu.upc.dsa.ExceptionHandler.DAOItemException;
+import edu.upc.dsa.Model.Main.Item;
 import edu.upc.dsa.Model.Main.User;
 import edu.upc.dsa.ExceptionHandler.DAOException;
 import edu.upc.dsa.ExceptionHandler.DAOUserException;
 import edu.upc.dsa.ExceptionHandler.ReflectionException;
+import edu.upc.dsa.Model.Relation.UserItem;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -14,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class DAOImpl implements DAOUser {
+public class DAOImpl implements DAOUser, DAOItem, DAO {
 
     private static DAOImpl instance = null;
 
@@ -23,7 +27,7 @@ public class DAOImpl implements DAOUser {
 
         return instance;
     }
-
+    //General
     public Object insert(Object object) throws DAOException {
 
         try {
@@ -44,7 +48,7 @@ public class DAOImpl implements DAOUser {
             throw new DAOException(e);
         }
     }
-
+    //General
     public Object select(Object object, int primaryKey) throws DAOException {
         try {
             Connection con = getConnection();
@@ -73,11 +77,12 @@ public class DAOImpl implements DAOUser {
         }
     }
 
+    //General
     public Object selectByName(Object object, String name) throws DAOException {
         try {
-            Connection con = getConnection();
-            String query = getSelectWithUsernameQuery(object);
 
+            String query = getSelectWithUsernameQuery(object);
+            Connection con = getConnection();
             PreparedStatement preparedStatement = con.prepareStatement(query);
             int position = 1;
             preparedStatement.setObject(position, name);
@@ -100,6 +105,38 @@ public class DAOImpl implements DAOUser {
             throw new DAOException(e);
         }
     }
+
+    //Specific
+    public List<UserItem> selectUserItems(int userId) throws DAOException {
+        try {
+            Connection con = getConnection();
+            List<UserItem> userItems = new ArrayList<>();
+            StringBuilder query = new StringBuilder("SELECT UserItem.id, itemId, userId ");
+            query.append("FROM UserItem ");
+            query.append("LEFT JOIN User ON User.id = UserItem.id ");
+            query.append("WHERE User.id = ?");
+            PreparedStatement preparedStatement = con.prepareStatement(query.toString());
+            preparedStatement.setObject(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            while (resultSet.next()) {
+                UserItem userItem = new UserItem();
+                setFieldsFromResultSet(resultSet, resultSetMetaData, userItem);
+                userItems.add(userItem);
+            }
+            preparedStatement.close();
+            con.close();
+
+
+            return userItems;
+        }
+
+        catch (ReflectionException | SQLException e) {
+            throw new DAOException(e);
+        }
+
+    }
+
 
 
 
@@ -236,7 +273,7 @@ public class DAOImpl implements DAOUser {
     private String getSelectWithUsernameQuery(Object object) {
         StringBuilder query = new StringBuilder("SELECT * FROM ");
         query.append(object.getClass().getSimpleName());
-        query.append(" WHERE username=?");
+        query.append(" WHERE name=?");
 
         return query.toString();
     }
@@ -244,9 +281,17 @@ public class DAOImpl implements DAOUser {
     private String getSelectWithUsernameAndPwQuery (Object object){
         StringBuilder query = new StringBuilder("SELECT * FROM ");
         query.append(object.getClass().getSimpleName());
-        query.append(" WHERE username=?");
+        query.append(" WHERE name=?");
         query.append(" AND password=?");
 
+        return query.toString();
+    }
+
+    private String getUserItemQuery() {
+        StringBuilder query = new StringBuilder("SELECT UserItem.id, itemId, userId ");
+        query.append("FROM UserItem ");
+        query.append("LEFT JOIN User ON User.id = UserItem.id ");
+        query.append("WHERE User.id = ?");
         return query.toString();
     }
 
@@ -448,7 +493,7 @@ public class DAOImpl implements DAOUser {
     @Override
     public User selectUserByUsername(String username) throws DAOUserException {
         User u = new User();
-        u.setUsername(username);
+        u.setName(username);
         try {
             return (User) getInstance().selectByName(u, username);
         }
@@ -497,6 +542,27 @@ public class DAOImpl implements DAOUser {
         }
         catch (DAOException e) {
             throw new DAOUserException(e);
+        }
+    }
+
+    @Override
+    public Item insertUserItem(UserItem userItem) throws DAOItemException {
+        try{
+            return (Item)DAOImpl.getInstance().insert(userItem);
+        }
+        catch (DAOException e) {
+            throw new DAOItemException(e);
+        }
+    }
+
+    @Override
+    public Item selectItem(int primaryKey) throws DAOItemException {
+        try{
+            Item i = new Item();
+            return (Item)DAOImpl.getInstance().select(i, primaryKey);
+        }
+        catch (DAOException e) {
+            throw new DAOItemException(e);
         }
     }
 }

@@ -1,18 +1,19 @@
 package edu.upc.dsa.Controller.API;
 
+import edu.upc.dsa.Controller.GameDB.DAO.DAO;
 import edu.upc.dsa.Controller.GameDB.DAO.DAOImpl;
+import edu.upc.dsa.Controller.GameDB.Repository.DAOItem;
+import edu.upc.dsa.Controller.GameDB.Repository.DAOUser;
+import edu.upc.dsa.ExceptionHandler.*;
 import edu.upc.dsa.Model.Main.Item;
 import edu.upc.dsa.Model.Main.User;
-import edu.upc.dsa.ExceptionHandler.DAOUserException;
-import edu.upc.dsa.ExceptionHandler.UserWorldDbException;
+import edu.upc.dsa.Model.Relation.UserItem;
 import org.apache.log4j.Logger;
 
-import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class UserWorldDBImpl {
+public class UserWorldDBImpl implements UserWorldDB {
     final static Logger logger = Logger.getLogger(UserWorldDBImpl.class);
     private static UserWorldDBImpl instance = null;
 
@@ -70,7 +71,7 @@ public class UserWorldDBImpl {
         StringBuffer query = new StringBuffer("INSERT INTO users (id,nom,password,jamones,drogas,cable_ethernet,x,y) VALUES ( ");
         query.append(user.getId());
         query.append(" , '");
-        query.append(user.getUsername());
+        query.append(user.getName());
         query.append("' , '");
         query.append(user.getPassword());
         query.append("' , 0 , 0 , 0 , 0 , 0)");
@@ -110,31 +111,27 @@ public class UserWorldDBImpl {
 
     public User login(User userIn) throws UserWorldDbException {
         try {
-            return DAOImpl.getInstance().selectUserByUsernameAndPw(userIn.getUsername(), userIn.getPassword());
+            return DAOImpl.getInstance().selectUserByUsernameAndPw(userIn.getName(), userIn.getPassword());
         } catch (DAOUserException e) {
             throw new UserWorldDbException(e);
         }
     }
 
-    /*Needs implementation
-
-    public List<Item> getItems(String userId) throws UserWorldDbException {
+    public List<UserItem> getItems(int userId) throws DAOUserException {
         try {
-            return null;
+            return DAOImpl.getInstance().selectUserItems(userId);
         }
-        catch (DAOUserException e) {
-            throw new UserWorldDbException(e);
+        catch (DAOException e) {
+            throw new DAOUserException(e);
         }
     }
 
-    //Needs implementation
-
-    public Item getItem() throws UserWorldDbException {
+    public Item getItem(int itemId) throws DAOItemException {
         try {
-            return null;
+            return DAOImpl.getInstance().selectItem(itemId);
         }
-        catch (DAOUserException e) {
-            throw new UserWorldDbException(e);
+        catch (DAOException e) {
+            throw new DAOItemException(e);
         }
-    }*/
+    }
 }
