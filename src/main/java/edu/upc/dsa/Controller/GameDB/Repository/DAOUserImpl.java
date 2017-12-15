@@ -1,24 +1,27 @@
 package edu.upc.dsa.Controller.GameDB.Repository;
 
+import edu.upc.dsa.Controller.GameDB.DAO.DAOImpl;
+import edu.upc.dsa.Model.Main.Item;
 import edu.upc.dsa.Model.Main.User;
 import edu.upc.dsa.ExceptionHandler.DAOException;
 import edu.upc.dsa.ExceptionHandler.DAOUserException;
 import edu.upc.dsa.Model.Relation.UserItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static edu.upc.dsa.Controller.GameDB.DAO.DAOImpl.getInstance;
 
-public abstract class DAOUserImpl implements DAOUser {
+public abstract class DAOUserImpl extends DAOImpl {
 
-    public List<User> selectAllUsers() throws DAOUserException {
+    /*public List<User> selectAllUsers() throws DAOUserException {
         try {
             return getInstance().selectAll(User.class);
         }
         catch (DAOException e) {
             throw new DAOUserException(e);
         }
-    }
+    }*/
 
     public User selectUser(int primaryKey) throws DAOUserException {
         User u = new User();

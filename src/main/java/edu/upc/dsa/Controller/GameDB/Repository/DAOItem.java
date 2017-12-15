@@ -12,5 +12,5 @@ import java.util.List;
 public interface DAOItem {
 
     Item selectItem(int primaryKey) throws DAOItemException;
-    Item insertUserItem(UserItem userItem) throws DAOException;
+    Item insertItem(Item i) throws DAOItemException;
 }

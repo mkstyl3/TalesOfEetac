@@ -17,7 +17,6 @@ public class User {
     private int lastMap;
     private List<Item> items;
     private Location location;
-    private boolean admin;
 
     //Constructors
 
@@ -37,7 +36,6 @@ public class User {
         this.id = id;
         this.name = name;
         this.password = password;
-        this.admin = admin;
         this.items = new ArrayList<>();
 
     }
@@ -86,14 +84,6 @@ public class User {
 
     public List<Item> getAllItems() {
         return items;
-    }
-
-    public boolean getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
     }
 
     public List<Item> getItems() {

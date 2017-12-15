@@ -54,10 +54,10 @@ public class UserWorldService {
     }
 
     /*@POST
-    @Path("/{id}/items/setItem")
+    @Path("/{id}/items/setUserItem")
     @Consumes(MediaType.APPLICATION_JSON)
     public boolean addItemUserService(@PathParam("id") int userId, Item i){
-        return UserWorld.getInstance().setItem(userId,i);
+        return UserWorld.getInstance().setUserItem(userId,i);
     }
 
     @GET

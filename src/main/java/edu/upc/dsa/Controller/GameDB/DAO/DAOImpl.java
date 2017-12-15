@@ -2,12 +2,10 @@ package edu.upc.dsa.Controller.GameDB.DAO;
 
 import edu.upc.dsa.Controller.GameDB.Repository.DAOItem;
 import edu.upc.dsa.Controller.GameDB.Repository.DAOUser;
-import edu.upc.dsa.ExceptionHandler.DAOItemException;
+import edu.upc.dsa.Controller.GameDB.Repository.DAOUserItem;
+import edu.upc.dsa.ExceptionHandler.*;
 import edu.upc.dsa.Model.Main.Item;
 import edu.upc.dsa.Model.Main.User;
-import edu.upc.dsa.ExceptionHandler.DAOException;
-import edu.upc.dsa.ExceptionHandler.DAOUserException;
-import edu.upc.dsa.ExceptionHandler.ReflectionException;
 import edu.upc.dsa.Model.Relation.UserItem;
 
 import java.lang.reflect.Field;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class DAOImpl implements DAOUser, DAOItem, DAO {
+public class DAOImpl implements DAOUser, DAOItem, DAOUserItem, DAO {
 
     private static DAOImpl instance = null;
 
@@ -27,6 +25,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
 
         return instance;
     }
+
     //General
     public Object insert(Object object) throws DAOException {
 
@@ -43,11 +42,11 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
             con.close();
 
             return object;
-        }
-        catch (ReflectionException | SQLException e) {
+        } catch (ReflectionException | SQLException e) {
             throw new DAOException(e);
         }
     }
+
     //General
     public Object select(Object object, int primaryKey) throws DAOException {
         try {
@@ -64,15 +63,14 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
                 setFieldsFromResultSet(resultSet, resultSetMetaData, object);
             }
             resultSet.beforeFirst();
-            if(!resultSet.next()){
+            if (!resultSet.next()) {
                 object = null;
             }
             preparedStatement.close();
             con.close();
 
             return object;
-        }
-        catch (ReflectionException | SQLException e) {
+        } catch (ReflectionException | SQLException e) {
             throw new DAOException(e);
         }
     }
@@ -93,52 +91,45 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
                 setFieldsFromResultSet(resultSet, resultSetMetaData, object);
             }
             resultSet.beforeFirst();
-            if(!resultSet.next()){
+            if (!resultSet.next()) {
                 object = null;
             }
             preparedStatement.close();
             con.close();
 
             return object;
-        }
-        catch (ReflectionException | SQLException e) {
+        } catch (ReflectionException | SQLException e) {
             throw new DAOException(e);
         }
     }
 
     //Specific
-    public List<UserItem> selectUserItems(int userId) throws DAOException {
+    public List<Item> selectItemsFromUser(int userId) throws DAOException {
         try {
             Connection con = getConnection();
-            List<UserItem> userItems = new ArrayList<>();
-            StringBuilder query = new StringBuilder("SELECT UserItem.id, itemId, userId ");
-            query.append("FROM UserItem ");
-            query.append("LEFT JOIN User ON User.id = UserItem.id ");
-            query.append("WHERE User.id = ?");
+            List<Item> items = new ArrayList<>();
+            StringBuilder query = new StringBuilder("SELECT Item.id, Item.name, Item.type, Item.description, Item.cost ");
+            query.append("FROM Item INNER JOIN UserItem ");
+            query.append("ON UserItem.itemId = Item.id ");
+            query.append("WHERE UserItem.userId = ?");
             PreparedStatement preparedStatement = con.prepareStatement(query.toString());
             preparedStatement.setObject(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
             while (resultSet.next()) {
-                UserItem userItem = new UserItem();
-                setFieldsFromResultSet(resultSet, resultSetMetaData, userItem);
-                userItems.add(userItem);
+                Item item = new Item();
+                setFieldsFromResultSet(resultSet, resultSetMetaData, item);
+                items.add(item);
             }
             preparedStatement.close();
             con.close();
 
 
-            return userItems;
-        }
-
-        catch (ReflectionException | SQLException e) {
+            return items;
+        } catch (ReflectionException | SQLException e) {
             throw new DAOException(e);
         }
-
     }
-
-
-
 
     public Object selectByUsernameAndPw(Object object, String username, String password) throws DAOException {
         try {
@@ -155,20 +146,19 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
                 setFieldsFromResultSet(resultSet, resultSetMetaData, object);
             }
             resultSet.beforeFirst();
-            if(!resultSet.next()){
+            if (!resultSet.next()) {
                 object = null;
             }
             preparedStatement.close();
             con.close();
 
             return object;
-        }
-        catch (ReflectionException | SQLException e) {
+        } catch (ReflectionException | SQLException e) {
             throw new DAOException(e);
         }
     }
 
-    public List selectAll(Class classToLoad) throws DAOException {
+    /*public List selectAll(Class classToLoad) throws DAOException {
         try {
             Connection con = getConnection();
             List<Object> objects = new ArrayList<>();
@@ -187,12 +177,10 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
             con.close();
 
             return objects;
-        }
-        catch (ReflectionException | SQLException | IllegalAccessException | InstantiationException e) {
+        } catch (ReflectionException | SQLException | IllegalAccessException | InstantiationException e) {
             throw new DAOException(e);
         }
-    }
-
+    }*/
 
 
     public void update(Object object) throws DAOException {
@@ -209,8 +197,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
             preparedStatement.executeUpdate();
             preparedStatement.close();
             con.close();
-        }
-        catch (ReflectionException | SQLException e) {
+        } catch (ReflectionException | SQLException e) {
             throw new DAOException(e);
         }
     }
@@ -227,12 +214,10 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
             preparedStatement.executeUpdate();
             preparedStatement.close();
             con.close();
-        }
-        catch (ReflectionException | SQLException e) {
+        } catch (ReflectionException | SQLException e) {
             throw new DAOException(e);
         }
     }
-
 
 
     private Connection getConnection() throws SQLException, ReflectionException {
@@ -245,8 +230,9 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
             System.out.println("Connected to database");
 
             return con;
+        } catch (ClassNotFoundException e) {
+            throw new ReflectionException(e);
         }
-        catch (ClassNotFoundException e) {throw new ReflectionException(e);}
     }
 
     private String getInsertQuery(Object object) {
@@ -278,7 +264,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
         return query.toString();
     }
 
-    private String getSelectWithUsernameAndPwQuery (Object object){
+    private String getSelectWithUsernameAndPwQuery(Object object) {
         StringBuilder query = new StringBuilder("SELECT * FROM ");
         query.append(object.getClass().getSimpleName());
         query.append(" WHERE name=?");
@@ -323,13 +309,15 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
     private void addFieldsInsertQuery(Object object, StringBuffer query) {
         for (Field f : getNonGenericObjectDeclaredFields(object)) {
             query.append(f.getName()).append(",");
-        } query.deleteCharAt(query.length() - 1);
+        }
+        query.deleteCharAt(query.length() - 1);
     }
 
     private void addInterrogantsInsertQuery(Object object, StringBuffer query) {
         for (Field ignore : getNonGenericObjectDeclaredFields(object)) {
             query.append("?,");
-        } query.deleteCharAt(query.length() - 1);
+        }
+        query.deleteCharAt(query.length() - 1);
     }
 
     private void addClassFieldsParameters(Object object, PreparedStatement pstm) throws SQLException, ReflectionException {
@@ -341,8 +329,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
                 pstm.setObject(i, methodObjectResultant);
                 i++;
             }
-        }
-        catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             throw new ReflectionException(e);
         }
 
@@ -356,9 +343,9 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
                 methodObjectResulted = new java.sql.Date(calendar.getTime().getTime());
             } else {
                 methodObjectResulted = method.invoke(object);
-            } return methodObjectResulted;
-        }
-        catch (InvocationTargetException | IllegalAccessException e) {
+            }
+            return methodObjectResulted;
+        } catch (InvocationTargetException | IllegalAccessException e) {
             throw new ReflectionException(e);
         }
 
@@ -400,8 +387,10 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
         for (Field f : getNonGenericObjectDeclaredFields(object)) {
             query.append(f.getName());
             query.append("=?,");
-        } query.deleteCharAt(query.length() - 1);
+        }
+        query.deleteCharAt(query.length() - 1);
     }
+
     private void addPrimaryKeyParameter(PreparedStatement pstm, int position, int primaryKey) throws SQLException {
         pstm.setObject(position, primaryKey);
     }
@@ -416,8 +405,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
             id = Integer.parseInt(methodObjectResulted.toString());
 
             return id;
-        }
-        catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             throw new ReflectionException(e);
         }
 
@@ -463,29 +451,26 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
         try {
             method = object.getClass().getMethod(getSetterName(name), object.getClass().getDeclaredField(name).getType());
             method.invoke(object, result);
-        }
-        catch (NoSuchMethodException | NoSuchFieldException | InvocationTargetException | IllegalAccessException e) {
+        } catch (NoSuchMethodException | NoSuchFieldException | InvocationTargetException | IllegalAccessException e) {
             throw new ReflectionException(e);
         }
     }
-
+    /*
     @Override
     public List<User> selectAllUsers() throws DAOUserException {
         try {
             return getInstance().selectAll(User.class);
-        }
-        catch (DAOException e) {
+        } catch (DAOException e) {
             throw new DAOUserException(e);
         }
-    }
+    }*/
 
     @Override
     public User selectUser(int primaryKey) throws DAOUserException {
         User u = new User();
         try {
             return (User) getInstance().select(u, primaryKey);
-        }
-        catch (DAOException e) {
+        } catch (DAOException e) {
             throw new DAOUserException(e);
         }
     }
@@ -496,8 +481,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
         u.setName(username);
         try {
             return (User) getInstance().selectByName(u, username);
-        }
-        catch (DAOException e) {
+        } catch (DAOException e) {
             throw new DAOUserException(e);
         }
     }
@@ -507,20 +491,17 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
         User u = new User();
         try {
             return (User) getInstance().selectByUsernameAndPw(u, username, password);
-        }
-        catch (DAOException e) {
+        } catch (DAOException e) {
             throw new DAOUserException(e);
         }
     }
 
 
-
     @Override
     public User insertUser(User user) throws DAOUserException {
         try {
-            return (User)getInstance().insert(user);
-        }
-        catch (DAOException e) {
+            return (User) getInstance().insert(user);
+        } catch (DAOException e) {
             throw new DAOUserException(e);
         }
     }
@@ -529,8 +510,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
     public void updateUser(User user) throws DAOUserException {
         try {
             getInstance().update(user);
-        }
-        catch (DAOException e) {
+        } catch (DAOException e) {
             throw new DAOUserException(e);
         }
     }
@@ -539,30 +519,36 @@ public class DAOImpl implements DAOUser, DAOItem, DAO {
     public void deleteUser(User user) throws DAOUserException {
         try {
             getInstance().delete(user);
-        }
-        catch (DAOException e) {
+        } catch (DAOException e) {
             throw new DAOUserException(e);
         }
     }
 
     @Override
-    public Item insertUserItem(UserItem userItem) throws DAOItemException {
-        try{
-            return (Item)DAOImpl.getInstance().insert(userItem);
-        }
-        catch (DAOException e) {
+    public Item selectItem(int primaryKey) throws DAOItemException {
+        try {
+            Item i = new Item();
+            return (Item) DAOImpl.getInstance().select(i, primaryKey);
+        } catch (DAOException e) {
             throw new DAOItemException(e);
         }
     }
 
     @Override
-    public Item selectItem(int primaryKey) throws DAOItemException {
-        try{
-            Item i = new Item();
-            return (Item)DAOImpl.getInstance().select(i, primaryKey);
-        }
-        catch (DAOException e) {
+    public Item insertItem(Item i) throws DAOItemException {
+        try {
+            return (Item) DAOImpl.getInstance().insert(i);
+        } catch (DAOException e) {
             throw new DAOItemException(e);
+        }
+    }
+
+    @Override
+    public UserItem insertUserItem(UserItem uI) throws DAOUserItemException {
+        try {
+            return (UserItem) DAOImpl.getInstance().insert(uI);
+        } catch (DAOException e) {
+            throw new DAOUserItemException(e);
         }
     }
 }

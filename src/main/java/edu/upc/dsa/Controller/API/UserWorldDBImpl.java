@@ -1,16 +1,11 @@
 package edu.upc.dsa.Controller.API;
 
-import edu.upc.dsa.Controller.GameDB.DAO.DAO;
 import edu.upc.dsa.Controller.GameDB.DAO.DAOImpl;
-import edu.upc.dsa.Controller.GameDB.Repository.DAOItem;
-import edu.upc.dsa.Controller.GameDB.Repository.DAOUser;
 import edu.upc.dsa.ExceptionHandler.*;
 import edu.upc.dsa.Model.Main.Item;
 import edu.upc.dsa.Model.Main.User;
-import edu.upc.dsa.Model.Relation.UserItem;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
 import java.util.List;
 
 public class UserWorldDBImpl implements UserWorldDB {
@@ -22,7 +17,7 @@ public class UserWorldDBImpl implements UserWorldDB {
         return instance;
     }
 
-    public Connection getConnection() throws SQLException, ClassNotFoundException {
+    /*public Connection getConnection() throws SQLException, ClassNotFoundException {
 
         Connection con = null;
         //com.mysql.cj.jdbc.Driver, lo detecta automaticamente
@@ -33,7 +28,7 @@ public class UserWorldDBImpl implements UserWorldDB {
         return con;
     }
 
-    /*
+
     public String GuardarQuery (User user) {
 
         StringBuffer query = new StringBuffer("UPDATE users SET ");
@@ -117,9 +112,9 @@ public class UserWorldDBImpl implements UserWorldDB {
         }
     }
 
-    public List<UserItem> getItems(int userId) throws DAOUserException {
+    public List<Item> getItems(int userId) throws DAOUserException {
         try {
-            return DAOImpl.getInstance().selectUserItems(userId);
+            return DAOImpl.getInstance().selectItemsFromUser(userId);
         }
         catch (DAOException e) {
             throw new DAOUserException(e);

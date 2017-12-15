@@ -8,7 +8,6 @@ public class Item {
     private String name;
     private int type;
     private String description;
-    private double value;
     private int cost;
 
     //Constructors
@@ -18,7 +17,6 @@ public class Item {
         this.name = name;
         this.type = type;
         this.description = description;
-        this.value = value;
         this.cost = cost;
     }
 
@@ -55,14 +53,6 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     public int getCost() {

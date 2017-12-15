@@ -43,7 +43,7 @@ public class UserWorldTest {
     public void addItem() {
         //Adding item to user
         Item item_5 = new Item(5, "meat", 3, "minor heal", 0.2, 20);
-        UserWorld.getInstance().setItem(2, item_5);
+        UserWorld.getInstance().setUserItem(2, item_5);
         Assert.assertTrue(UserWorld.getInstance().getItems(2).contains(item_5));
     }
 
@@ -80,7 +80,7 @@ public class UserWorldTest {
         User u1 = new User();
         User u2 = new User();
         Item i = new Item();
-        u1.setItem(i);
+        u1.setUserItem(i);
 
         //Test
         Assert.assertTrue(UserWorld.getInstance().transferItem(u1,u2,i));

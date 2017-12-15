@@ -1,12 +1,12 @@
 package edu.upc.dsa.View.GameResourcesService;
 
+import edu.upc.dsa.Controller.API.ItemWorldDBImpl;
+import edu.upc.dsa.Controller.API.UserItemWorldDbImpl;
+import edu.upc.dsa.Controller.API.UserWorldDB;
 import edu.upc.dsa.Controller.API.UserWorldDBImpl;
-import edu.upc.dsa.ExceptionHandler.ApiException;
-import edu.upc.dsa.ExceptionHandler.DAOItemException;
-import edu.upc.dsa.ExceptionHandler.DAOUserException;
+import edu.upc.dsa.ExceptionHandler.*;
 import edu.upc.dsa.Model.Main.Item;
 import edu.upc.dsa.Model.Main.User;
-import edu.upc.dsa.ExceptionHandler.UserWorldDbException;
 import edu.upc.dsa.Model.Relation.UserItem;
 import org.apache.log4j.Logger;
 
@@ -52,6 +52,7 @@ public class UserWorldDBService {
             User o = UserWorldDBImpl.getInstance().login(i);
             if (o != null) {
                 logger.info("loginService: User with username: " + i.getName() + " have been logged in.");
+                o.setItems(UserWorldDBImpl.getInstance().getItems(o.getId()));
                 return Response.status(200).entity(o).build() ;
             }
             else {
@@ -60,32 +61,44 @@ public class UserWorldDBService {
             }
 
         }
-        catch (UserWorldDbException e){
+        catch (DAOUserException e){
             logger.warn("loginService: There is a server error. See Exception for more details.");
             throw new ApiException(e);
         }
     }
 
     @GET
-    @Path("/{id}/items/")
+    @Path("/{id}/items/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUserItems(@PathParam("id") int userId) throws ApiException, DAOItemException {
-        List<Item> items = new ArrayList<>();
+    public Response getUserItems(@PathParam("id") int userId) throws ApiException {
+        List<Item> items;
         try {
-            for (UserItem uI : UserWorldDBImpl.getInstance().getItems(userId)) {
-                items.add(UserWorldDBImpl.getInstance().getItem(uI.getItemId()));
+            items = UserWorldDBImpl.getInstance().getItems(userId);
+            logger.info("loginService: items from user retreived");
+            return Response.status(200).entity(items).build();
             }
-
-            logger.info("loginService: User with username: " + i.getName() + " have been logged in.");
-            return Response.status(200).entity(o).build() ;
-        }
 
         catch (DAOUserException e){
             logger.warn("loginService: There is a server error. See Exception for more details.");
             throw new ApiException(e);
         }
-
-        return out;
     }
+
+    @POST
+    @Path("/{id}/items/add/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addUserItemService(UserItem uI) throws ApiException {
+        try {
+            Boolean successful = UserItemWorldDbImpl.getInstance().setUserItem(uI);
+            logger.info("addItemService: Item with id: " + uI.getItemId()+ " and " + uI.getUserId()+ " have been added to DB.");
+            return Response.status(200).entity(successful).build() ;
+        }
+        catch (UserItemWorldDbException e) {
+            logger.warn("addItemService: There is a server error. See Exception for more details.");
+            throw new ApiException(e);
+        }
+    }
+
+
 
 }

@@ -76,17 +76,17 @@ public class UserWorldImpl implements UserWorld {
         Item item_3 = new Item(3,"mana", 3, "minor heal", 0.2, 20);
         Item item_4 = new Item(4,"speed", 3, "minor heal", 0.2, 20);
 
-        usr_1.setItem(item_1);
-        usr_1.setItem(item_2);
-        usr_1.setItem(item_3);
-        usr_1.setItem(item_4);
+        usr_1.setUserItem(item_1);
+        usr_1.setUserItem(item_2);
+        usr_1.setUserItem(item_3);
+        usr_1.setUserItem(item_4);
 
-        usr_2.setItem(item_1);
-        usr_2.setItem(item_2);
-        usr_2.setItem(item_3);
+        usr_2.setUserItem(item_1);
+        usr_2.setUserItem(item_2);
+        usr_2.setUserItem(item_3);
 
-        usr_3.setItem(item_1);
-        usr_3.setItem(item_2);
+        usr_3.setUserItem(item_1);
+        usr_3.setUserItem(item_2);
 
         set(usr_1);
         set(usr_2);
@@ -153,12 +153,12 @@ public class UserWorldImpl implements UserWorld {
 
     }
 
-    /*public boolean setItem(int userId, Item i) {
+    /*public boolean setUserItem(int userId, Item i) {
         String username = getName(userId);
         logger.info("addItemUs/er: Adding item "+i.getName()+" to user: "+username);
-        get(userId).setItem(i);
+        get(userId).setUserItem(i);
 
-        logger.info("setItem: Item "+i.getName()+" added to user: "+username);
+        logger.info("setUserItem: Item "+i.getName()+" added to user: "+username);
         return true;
     }
 

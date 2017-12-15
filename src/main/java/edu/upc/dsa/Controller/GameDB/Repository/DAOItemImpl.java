@@ -6,11 +6,11 @@ import edu.upc.dsa.ExceptionHandler.DAOItemException;
 import edu.upc.dsa.Model.Main.Item;
 import edu.upc.dsa.Model.Relation.UserItem;
 
-public abstract class DAOItemImpl implements DAOItem {
+public abstract class DAOItemImpl extends DAOImpl {
 
-    public Item insertUserItem(UserItem userItem) throws DAOItemException {
+    public Item insertItem(Item i) throws DAOItemException {
         try{
-            return (Item)DAOImpl.getInstance().insert(userItem);
+            return (Item)DAOImpl.getInstance().insert(i);
         }
         catch (DAOException e) {
             throw new DAOItemException(e);
