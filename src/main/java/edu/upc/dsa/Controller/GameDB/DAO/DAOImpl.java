@@ -1,11 +1,11 @@
 package edu.upc.dsa.Controller.GameDB.DAO;
 
-import edu.upc.dsa.Controller.GameDB.Repository.DAOItem;
-import edu.upc.dsa.Controller.GameDB.Repository.DAOUser;
-import edu.upc.dsa.Controller.GameDB.Repository.DAOUserItem;
+import edu.upc.dsa.Controller.GameDB.Repository.*;
 import edu.upc.dsa.ExceptionHandler.*;
+import edu.upc.dsa.Model.Main.Chest;
 import edu.upc.dsa.Model.Main.Item;
 import edu.upc.dsa.Model.Main.User;
+import edu.upc.dsa.Model.Relation.ChestItem;
 import edu.upc.dsa.Model.Relation.UserItem;
 
 import java.lang.reflect.Field;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class DAOImpl implements DAOUser, DAOItem, DAOUserItem, DAO {
+public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChestItem, DAO {
 
     private static DAOImpl instance = null;
 
@@ -104,14 +104,19 @@ public class DAOImpl implements DAOUser, DAOItem, DAOUserItem, DAO {
     }
 
     //Specific
-    public List<Item> selectItemsFromUser(int userId) throws DAOException {
+    public List<Item> selectItemsFromUser(int userId, String fromUserOrFromChest) throws DAOException {
         try {
+            String query = null;
             Connection con = getConnection();
             List<Item> items = new ArrayList<>();
-            StringBuilder query = new StringBuilder("SELECT Item.id, Item.name, Item.type, Item.description, Item.cost ");
-            query.append("FROM Item INNER JOIN UserItem ");
-            query.append("ON UserItem.itemId = Item.id ");
-            query.append("WHERE UserItem.userId = ?");
+
+            if (fromUserOrFromChest.equals("User"))
+                 query = getSelectItemsFromUserQuery();
+
+            else if (fromUserOrFromChest.equals("Chest")) {
+                query = getSelectItemsFromUserQuery();
+            }
+
             PreparedStatement preparedStatement = con.prepareStatement(query.toString());
             preparedStatement.setObject(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -130,6 +135,8 @@ public class DAOImpl implements DAOUser, DAOItem, DAOUserItem, DAO {
             throw new DAOException(e);
         }
     }
+
+
 
     public Object selectByUsernameAndPw(Object object, String username, String password) throws DAOException {
         try {
@@ -233,6 +240,22 @@ public class DAOImpl implements DAOUser, DAOItem, DAOUserItem, DAO {
         } catch (ClassNotFoundException e) {
             throw new ReflectionException(e);
         }
+    }
+
+    private String getSelectItemsFromUserQuery() {
+        StringBuilder query = new StringBuilder("SELECT Item.id, Item.name, Item.type, Item.description, Item.cost ");
+        query.append("FROM Item INNER JOIN UserItem ");
+        query.append("ON UserItem.itemId = Item.id ");
+        query.append("WHERE UserItem.userId = ?");
+        return  query.toString();
+    }
+
+    private String getSelectItemsFromChestQuery() {
+        StringBuilder query = new StringBuilder("SELECT Item.id, Item.name, Item.type, Item.description, Item.cost ");
+        query.append("FROM Item INNER JOIN ChestItem ");
+        query.append("ON ChestItem.itemId = Item.id ");
+        query.append("WHERE ChestItem.userId = ?");
+        return  query.toString();
     }
 
     private String getInsertQuery(Object object) {
@@ -544,11 +567,28 @@ public class DAOImpl implements DAOUser, DAOItem, DAOUserItem, DAO {
     }
 
     @Override
+    public Chest insertChest(Chest c) throws DAOChestException {
+        try {
+            return (Chest) DAOImpl.getInstance().insert(c);
+        } catch (DAOException e) {
+            throw new DAOChestException(e);
+        }
+    }
+
+    @Override
     public UserItem insertUserItem(UserItem uI) throws DAOUserItemException {
         try {
             return (UserItem) DAOImpl.getInstance().insert(uI);
         } catch (DAOException e) {
             throw new DAOUserItemException(e);
+        }
+    }
+    @Override
+    public ChestItem insertChestItem(ChestItem cI) throws DAOChestItemException {
+        try {
+            return (ChestItem) DAOImpl.getInstance().insert(cI);
+        } catch (DAOException e) {
+            throw new DAOChestItemException(e);
         }
     }
 }

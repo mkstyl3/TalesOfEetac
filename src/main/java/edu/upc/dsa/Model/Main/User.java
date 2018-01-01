@@ -14,7 +14,7 @@ public class User {
     private int id;
     private String name;
     private String password;
-    private int lastMap;
+    private String email;
     private List<Item> items;
     private Location location;
 
@@ -50,6 +50,14 @@ public class User {
         this.id = id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Location getLocation() {
         return location;
     }
@@ -73,10 +81,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public int getLastMap() {return lastMap;}
-
-    public void setLastMap(int lastMap) {this.lastMap = lastMap;}
 
     public void setAllItems(List<Item> items) {
         this.items = items;

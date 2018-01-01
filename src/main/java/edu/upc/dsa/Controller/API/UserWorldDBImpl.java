@@ -114,7 +114,7 @@ public class UserWorldDBImpl implements UserWorldDB {
 
     public List<Item> getItems(int userId) throws DAOUserException {
         try {
-            return DAOImpl.getInstance().selectItemsFromUser(userId);
+            return DAOImpl.getInstance().selectItemsFromUser(userId, "User");
         }
         catch (DAOException e) {
             throw new DAOUserException(e);

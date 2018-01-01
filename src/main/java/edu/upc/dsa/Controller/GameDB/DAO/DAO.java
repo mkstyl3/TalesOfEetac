@@ -14,9 +14,8 @@ public interface DAO {
     Object select(Object object, int primaryKey) throws DAOException;
     Object selectByName(Object object, String name) throws DAOException;
     Object selectByUsernameAndPw(Object object, String username, String password) throws DAOException;
-
     void update(Object object) throws DAOException;
     void delete(Object object) throws DAOException;
     Item insertItem(Item i) throws DAOItemException;
-    List<Item> selectItemsFromUser(int userId) throws DAOException;
+    List<Item> selectItemsFromUser(int userId, String fromUserOrFromChest) throws DAOException;
 }
