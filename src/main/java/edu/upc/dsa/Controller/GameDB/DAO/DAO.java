@@ -17,5 +17,5 @@ public interface DAO {
     void update(Object object) throws DAOException;
     void delete(Object object) throws DAOException;
     Item insertItem(Item i) throws DAOItemException;
-    List<Item> selectItemsFromUser(int userId, String fromUserOrFromChest) throws DAOException;
+    List<Item> selectItems(int userId, String fromUserOrFromChest) throws DAOException;
 }

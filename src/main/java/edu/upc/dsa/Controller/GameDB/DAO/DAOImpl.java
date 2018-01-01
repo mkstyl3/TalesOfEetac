@@ -104,7 +104,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
     }
 
     //Specific
-    public List<Item> selectItemsFromUser(int userId, String fromUserOrFromChest) throws DAOException {
+    public List<Item> selectItems(int id, String fromUserOrFromChest) throws DAOException {
         try {
             String query = null;
             Connection con = getConnection();
@@ -114,11 +114,11 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
                  query = getSelectItemsFromUserQuery();
 
             else if (fromUserOrFromChest.equals("Chest")) {
-                query = getSelectItemsFromUserQuery();
+                query = getSelectItemsFromChestQuery();
             }
 
             PreparedStatement preparedStatement = con.prepareStatement(query.toString());
-            preparedStatement.setObject(1, userId);
+            preparedStatement.setObject(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
             while (resultSet.next()) {
@@ -254,7 +254,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
         StringBuilder query = new StringBuilder("SELECT Item.id, Item.name, Item.type, Item.description, Item.cost ");
         query.append("FROM Item INNER JOIN ChestItem ");
         query.append("ON ChestItem.itemId = Item.id ");
-        query.append("WHERE ChestItem.userId = ?");
+        query.append("WHERE ChestItem.chestId = ?");
         return  query.toString();
     }
 
