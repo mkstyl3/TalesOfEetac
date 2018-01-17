@@ -14,3 +14,4 @@ target/
 *.log
 
 #
+/src/main/java/edu/upc/dsa/Controller/GameDB/DAO/DAOImpl.java

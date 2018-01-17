@@ -233,7 +233,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
         //DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDb", "phpmyadmin@localhost", "phpmyadmin");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDb", "root", "mysql");
             System.out.println("Connected to database");
 
             return con;
