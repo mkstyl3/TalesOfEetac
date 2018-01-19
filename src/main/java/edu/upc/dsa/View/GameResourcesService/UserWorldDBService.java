@@ -1,8 +1,6 @@
 package edu.upc.dsa.View.GameResourcesService;
 
-import edu.upc.dsa.Controller.API.ItemWorldDBImpl;
-import edu.upc.dsa.Controller.API.UserItemWorldDbImpl;
-import edu.upc.dsa.Controller.API.UserWorldDB;
+import edu.upc.dsa.Controller.API.UserItemWorldDBImpl;
 import edu.upc.dsa.Controller.API.UserWorldDBImpl;
 import edu.upc.dsa.ExceptionHandler.*;
 import edu.upc.dsa.Model.Main.Item;
@@ -14,7 +12,6 @@ import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.List;
 
 @Path("/db/user")
@@ -89,7 +86,7 @@ public class UserWorldDBService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addUserItemService(UserItem uI) throws ApiException {
         try {
-            Boolean successful = UserItemWorldDbImpl.getInstance().setUserItem(uI);
+            Boolean successful = UserItemWorldDBImpl.getInstance().setUserItem(uI);
             logger.info("addItemService: Item with id: " + uI.getItemId()+ " and " + uI.getUserId()+ " have been added to DB.");
             return Response.status(200).entity(successful).build() ;
         }

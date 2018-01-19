@@ -14,4 +14,13 @@ public class DAOChestItemImpl extends DAOImpl {
             throw new DAOChestItemException(e);
         }
     }
+    public boolean deleteChestItems(int chestId) throws DAOChestItemException {
+        ChestItem chestItem = new ChestItem();
+        try {
+            DAOImpl.getInstance().deleteByChestId(chestItem, chestId);
+            return true;
+        } catch (DAOException e) {
+            throw new DAOChestItemException(e);
+        }
+    }
 }

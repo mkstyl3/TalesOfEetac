@@ -226,6 +226,23 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
         }
     }
 
+    public void deleteByChestId(Object object, int chestId) throws DAOException {
+        try {
+            String query = getDeleteChestItemsQuery(object);
+            Connection con = getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            int position = 1;
+            preparedStatement.setObject(position, chestId);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            con.close();
+        } catch (ReflectionException | SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+
+
+
 
     private Connection getConnection() throws SQLException, ReflectionException {
 
@@ -233,7 +250,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
         //DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDb", "root", "mysql");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDb", "phpmyadmin@localhost", "phpmyadmin");
             System.out.println("Connected to database");
 
             return con;
@@ -318,6 +335,14 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
         StringBuilder query = new StringBuilder("DELETE FROM ");
         query.append(object.getClass().getSimpleName());
         query.append(" WHERE id=?");
+
+        return query.toString();
+    }
+
+    private String getDeleteChestItemsQuery(Object object) {
+        StringBuilder query = new StringBuilder("DELETE FROM ");
+        query.append(object.getClass().getSimpleName());
+        query.append(" WHERE chestId=?");
 
         return query.toString();
     }
@@ -492,7 +517,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
     public User selectUser(int primaryKey) throws DAOUserException {
         User u = new User();
         try {
-            return (User) getInstance().select(u, primaryKey);
+            return (User) select(u, primaryKey);
         } catch (DAOException e) {
             throw new DAOUserException(e);
         }
@@ -503,7 +528,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
         User u = new User();
         u.setName(username);
         try {
-            return (User) getInstance().selectByName(u, username);
+            return (User) selectByName(u, username);
         } catch (DAOException e) {
             throw new DAOUserException(e);
         }
@@ -513,7 +538,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
     public User selectUserByUsernameAndPw(String username, String password) throws DAOUserException {
         User u = new User();
         try {
-            return (User) getInstance().selectByUsernameAndPw(u, username, password);
+            return (User) selectByUsernameAndPw(u, username, password);
         } catch (DAOException e) {
             throw new DAOUserException(e);
         }
@@ -523,7 +548,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
     @Override
     public User insertUser(User user) throws DAOUserException {
         try {
-            return (User) getInstance().insert(user);
+            return (User) insert(user);
         } catch (DAOException e) {
             throw new DAOUserException(e);
         }
@@ -532,7 +557,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
     @Override
     public void updateUser(User user) throws DAOUserException {
         try {
-            getInstance().update(user);
+            update(user);
         } catch (DAOException e) {
             throw new DAOUserException(e);
         }
@@ -541,7 +566,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
     @Override
     public void deleteUser(User user) throws DAOUserException {
         try {
-            getInstance().delete(user);
+            delete(user);
         } catch (DAOException e) {
             throw new DAOUserException(e);
         }
@@ -551,7 +576,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
     public Item selectItem(int primaryKey) throws DAOItemException {
         try {
             Item i = new Item();
-            return (Item) DAOImpl.getInstance().select(i, primaryKey);
+            return (Item) select(i, primaryKey);
         } catch (DAOException e) {
             throw new DAOItemException(e);
         }
@@ -560,7 +585,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
     @Override
     public Item insertItem(Item i) throws DAOItemException {
         try {
-            return (Item) DAOImpl.getInstance().insert(i);
+            return (Item) insert(i);
         } catch (DAOException e) {
             throw new DAOItemException(e);
         }
@@ -569,7 +594,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
     @Override
     public Chest insertChest(Chest c) throws DAOChestException {
         try {
-            return (Chest) DAOImpl.getInstance().insert(c);
+            return (Chest) insert(c);
         } catch (DAOException e) {
             throw new DAOChestException(e);
         }
@@ -578,7 +603,7 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
     @Override
     public UserItem insertUserItem(UserItem uI) throws DAOUserItemException {
         try {
-            return (UserItem) DAOImpl.getInstance().insert(uI);
+            return (UserItem) insert(uI);
         } catch (DAOException e) {
             throw new DAOUserItemException(e);
         }
@@ -586,9 +611,22 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
     @Override
     public ChestItem insertChestItem(ChestItem cI) throws DAOChestItemException {
         try {
-            return (ChestItem) DAOImpl.getInstance().insert(cI);
+            return (ChestItem) insert(cI);
         } catch (DAOException e) {
             throw new DAOChestItemException(e);
         }
     }
+
+    @Override
+    public boolean deleteChestItems(int chestId) throws DAOChestItemException {
+        ChestItem chestItem = new ChestItem();
+        try {
+            deleteByChestId(chestItem, chestId);
+            return true;
+        } catch (DAOException e) {
+            throw new DAOChestItemException(e);
+        }
+    }
+
+
 }

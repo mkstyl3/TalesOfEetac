@@ -1,6 +1,6 @@
 package edu.upc.dsa.View.GameResourcesService;
 
-import edu.upc.dsa.Controller.API.ChestItemWorldDbImpl;
+import edu.upc.dsa.Controller.API.ChestItemWorldDBImpl;
 import edu.upc.dsa.Controller.API.ChestWorldDBImpl;
 
 import edu.upc.dsa.ExceptionHandler.*;
@@ -46,7 +46,7 @@ public class ChestWorldDBService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addChestItemService(ChestItem cI) throws ApiException {
         try {
-            Boolean successful = ChestItemWorldDbImpl.getInstance().setChestItem(cI);
+            Boolean successful = ChestItemWorldDBImpl.getInstance().setChestItem(cI);
             logger.info("addItemService: Item with id: " + cI.getItemId()+ " and " + cI.getChestId()+ " have been added to DB.");
             return Response.status(200).entity(successful).build() ;
         }
@@ -63,12 +63,27 @@ public class ChestWorldDBService {
         List<Item> items;
         try {
             items = ChestWorldDBImpl.getInstance().getItems(chestId);
-            logger.info("loginService: items from chest retreived");
+            logger.info("getChestItems: items from chest retreived");
             return Response.status(200).entity(items).build();
         }
 
         catch (DAOChestException e){
             logger.warn("getChestItems: There is a server error. See Exception for more details.");
+            throw new ApiException(e);
+        }
+    }
+
+    @GET
+    @Path("/{id}/items/deleteAll")
+    public Response deleteChestItems(@PathParam("id") int chestId) throws DAOException {
+        try {
+            boolean bool = ChestItemWorldDBImpl.getInstance().deleteChestItems(chestId);
+            logger.info("deleteChestItems: items from chest retreived");
+            return Response.status(200).entity(bool).build();
+        }
+
+        catch (DAOChestException e){
+            logger.warn("deleteChestItems: There is a server error. See Exception for more details.");
             throw new ApiException(e);
         }
     }
