@@ -1,9 +1,7 @@
 package edu.upc.dsa.Controller.API;
 
 import edu.upc.dsa.Controller.GameDB.DAO.DAOImpl;
-import edu.upc.dsa.ExceptionHandler.ChestWorldDbException;
-import edu.upc.dsa.ExceptionHandler.DAOChestException;
-import edu.upc.dsa.ExceptionHandler.DAOException;
+import edu.upc.dsa.ExceptionHandler.*;
 import edu.upc.dsa.Model.Main.Chest;
 import edu.upc.dsa.Model.Main.Item;
 import org.apache.log4j.Logger;
@@ -36,6 +34,15 @@ public class ChestWorldDBImpl implements ChestWorldDB {
         }
         catch (DAOException e) {
             throw new DAOChestException(e);
+        }
+    }
+    public boolean deleteChest(Chest chest) throws ChestWorldDbException {
+        try {
+            DAOImpl.getInstance().deleteChest(chest);
+            return true;
+        }
+        catch (DAOChestException e) {
+            throw new ChestWorldDbException(e);
         }
     }
 }

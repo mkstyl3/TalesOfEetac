@@ -6,4 +6,5 @@ import edu.upc.dsa.Model.Main.Chest;
 
 public interface DAOChest {
     Chest insertChest(Chest c) throws DAOChestException;
+    void deleteChest(Chest chest) throws DAOChestException;
 }

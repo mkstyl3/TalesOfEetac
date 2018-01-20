@@ -14,7 +14,11 @@ public class Chest {
         items = new ArrayList<>();
     }
 
-
+    public Chest (int id, String description) {
+        this.id = id;
+        this.description = description;
+        items = new ArrayList<>();
+    }
 
 
 

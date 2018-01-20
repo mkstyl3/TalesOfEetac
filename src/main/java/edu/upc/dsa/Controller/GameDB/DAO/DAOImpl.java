@@ -592,6 +592,16 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
     }
 
     @Override
+    public void deleteItem(Item item) throws DAOItemException {
+        try {
+            delete(item);
+        }
+        catch (DAOException e) {
+            throw new DAOItemException(e);
+        }
+    }
+
+    @Override
     public Chest insertChest(Chest c) throws DAOChestException {
         try {
             return (Chest) insert(c);
@@ -625,6 +635,15 @@ public class DAOImpl implements DAOUser, DAOItem, DAOChest, DAOUserItem, DAOChes
             return true;
         } catch (DAOException e) {
             throw new DAOChestItemException(e);
+        }
+    }
+    @Override
+    public void deleteChest(Chest chest) throws DAOChestException {
+        try {
+            getInstance().delete(chest);
+        }
+        catch (DAOException e) {
+            throw new DAOChestException(e);
         }
     }
 

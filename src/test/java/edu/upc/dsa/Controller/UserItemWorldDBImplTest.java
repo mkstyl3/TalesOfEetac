@@ -14,7 +14,7 @@ import static edu.upc.dsa.Controller.API.UserItemWorldDBImpl.getInstance;
 
 public class UserItemWorldDBImplTest {
 
-    UserItem joseanPotion;
+    private UserItem joseanPotion;
 
     @Before
     public void setUp() throws Exception {
@@ -44,7 +44,7 @@ public class UserItemWorldDBImplTest {
             Assert.assertTrue(getInstance().deleteUserItem(joseanPotion));
 
         }
-        catch (DAOException e) {
+        catch (UserItemWorldDbException e) {
             e.printStackTrace();
         }
     }

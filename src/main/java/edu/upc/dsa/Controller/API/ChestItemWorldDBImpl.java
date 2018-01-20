@@ -26,13 +26,13 @@ public class ChestItemWorldDBImpl implements ChestItemWorldDB {
         }
     }
 
-    public boolean deleteChestItems(int chestId) throws DAOException {
+    public boolean deleteChestItems(int chestId) throws ChestItemWorldDbException {
         ChestItem chestItem = new ChestItem();
         try {
             DAOImpl.getInstance().deleteByChestId(chestItem, chestId);
             return true;
 
-        } catch (DAOChestItemException e) {
+        } catch (DAOException e) {
             throw new ChestItemWorldDbException(e);
         }
     }
