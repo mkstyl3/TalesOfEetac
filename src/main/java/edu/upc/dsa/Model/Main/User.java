@@ -24,20 +24,26 @@ public class User {
         this.items = new ArrayList<>();
     }
 
-    public User(int id, String name, String password, Location location) {
+    public User(int id, String name, String password, String email, Location location) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.email = email;
         this.items = new ArrayList<>();
         this.location = location;
     }
 
-    public User(int id, String name, String password, boolean admin) {
+    public User(int id, String name, String password) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.items = new ArrayList<>();
 
+    }
+
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
     }
 
     //Getters and Sertters

@@ -32,11 +32,11 @@ public class ChestWorldDBService {
     public Response addChestService(Chest c) throws ApiException {
         try {
             Boolean successful = ChestWorldDBImpl.getInstance().setChest(c);
-            logger.info("addItemService: Item: " + c.getId() + " have been added to DB.");
+            logger.info("addChestService: Item: " + c.getId() + " have been added to DB.");
             return Response.status(200).entity(successful).build() ;
         }
         catch (ChestWorldDbException e) {
-            logger.warn("registerService: There is a server error. See Exception for more details.");
+            logger.warn("addChestService: There is a server error. See Exception for more details.");
             throw new ApiException(e);
         }
     }

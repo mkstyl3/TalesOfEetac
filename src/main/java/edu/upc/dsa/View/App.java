@@ -25,7 +25,7 @@ import java.util.*;
  * @throws IOException
  */
 public class App {
-    public static final String BASE_URI = "http://localhost:8080/talesofeetac/";
+    public static final String BASE_URI = "http://10.192.111.244:8080/talesofeetac/";
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
@@ -42,20 +42,6 @@ public class App {
     }
 
     public static void main(String[] args) throws IOException {
-        /*
-
-        System.out.println(WorldUser.getInstance().set(usr_1));
-        System.out.println(WorldUser.getInstance().set(usr_2));
-        System.out.println(WorldUser.getInstance().set(usr_3));
-        System.out.println(WorldUser.getInstance().set(usr_4));
-
-        WorldUser.getInstance().del(4);
-
-        WorldUser.getInstance().setItem(usr_1, item_1);
-        WorldUser.getInstance().delItems(usr_3);
-        WorldUser.getInstance().getItemByName(usr_4, "healing");
-        WorldUser.getInstance().getItemByName(usr_1,"potion");
-        */
 
         final HttpServer server = startServer();
 
@@ -66,50 +52,8 @@ public class App {
         System.out.println(String.format("Jersey app started with WADL available at "
                 + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
 
+        System.out.println(String.format("Welcome to TalesOfEetac!"));
 
-
-        GameScreenImpl.getInstance().objectInitializations();
-        User u = new User(1, "Marc", "1234",new Location(5,4));
-        UserWorldImpl.getInstance().set(u);
-        Map map = GameScreenImpl.getInstance().createMap(GameScreenImpl.getInstance().getCurrentMapId());
-        GameScreenImpl.getInstance().setMap(map);
-        GameScreenImpl.getInstance().initialUserLocation(u);
-
-        //Exam procedures
-
-        //UserWorld.getInstance().initializeUsers();
-
-        Scanner scanner = new Scanner(System.in);
-        char input;
-        Boolean bucle = true;
-        while(bucle) {
-            printScreen(GameScreenImpl.getInstance().getCurrentMapId());
-            switch (input = scanner.nextLine().charAt(0)) {
-                case 'a':
-                    GameScreenImpl.getInstance().moveUserTo(u, "a");
-                    break;
-                case 'd':
-                    GameScreenImpl.getInstance() .moveUserTo(u,"d");
-                    break;
-                case 'w':
-                    GameScreenImpl.getInstance().moveUserTo(u,"w");
-                    break;
-                case 's':
-                    GameScreenImpl.getInstance().moveUserTo(u,"s");
-                    break;
-            }
-        }
-    }
-
-
-    private static void printScreen(int mapId) {
-        Map map = GameScreenImpl.getInstance().getMap(mapId);
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if (j == 9) System.out.println(map.getCellByCoords(i,j).getSYMBOL());
-                else System.out.print(map.getCellByCoords(i,j).getSYMBOL());
-            }
-        }
     }
 
 

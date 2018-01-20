@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 import java.util.List;
 
-public class ChestWorldDBImpl {
+public class ChestWorldDBImpl implements ChestWorldDB {
     //Variable declarations
 
     final static Logger logger = Logger.getLogger(ChestWorldDBImpl.class);

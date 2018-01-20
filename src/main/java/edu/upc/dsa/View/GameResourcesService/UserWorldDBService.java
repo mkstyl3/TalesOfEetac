@@ -28,11 +28,12 @@ public class UserWorldDBService {
     @POST
     @Path("/register")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response registerService(User u) throws ApiException {
         try  {
-            UserWorldDBImpl.getInstance().register(u);
+            User user = UserWorldDBImpl.getInstance().register(u);
             logger.info("registerService: User with username: " + u.getName() + " have been created.");
-            return Response.status(201).entity(u.getId()).build();
+            return Response.status(201).entity(user).build();
         }
         catch (UserWorldDbException e) {
             logger.warn("registerService: There is a server error. See Exception for more details.");

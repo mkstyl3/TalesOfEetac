@@ -5,7 +5,7 @@ import edu.upc.dsa.ExceptionHandler.*;
 import edu.upc.dsa.Model.Relation.ChestItem;
 import org.apache.log4j.Logger;
 
-public class ChestItemWorldDBImpl {
+public class ChestItemWorldDBImpl implements ChestItemWorldDB {
 
     //Variable declarations
 

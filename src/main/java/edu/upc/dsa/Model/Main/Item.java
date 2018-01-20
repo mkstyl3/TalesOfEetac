@@ -12,13 +12,15 @@ public class Item {
 
     //Constructors
 
-    public Item(int id, String name, int type, String description, double value, int cost) {
+    public Item(int id, String name, int type, String description, int cost) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.description = description;
         this.cost = cost;
     }
+
+
 
     public Item (){}
 

@@ -1,12 +1,15 @@
 package edu.upc.dsa.Controller.API;
 
 import edu.upc.dsa.Controller.GameDB.DAO.DAOImpl;
+import edu.upc.dsa.ExceptionHandler.DAOException;
+import edu.upc.dsa.ExceptionHandler.DAOItemException;
 import edu.upc.dsa.ExceptionHandler.DAOUserItemException;
 import edu.upc.dsa.ExceptionHandler.UserItemWorldDbException;
+import edu.upc.dsa.Model.Main.User;
 import edu.upc.dsa.Model.Relation.UserItem;
 import org.apache.log4j.Logger;
 
-public class UserItemWorldDBImpl {
+public class UserItemWorldDBImpl implements UserItemWorldDB {
 
     //Variable declarations
 
@@ -26,4 +29,15 @@ public class UserItemWorldDBImpl {
             throw new UserItemWorldDbException(e);
         }
     }
+
+    public boolean deleteUserItem (UserItem userItem) throws UserItemWorldDbException {
+        try {
+            DAOImpl.getInstance().delete(userItem);
+            return true;
+        }
+        catch (DAOException e) {
+            throw new UserItemWorldDbException(e);
+        }
+    }
+
 }

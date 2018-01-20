@@ -9,7 +9,7 @@ import edu.upc.dsa.Model.Main.Item;
 import edu.upc.dsa.Model.Main.User;
 import org.apache.log4j.Logger;
 
-public class ItemWorldDBImpl {
+public class ItemWorldDBImpl implements ItemWorldDB {
     //Variable declarations
 
     final static Logger logger = Logger.getLogger(ItemWorldDBImpl.class);
