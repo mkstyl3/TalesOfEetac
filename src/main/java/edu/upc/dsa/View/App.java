@@ -1,10 +1,5 @@
 package edu.upc.dsa.View;
 
-import edu.upc.dsa.Controller.API.UserWorldImpl;
-import edu.upc.dsa.Controller.MoveToAndroidThings.GameScreenImpl;
-import edu.upc.dsa.Model.Main.Location;
-import edu.upc.dsa.Model.Main.Map;
-import edu.upc.dsa.Model.Main.User;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -12,7 +7,6 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.*;
 
 /**
  * Second version!
@@ -25,7 +19,7 @@ import java.util.*;
  * @throws IOException
  */
 public class App {
-    public static final String BASE_URI = "http://10.192.111.244:8080/talesofeetac/";
+    public static final String BASE_URI = "http://10.193.96.32:8080/talesofeetac/";
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
