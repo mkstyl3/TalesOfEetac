@@ -64,7 +64,7 @@ public class UserWorldDBImplTest {
     public void loginTest()  {
         try {
 
-            Assert.assertEquals(getInstance().login(marc).getId(), 0);
+            Assert.assertEquals(getInstance().login(marc).getId(), 39);
             Assert.assertEquals(getInstance().login(oriol).getId(), 2);
 
         } catch (UserWorldDbException | NullPointerException e) {
