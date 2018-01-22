@@ -19,7 +19,7 @@ import java.net.URI;
  * @throws IOException
  */
 public class App {
-    public static final String BASE_URI = "http://10.193.96.32:8080/talesofeetac/";
+    public static final String BASE_URI = "http://192.168.0.107:8080/talesofeetac/";
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
